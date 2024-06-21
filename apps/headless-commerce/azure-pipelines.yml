@@ -145,7 +145,7 @@ jobs:
 
       # Lint.
       - script: |
-          pnpm run lint
+          pnpm run lint --summarize=true
         displayName: "Lint"
         continueOnError: false
 
