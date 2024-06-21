@@ -85,9 +85,6 @@ variables:
   - name: APPLICATION_VERCEL_SCOPE
     value: suitsupply-team
 
-  - name: NX_CACHE
-    value: applications/$(APPLICATION_NAME)/.nx
-
 jobs:
   - job: InstallAndTest
     displayName: "Install dependencies and run tests"
@@ -113,12 +110,12 @@ jobs:
         displayName: Cache pnpm
         continueOnError: false
 
-      # Install NX.
-      - script: |
-          mkdir -p .nx/workspace-data
-          touch .nx/workspace-data/lockfile.hash
-        displayName: "Ensure NX cache key file"
-        continueOnError: "false"
+      # # Install NX.
+      # - script: |
+      #     mkdir -p .nx/workspace-data
+      #     touch .nx/workspace-data/lockfile.hash
+      #   displayName: "Ensure NX cache key file"
+      #   continueOnError: "false"
 
       # Load Turbo cache.
       - task: Cache@2
@@ -146,10 +143,22 @@ jobs:
         displayName: "PNPM Install"
         continueOnError: "false"
 
+      # Lint.
+      - script: |
+          pnpm lint
+        displayName: "Lint"
+        continueOnError: "false"
+
+      # Test.
+      - script: |
+          pnpm test
+        displayName: "Test"
+        continueOnError: "false"
+
       # Build.
       - script: |
-          pnpm nx run @susu/headless-commerce:build
-        displayName: "Lint and Test"
+          pnpm build
+        displayName: "Build"
         continueOnError: "false"
 
       # Deploy.
