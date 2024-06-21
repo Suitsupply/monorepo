@@ -137,7 +137,7 @@ jobs:
 
       # Lint.
       - script: |
-          pnpm run lint --summarize=true --remote-only=true
+          pnpm run lint --summarize=true --remote-only=false
         displayName: "Lint"
 
       # # Test.
@@ -147,7 +147,7 @@ jobs:
 
       # Build.
       - script: |
-          pnpm run build
+          pnpm run build --summarize=true --remote-only=false
         displayName: "Build"
 
       # Deploy.
