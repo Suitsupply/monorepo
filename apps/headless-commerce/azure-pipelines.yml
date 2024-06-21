@@ -115,7 +115,7 @@ jobs:
       #     mkdir -p .nx/workspace-data
       #     touch .nx/workspace-data/lockfile.hash
       #   displayName: "Ensure NX cache key file"
-      #   continueOnError: "false"
+      #   continueOnError: false
 
       # Load Turbo cache.
       - task: Cache@2
@@ -130,36 +130,36 @@ jobs:
           corepack enable
           corepack prepare pnpm@latest-8 --activate
         displayName: "Setup PNPM"
-        continueOnError: "false"
+        continueOnError: false
 
       # Set pnpm config.
       - script: pnpm config set store-dir $(pnpm_config_cache)
         displayName: "Setup PNPM Config"
-        continueOnError: "false"
+        continueOnError: false
 
       # Install dependencies.
       - script: |
           pnpm install
         displayName: "PNPM Install"
-        continueOnError: "false"
+        continueOnError: false
 
       # Lint.
       - script: |
-          pnpm lint
+          pnpm run lint
         displayName: "Lint"
-        continueOnError: "false"
+        continueOnError: false
 
       # Test.
       - script: |
-          pnpm test
+          pnpm run test
         displayName: "Test"
-        continueOnError: "false"
+        continueOnError: false
 
       # Build.
       - script: |
-          pnpm build
+          pnpm run build
         displayName: "Build"
-        continueOnError: "false"
+        continueOnError: false
 
       # Deploy.
       - script: |
@@ -167,13 +167,13 @@ jobs:
           vercel --prod --token=$(VERCEL_TOKEN) --scope=$(APPLICATION_VERCEL_SCOPE) > deployment-url.txt
         displayName: "Deploy Main"
         condition: ne(variables.is_preview, true)
-        continueOnError: "false"
+        continueOnError: false
       - script: |
           cd $(APPLICATION_DIRECTORY)
           vercel --token=$(VERCEL_TOKEN) --scope=$(APPLICATION_VERCEL_SCOPE) > deployment-url.txt
         displayName: "Deploy Preview"
         condition: eq(variables.is_preview, true)
-        continueOnError: "false"
+        continueOnError: false
       - task: PublishPipelineArtifact@1
         inputs:
           targetPath: "deployment-url.txt"
