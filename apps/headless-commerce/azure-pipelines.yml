@@ -18,11 +18,18 @@ pool:
   vmImage: ubuntu-latest
 
 variables:
+  - ${{ if eq(variables['Build.SourceBranchName'], 'main') }}:
+      - group: "headless-commerce-main"
+  - ${{ if eq(variables['Build.SourceBranchName'], 'release') }}:
+      - group: "headless-commerce-release"
+  - ${{ if eq(variables['Build.SourceBranchName'], 'develop') }}:
+      - group: "headless-commerce-develop"
+
   - name: CI
     value: "true"
 
   - name: node_version_spec
-    value: "20.9.0"
+    value: "20.12.2"
 
   - name: node_modules_root
     value: "."
@@ -30,83 +37,147 @@ variables:
   - name: pnpm_config_cache
     value: $(Pipeline.Workspace)/.pnpm-store
 
-  - name: is_PR
+  - name: is_pr
     value: $[eq(variables['Build.Reason'], 'pullRequest')]
 
-  - name: is_prd
-    value: $[or(eq(variables['Build.SourceBranch'], 'refs/heads/main'), and(eq(variables.is_PR, true), eq(variables['System.PullRequest.targetBranchName'], 'refs/heads/main')))]
+  - name: is_main_branch
+    value: $[eq(variables['Build.SourceBranchName'], 'main')]
 
-  - name: is_acc
-    value: $[or(eq(variables['Build.SourceBranch'], 'refs/heads/release'), and(eq(variables.is_PR, true), eq(variables['System.PullRequest.targetBranchName'], 'refs/heads/release')))]
+  - name: is_release_branch
+    value: $[eq(variables['Build.SourceBranchName'], 'release')]
 
-  - name: is_base_branch
-    value: $[or(eq(variables['Build.SourceBranch'], 'refs/heads/main'), eq(variables['Build.SourceBranch'], 'refs/heads/release'), eq(variables['Build.SourceBranch'], 'refs/heads/develop'))]
+  - name: is_develop_branch
+    value: $[eq(variables['Build.SourceBranchName'], 'develop')]
 
   - name: is_preview
-    value: $[or(eq(variables.is_PR, true), ne(variables.is_base_branch, true))]
+    value: $[or(eq(variables.is_pr, true), and(eq(variables.is_main_branch, false), eq(variables.is_release_branch, false), eq(variables.is_develop_branch, false)))]
 
   - name: cp_codes
-    ${{ if eq(variables['Build.SourceBranch'], 'refs/heads/main') }}:
+    ${{ if eq(variables.is_main_branch, true) }}:
       value: 1524235
-    ${{ if eq(variables['Build.SourceBranch'], 'refs/heads/release') }}:
+    ${{ if eq(variables.is_release_branch, true) }}:
       value: 1504251 1595681 1595683 1595685 1595687
-    ? ${{ if and(ne(variables['Build.SourceBranch'], 'refs/heads/main'), ne(variables['Build.SourceBranch'], 'refs/heads/release')) }}
-    : value: 1504251 1595681 1595683 1595685 1595687
+    ${{ if eq(variables.is_develop_branch, true) }}:
+      value: 1504251 1595681 1595683 1595685 1595687
 
-  - name: VERCEL_PROJECT_ID
-    ${{ if eq(variables['Build.SourceBranch'], 'refs/heads/main') }}:
-      value: "$(VERCEL_PROJECT_ID_PRODUCTION)"
-    ${{ if eq(variables['Build.SourceBranch'], 'refs/heads/release') }}:
-      value: "$(VERCEL_PROJECT_ID_ACCEPTANCE)"
-    ? ${{ if and(ne(variables['Build.SourceBranch'], 'refs/heads/main'), ne(variables['Build.SourceBranch'], 'refs/heads/release')) }}
-    : value: "$(VERCEL_PROJECT_ID_TESTING)"
+  # - name: VERCEL_PROJECT_ID
+  #   ${{ if eq(variables.is_main_branch, true) }}:
+  #     value: '$(VERCEL_PROJECT_ID_PRODUCTION)'
+  #   ${{ if eq(variables.is_release_branch, true) }}:
+  #     value: '$(VERCEL_PROJECT_ID_ACCEPTANCE)'
+  #   ${{ if eq(variables.is_develop_branch, true) }}:
+  #     value: '$(VERCEL_PROJECT_ID_TESTING)'
+
+  - name: VERCEL_PROJECT_NAME
+    ${{ if eq(variables.is_main_branch, true) }}:
+      value: susu-monorepo_headless-commerce_production
+    ${{ if eq(variables.is_release_branch, true) }}:
+      value: susu-monorepo_headless-commerce_acceptance
+    ${{ if eq(variables.is_develop_branch, true) }}:
+      value: susu-monorepo_headless-commerce_testing
+
+  - name: APPLICATION_NAME
+    value: headless-commerce
+
+  - name: APPLICATION_DIRECTORY
+    value: applications/$(APPLICATION_NAME)
+
+  - name: APPLICATION_VERCEL_SCOPE
+    value: suitsupply-team
+
+  - name: NX_CACHE
+    value: applications/$(APPLICATION_NAME)/.nx
 
 jobs:
   - job: InstallAndTest
     displayName: "Install dependencies and run tests"
     steps:
+      # Set Node version.
       - task: NodeTool@0
         inputs:
           versionSpec: $(node_version_spec)
           checkLatest: true
+        continueOnError: false
 
+      # Authenticate with NPM.
       - task: npmAuthenticate@0
         inputs:
           workingFile: ".npmrc"
+        continueOnError: false
 
-      - script: |
-          corepack enable
-          corepack prepare pnpm@latest-8 --activate
-        displayName: "Setup PNPM"
-
+      # Load NPM packages from cache.
       - task: Cache@2
         inputs:
           key: 'pnpm | "$(Agent.OS)" | pnpm-lock.yaml'
           path: $(pnpm_config_cache)
         displayName: Cache pnpm
+        continueOnError: false
 
+      # Install NX.
+      - script: |
+          mkdir -p .nx/workspace-data
+          touch .nx/workspace-data/lockfile.hash
+        displayName: "Ensure NX cache key file"
+        continueOnError: "false"
+
+      # Load Turbo cache.
       - task: Cache@2
         inputs:
           key: 'turbo | "$(Agent.OS)" | pnpm-lock.yaml'
           path: .turbo
         displayName: Cache turbo
+        continueOnError: false
 
+      # Install pnpm.
+      - script: |
+          corepack enable
+          corepack prepare pnpm@latest-8 --activate
+        displayName: "Setup PNPM"
+        continueOnError: "false"
+
+      # Set pnpm config.
       - script: pnpm config set store-dir $(pnpm_config_cache)
         displayName: "Setup PNPM Config"
+        continueOnError: "false"
 
+      # Install dependencies.
       - script: |
           pnpm install
         displayName: "PNPM Install"
+        continueOnError: "false"
 
+      # Build.
       - script: |
-          pnpm run build
-        displayName: "Turbo Build"
+          pnpm nx run @susu/headless-commerce:build
+        displayName: "Lint and Test"
+        continueOnError: "false"
 
+      # Deploy.
+      - script: |
+          cd $(APPLICATION_DIRECTORY)
+          vercel --prod --token=$(VERCEL_TOKEN) --scope=$(APPLICATION_VERCEL_SCOPE) > deployment-url.txt
+        displayName: "Deploy Main"
+        condition: ne(variables.is_preview, true)
+        continueOnError: "false"
+      - script: |
+          cd $(APPLICATION_DIRECTORY)
+          vercel --token=$(VERCEL_TOKEN) --scope=$(APPLICATION_VERCEL_SCOPE) > deployment-url.txt
+        displayName: "Deploy Preview"
+        condition: eq(variables.is_preview, true)
+        continueOnError: "false"
+      - task: PublishPipelineArtifact@1
+        inputs:
+          targetPath: "deployment-url.txt"
+          artifact: "deployment-url"
+        continueOnError: false
+
+      # Publish coverage report.
       - task: PublishCodeCoverageResults@2
         inputs:
           summaryFileLocation: "./coverage/clover.xml"
           pathToSources: "."
           failIfCoverageEmpty: true
+        continueOnError: false
 
   # - job: Deploy
   #   dependsOn: InstallAndTest
