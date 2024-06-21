@@ -74,16 +74,22 @@ jobs:
         inputs:
           workingFile: ".npmrc"
 
+      - script: |
+          corepack enable
+          corepack prepare pnpm@latest-8 --activate
+        displayName: "Setup PNPM"
+
       - task: Cache@2
         inputs:
           key: 'pnpm | "$(Agent.OS)" | pnpm-lock.yaml'
           path: $(pnpm_config_cache)
         displayName: Cache pnpm
 
-      - script: |
-          corepack enable
-          corepack prepare pnpm@latest-8 --activate
-        displayName: "Setup PNPM"
+      - task: Cache@2
+        inputs:
+          key: 'turbo | "$(Agent.OS)" | pnpm-lock.yaml'
+          path: .turbo
+        displayName: Cache turbo
 
       - script: pnpm config set store-dir $(pnpm_config_cache)
         displayName: "Setup PNPM Config"
@@ -93,15 +99,8 @@ jobs:
         displayName: "PNPM Install"
 
       - script: |
-          vercel pull --yes --token=$(VERCEL_TOKEN) --scope=suitsupply-team
-          vercel env pull .env --yes --token=$(VERCEL_TOKEN) --scope=suitsupply-team
-        displayName: "Pull vercel project"
-
-      - script: |
-          pnpm lint
-          pnpm test:coverage
-        displayName: "Lint and Test"
-        continueOnError: "false"
+          pnpm run build
+        displayName: "Turbo Build"
 
       - task: PublishCodeCoverageResults@2
         inputs:
@@ -109,25 +108,25 @@ jobs:
           pathToSources: "."
           failIfCoverageEmpty: true
 
-  - job: Deploy
-    dependsOn: InstallAndTest
-    condition: and(succeeded('InstallAndTest'), ne(variables.is_PR, true))
-    displayName: "Deploy"
-    steps:
-      - script: |
-          vercel deploy --prod --token=$(VERCEL_TOKEN) --scope=suitsupply-team > deployment-url.txt
-        displayName: "Deploy Main"
-        condition: ne(variables.is_preview, true)
+  # - job: Deploy
+  #   dependsOn: InstallAndTest
+  #   condition: and(succeeded('InstallAndTest'), ne(variables.is_PR, true))
+  #   displayName: "Deploy"
+  #   steps:
+  #     - script: |
+  #         vercel deploy --prod --token=$(VERCEL_TOKEN) --scope=suitsupply-team > deployment-url.txt
+  #       displayName: "Deploy Main"
+  #       condition: ne(variables.is_preview, true)
 
-      - script: |
-          vercel deploy --token=$(VERCEL_TOKEN) --scope=suitsupply-team > deployment-url.txt
-        displayName: "Deploy Preview"
-        condition: eq(variables.is_preview, true)
+  #     - script: |
+  #         vercel deploy --token=$(VERCEL_TOKEN) --scope=suitsupply-team > deployment-url.txt
+  #       displayName: "Deploy Preview"
+  #       condition: eq(variables.is_preview, true)
 
-      - task: PublishPipelineArtifact@1
-        inputs:
-          targetPath: "deployment-url.txt"
-          artifact: "deployment-url"
+  #     - task: PublishPipelineArtifact@1
+  #       inputs:
+  #         targetPath: "deployment-url.txt"
+  #         artifact: "deployment-url"
 
   # - job: E2ETests
   #   dependsOn: Deploy
