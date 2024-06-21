@@ -137,7 +137,7 @@ jobs:
 
       # Lint.
       - script: |
-          pnpm turbo run --summarize=true --remote-only=false -F @susu/headless-commerce lint
+          pnpm turbo --summarize=true --remote-only=false run -F @susu/headless-commerce lint
         displayName: "Lint"
 
       # # Test.
@@ -147,7 +147,7 @@ jobs:
 
       # Build.
       - script: |
-          pnpm turbo run --summarize=true --remote-only=false -F @susu/headless-commerce build
+          pnpm turbo --summarize=true --remote-only=false run -F @susu/headless-commerce build
         displayName: "Build"
 
       # Deploy.
