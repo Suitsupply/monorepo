@@ -80,7 +80,7 @@ variables:
     value: headless-commerce
 
   - name: APPLICATION_DIRECTORY
-    value: applications/$(APPLICATION_NAME)
+    value: apps/$(APPLICATION_NAME)
 
   - name: APPLICATION_VERCEL_SCOPE
     value: suitsupply-team
@@ -137,7 +137,7 @@ jobs:
 
       # Lint.
       - script: |
-          pnpm run lint --summarize=true --remote-only=false
+          pnpm turbo run -F @susu/headless-commerce lint --summarize=true --remote-only=false
         displayName: "Lint"
 
       # # Test.
@@ -147,7 +147,7 @@ jobs:
 
       # Build.
       - script: |
-          pnpm run build --summarize=true --remote-only=false
+          pnpm turbo run -F @susu/headless-commerce build --summarize=true --remote-only=false
         displayName: "Build"
 
       # Deploy.
