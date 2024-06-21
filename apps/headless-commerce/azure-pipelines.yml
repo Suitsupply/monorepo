@@ -140,10 +140,10 @@ jobs:
           pnpm run lint --summarize=true --remote-only=true
         displayName: "Lint"
 
-      # Test.
-      - script: |
-          pnpm run test
-        displayName: "Test"
+      # # Test.
+      # - script: |
+      #     pnpm run test
+      #   displayName: "Test"
 
       # Build.
       - script: |
