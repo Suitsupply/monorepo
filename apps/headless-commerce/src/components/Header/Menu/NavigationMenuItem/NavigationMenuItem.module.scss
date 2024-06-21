@@ -1,0 +1,61 @@
+@use '@suits/ss-design-system/dist/ss-components/styles/sass/mixins/_breakpoints.scss' as bp;
+@use '../NavigationMenu/mixins.scss' as *;
+
+.navigation-item {
+  @include menu-variables;
+
+  --icon-color: var(--color-secondary);
+
+  @include bp.respond-until('md') {
+    --item-height: var(--item-height-small);
+  }
+
+  @include bp.respond-from('md') {
+    --item-height: var(--item-height-large);
+  }
+
+  align-items: flex-start;
+  display: flex;
+  padding-block: 6px;
+
+  @include bp.respond-until('md') {
+    margin-block: 4px;
+  }
+
+  @include bp.respond-from('md') {
+    margin-block: 4px;
+  }
+
+  &:first-child {
+    margin-block-start: 0;
+  }
+
+  &__size {
+    @include bp.respond-until('md') {
+      &-sm,
+      &-md,
+      &-lg,
+      &-xl {
+        --item-height: var(--item-height-small);
+      }
+    }
+
+    @include bp.respond-from('md') {
+      &-sm,
+      &-md {
+        --item-height: var(--item-height-small);
+      }
+
+      &-lg,
+      &-xl {
+        min-height: var(--item-height-large);
+      }
+    }
+  }
+
+  &__subtext {
+    color: var(--color-secondary);
+    display: inline-block;
+    padding-block-start: 4px;
+  }
+}

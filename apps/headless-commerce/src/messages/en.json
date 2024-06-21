@@ -1,0 +1,55 @@
+{
+  "countrySelector": {
+    "search_label": "Search for country",
+    "clear": "Clear",
+    "no_results": "Sorry, no results found",
+    "results": "Results",
+    "language": "Language"
+  },
+  "footer": {
+    "sign_up": "You're signed up!",
+    "enter_your_email": "Enter your email",
+    "please_enter_email": "Please enter your email.",
+    "invalid_email_address": "Invalid email address",
+    "subscribe": "Subscribe",
+    "something_wrong": "Something went wrong. Please try again."
+  },
+  "navigation": {
+    "search_placeholder": "Search, suits, coats, etc",
+    "do_you_mean": "Do you mean?",
+    "products": "Products",
+    "popular_searches": "Popular searches",
+    "categories": "Categories",
+    "category_result": "{category} in {parentCategory}",
+    "no_results": "No results found for",
+    "no_results_description": "Check spelling or try using less specific keywords"
+  },
+  "switch_lang": {
+    "update_location": "Update your location to see products and content that are relevant to you.",
+    "switch_location": "Switch location",
+    "shipping_to": "Shipping to",
+    "not_shipping": "We are sorry. Currently we don't ship to your country.",
+    "okay": "Okay"
+  },
+  "configurator": {
+    "next": "Next",
+    "back": "Previous",
+    "finish_look": "Finish look",
+    "total": "Total",
+    "add_to_bag": "Add to bag",
+    "original_price": "Original price",
+    "out_of_stock": "Out of stock",
+    "select_your_sizes": "Select your sizes",
+    "one_size": "One size",
+    "select_size": "Select size",
+    "edit": "Edit",
+    "size": "Size"
+  },
+  "sizeSelector": {
+    "free_delivery": "Free delivery",
+    "free_returns": "Free returns",
+    "size_guide": "Size guide",
+    "confirm": "Confirm",
+    "select_your_size": "Select your size"
+  }
+}

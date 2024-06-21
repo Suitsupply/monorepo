@@ -1,0 +1,6 @@
+query icpContact($id: String!, $locale: String, $preview: Boolean) {
+  cta(id: $id, locale: $locale, preview: $preview) {
+    __typename
+    title
+  }
+}

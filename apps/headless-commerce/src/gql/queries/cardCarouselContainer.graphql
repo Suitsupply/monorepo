@@ -1,0 +1,33 @@
+query cardCarouselContainer($id: String!, $locale: String!, $preview: Boolean) {
+  cardCarouselContainer(id: $id, locale: $locale, preview: $preview) {
+    __typename
+    title
+    mobileCarouselAligment
+    cardsCollection {
+      items {
+        ... on CarouselImageAndTextCard {
+          sys {
+            id
+          }
+          iconName
+          title
+          titleFlag
+          description {
+            json
+          }
+          image {
+            ... on MediaWrapperV2 {
+              __typename
+              altText
+              cloudinaryMobileImage
+              cloudinaryTabletImage
+              cloudinaryDesktopImage
+              description
+              lazyloading
+            }
+          }
+        }
+      }
+    }
+  }
+}

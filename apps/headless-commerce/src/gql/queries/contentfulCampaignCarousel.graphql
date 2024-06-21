@@ -1,0 +1,30 @@
+query contentfulCampaignCarousel($id: String!, $preview: Boolean) {
+  campaignCarrousel(id: $id, preview: $preview) {
+    contentCollection {
+      items {
+        categoryId
+        qtyOfProducts
+      }
+    }
+    title
+    cta {
+      title
+      link {
+        relativeUrl
+        referenceId
+        extraParameters
+        linkType
+      }
+      promotionEvents {
+        promotionEventLabel
+        promotionEventAction
+        promotionEventCategory
+        promotionDimension24
+        promotionPosition
+        promotionCreative
+        promotionView
+        promotionClick
+      }
+    }
+  }
+}

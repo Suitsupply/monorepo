@@ -1,0 +1,20 @@
+@use '@suits/ss-design-system/dist/ss-components/styles/sass/mixins/_breakpoints.scss' as bp;
+
+.carousel-block {
+  display: flex;
+  height: var(--screen-inner-height, var(--screen-inner-height, 100vh));
+  width: 100%;
+
+  @include bp.respond-until('lg') {
+    flex-direction: column;
+    height: calc(var(--screen-inner-height, 100vh) * var(--child-count, 1));
+  }
+
+  & > * {
+    flex: 1 1 calc(100% / var(--child-count, 1));
+
+    @include bp.respond-until('lg') {
+      flex-basis: 100%;
+    }
+  }
+}

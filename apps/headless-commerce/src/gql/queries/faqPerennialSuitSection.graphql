@@ -1,0 +1,14 @@
+query faqAccordion($id: String!, $locale: String!, $preview: Boolean) {
+  faqAccordion(id: $id, locale: $locale, preview: $preview) {
+    __typename
+    title
+    faqItemsCollection {
+      items {
+        question
+        answer {
+          json
+        }
+      }
+    }
+  }
+}

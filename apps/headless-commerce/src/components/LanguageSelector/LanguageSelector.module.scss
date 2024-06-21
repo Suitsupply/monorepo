@@ -1,0 +1,51 @@
+@use '@suits/ss-design-system/dist/ss-components/styles/sass/mixins/_breakpoints.scss' as bp;
+@use '@headless-commerce/components/Header/Menu/NavigationMenu/mixins.scss' as *;
+@use '@headless-commerce/styles/mixins.scss' as *;
+
+.language-selector {
+  @include search-animation-variables;
+  @include menu-variables;
+
+  background-color: transparent;
+  overflow-y: auto;
+
+  @include bp.respond-from('md') {
+    padding: var(--menu-padding-large);
+  }
+
+  @include bp.respond-until('md') {
+    padding: var(--menu-padding-small);
+    padding-block-start: var(--menu-padding-large);
+  }
+
+  &__back-button {
+    button {
+      @include icon-large;
+
+      appearance: none;
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+      color: var(--color-primary);
+
+      @include hover {
+        transition: $link-hover-transition;
+        color: var(--color-secondary-variation);
+      }
+    }
+  }
+
+  &__languages {
+    @include bp.respond-from('md') {
+      margin-block-start: 48px;
+    }
+
+    @include bp.respond-until('md') {
+      margin-block-start: 36px;
+    }
+  }
+}
+
+.language-selector__radio {
+  height: 40px;
+}

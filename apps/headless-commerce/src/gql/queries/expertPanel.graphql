@@ -1,0 +1,46 @@
+query expertPanel($id: String!, $countryCode: String!, $locale: String!, $preview: Boolean) {
+  panelContentWrapper(id: $id, locale: $locale, preview: $preview) {
+    title
+    cloudinaryImage
+    panelContentCollection(limit: 5) {
+      items {
+        text {
+          json
+          links {
+            entries {
+              inline {
+                ... on PhoneInfo {
+                  phoneNumbersCollection(where: { countryCode_in: [$countryCode, "default"] }) {
+                    items {
+                      phoneDisplay
+                      phoneValue
+                      countryCode
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+        iconName
+        link {
+          absoluteUrl
+          relativeUrl
+          referenceId
+          extraParameters
+          linkType
+        }
+        promotionEvents {
+          promotionEventLabel
+          promotionEventAction
+          promotionEventCategory
+          promotionDimension24
+          promotionPosition
+          promotionCreative
+          promotionView
+          promotionClick
+        }
+      }
+    }
+  }
+}

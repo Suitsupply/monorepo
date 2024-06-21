@@ -1,0 +1,133 @@
+@use '@suits/ss-design-system/dist/ss-components/styles/sass/mixins/_breakpoints.scss' as bp;
+@use '@headless-commerce/styles/mixins.scss' as *;
+
+.footer-links {
+  color: var(--color-surface);
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+  max-width: 100%;
+  padding: 80px;
+
+  @include bp.respond-until('md') {
+    padding-block: 56px;
+    padding-inline: 16px;
+  }
+
+  @include bp.respond-from('lg') {
+    padding-block: 80px 96px;
+    padding-inline: 80px;
+  }
+
+  &__desktop {
+    width: 100%;
+    display: none;
+
+    @include bp.respond-from('lg') {
+      display: flex;
+    }
+  }
+
+  &__mobile {
+    width: 100%;
+    display: flex;
+
+    @include bp.respond-from('lg') {
+      display: none;
+    }
+
+    ss-accordion {
+      width: 100%;
+    }
+
+    ss-accordion-item::part(accordion-label) {
+      padding: 24px 3px 24px 0;
+      cursor: pointer;
+      border-top: none;
+    }
+
+    ss-accordion-item::part(accordion-content) {
+      padding: 0;
+      cursor: pointer;
+    }
+  }
+
+  &__contact {
+    flex: 0 0 33%;
+
+    &__wrapper {
+      display: grid;
+      grid-template-columns: min-content min-content;
+      gap: 0 20px;
+      width: max-content;
+    }
+  }
+
+  &__columns {
+    display: flex;
+    width: 100%;
+  }
+
+  &__column {
+    display: block;
+    flex: 0 0 25%;
+    padding-right: 20px;
+
+    &__row {
+      outline: solid 1px blue;
+    }
+  }
+
+  &__title {
+    margin-block-end: 18px;
+  }
+
+  &__label {
+    display: flex;
+    padding: 8px 0;
+    white-space: nowrap;
+    color: var(--color-surface);
+    text-decoration: none;
+  }
+
+  &__link {
+    display: flex;
+    padding: 8px 0;
+    border-radius: 4px;
+    color: var(--color-surface);
+    text-decoration: none;
+
+    &:focus-visible {
+      outline-color: var(--color-secondary-variation);
+      outline-width: 4px;
+    }
+
+    &:active {
+      color: var(--color-secondary);
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+      color: #505050;
+    }
+
+    @include hover {
+      transition: $link-hover-transition;
+      color: var(--color-secondary-variation);
+    }
+
+    &__right {
+      margin-inline-start: 1ch;
+    }
+  }
+
+  sup {
+    top: -0.7em;
+    font-size: 7px;
+    font-weight: 400;
+    line-height: 16px;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    padding-left: 3px;
+  }
+}

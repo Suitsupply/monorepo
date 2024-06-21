@@ -1,0 +1,137 @@
+query configuratorContent($slug: String!, $locale: String!, $tags: [String!]!, $preview: Boolean) {
+  blackTieConfiguratorCollection(
+    locale: $locale
+    where: { slug_contains: $slug, contentfulMetadata: { tags: { id_contains_some: $tags } } }
+    limit: 1
+    preview: $preview
+  ) {
+    items {
+      modelImage
+      seoMetadata {
+        pageDescription
+        pageTitle
+        keywords
+      }
+      configuratorStepsCollection {
+        items {
+          ... on TuxedoStyleStep {
+            sys {
+              id
+            }
+            contentfulMetadata {
+              tags {
+                id
+              }
+            }
+            imageType
+            categoryStep
+            previewImageFocalPointMobile
+            previewImageFocalPointTablet
+            previewImageFocalPoint
+            previewImageZoomMobile
+            previewImageZoomTablet
+            previewImageZoom
+            title
+            tuxedoProductOptionsCollection {
+              items {
+                campaign
+                color
+                tuxedoStyle
+                waistcoatProductId
+              }
+            }
+            tuxedoStyleOptionsCollection {
+              items {
+                optionName
+                thumbnailImage {
+                  cloudinaryDesktopImage
+                  cloudinaryMobileImage
+                  cloudinaryTabletImage
+                  description
+                  lazyloading
+                }
+                tuxedoStyle
+              }
+            }
+          }
+          ... on ProductStepConfigurator {
+            sys {
+              id
+            }
+            contentfulMetadata {
+              tags {
+                id
+              }
+            }
+            categoryStep
+            imageType
+            categoryStep
+            title
+            previewImageFocalPoint
+            previewImageFocalPointMobile
+            previewImageFocalPointTablet
+            previewImageZoom
+            previewImageZoomMobile
+            previewImageZoomTablet
+            staticImagePatternDesktop
+            staticImagePatternMobile
+            subStep
+            productOptionsCollection {
+              items {
+                ... on ProductOptionConfigurator {
+                  sys {
+                    id
+                  }
+                  contentfulMetadata {
+                    tags {
+                      id
+                    }
+                  }
+                  baseColor
+                  productId
+                  productName
+                  recommendations
+                  subStep
+                  thumbnailImage {
+                    cloudinaryDesktopImage
+                    cloudinaryMobileImage
+                    cloudinaryTabletImage
+                    description
+                    lazyloading
+                  }
+                }
+                ... on ProductOptionStaticImageConfigurator {
+                  sys {
+                    id
+                  }
+                  contentfulMetadata {
+                    tags {
+                      id
+                    }
+                  }
+                  baseColor
+                  productId
+                  productName
+                  thumbnailImage {
+                    cloudinaryDesktopImage
+                    cloudinaryMobileImage
+                    cloudinaryTabletImage
+                    description
+                    lazyloading
+                  }
+                  staticImage {
+                    cloudinaryDesktopImage
+                    cloudinaryMobileImage
+                    cloudinaryTabletImage
+                    description
+                    lazyloading
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

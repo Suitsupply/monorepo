@@ -1,0 +1,76 @@
+{
+  "__typename": "TuxedoStyleStep",
+  "categoryStep": "style",
+  "previewImageZoom": null,
+  "previewImageFocalPoint": null,
+  "tuxedoStyleOptionsCollection": {
+    "__typename": "TuxedoStyleStepTuxedoStyleOptionsCollection",
+    "items": [
+      {
+        "__typename": "TuxedoStyleOption",
+        "optionName": "Two-Piece",
+        "thumbnailImage": null,
+        "tuxedoStyle": "two-piece"
+      },
+      {
+        "__typename": "TuxedoStyleOption",
+        "optionName": "Three-Piece",
+        "thumbnailImage": null,
+        "tuxedoStyle": "three-piece"
+      }
+    ]
+  },
+  "tuxedoProductOptionsCollection": {
+    "__typename": "TuxedoStyleStepTuxedoProductOptionsCollection",
+    "items": [
+      {
+        "__typename": "TuxedoProductOption",
+        "campaign": "campaign_two-piece_black",
+        "color": "black",
+        "jacketLayerInfo": null,
+        "jacketProductId": "C1199",
+        "trouserLayerInfo": null,
+        "trouserProductId": "B1299",
+        "tuxedoStyle": "two-piece",
+        "waistcoatLayerInfo": null,
+        "waistcoatProductId": null
+      },
+      {
+        "__typename": "TuxedoProductOption",
+        "campaign": "campaign_three-piece_black",
+        "color": "black",
+        "jacketLayerInfo": null,
+        "jacketProductId": "C1199",
+        "trouserLayerInfo": null,
+        "trouserProductId": "B1299",
+        "tuxedoStyle": "three-piece",
+        "waistcoatLayerInfo": null,
+        "waistcoatProductId": "W1199"
+      },
+      {
+        "__typename": "TuxedoProductOption",
+        "campaign": "campaign_two-piece_navy",
+        "color": "navy",
+        "jacketLayerInfo": null,
+        "jacketProductId": "C1199",
+        "trouserLayerInfo": null,
+        "trouserProductId": "B1299",
+        "tuxedoStyle": "two-piece",
+        "waistcoatLayerInfo": null,
+        "waistcoatProductId": null
+      },
+      {
+        "__typename": "TuxedoProductOption",
+        "campaign": "campaign_three-piece_navy",
+        "color": "navy",
+        "jacketLayerInfo": null,
+        "jacketProductId": "C1199",
+        "trouserLayerInfo": null,
+        "trouserProductId": "B1299",
+        "tuxedoStyle": "three-piece",
+        "waistcoatLayerInfo": null,
+        "waistcoatProductId": "W1199"
+      }
+    ]
+  }
+}

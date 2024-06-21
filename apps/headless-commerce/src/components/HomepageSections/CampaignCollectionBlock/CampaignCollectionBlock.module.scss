@@ -1,0 +1,28 @@
+@use '@suits/ss-design-system/dist/ss-components/styles/sass/mixins/_breakpoints.scss' as bp;
+
+.campaign-collection {
+  @include bp.respond-from('sm') {
+    margin-bottom: 128px;
+  }
+
+  @include bp.respond-until('sm') {
+    margin-bottom: 80px;
+  }
+}
+
+.campaign-collection__body {
+  display: flex;
+
+  @include bp.respond-from('xl') {
+    padding: 0 70px;
+  }
+
+  @include bp.respond-between('md', 'xl') {
+    padding: 0 10px;
+  }
+
+  @include bp.respond-until('md') {
+    display: block;
+    padding: 0 16px;
+  }
+}

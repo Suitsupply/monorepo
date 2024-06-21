@@ -1,0 +1,66 @@
+.radio {
+  display: flex;
+}
+
+.radio__input {
+  position: fixed;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.label__value {
+  color: var(--color-primary);
+}
+
+.svg__outer-circle {
+  fill: var(--color-surface);
+  stroke: var(--color-background);
+}
+
+.radio__label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &:active {
+    fill: var(--color-surface);
+    stroke: var(--color-primary);
+  }
+
+  &.focused {
+    border-radius: 4px;
+    outline: 4px solid rgba(var(--color-primary) 0.3);
+  }
+
+  &.checked {
+    display: flex;
+
+    .svg__outer-circle {
+      fill: var(--color-primary);
+    }
+
+    .svg__inner-circle {
+      fill: var(--color-surface);
+    }
+  }
+
+  &.disabled {
+    pointer-events: none;
+
+    .svg__outer-circle {
+      fill: var(--color-secondary-variation);
+    }
+
+    .svg__inner-circle {
+      fill: var(--color-surface);
+    }
+
+    .label__value {
+      color: var(--color-secondary-variation);
+    }
+  }
+}

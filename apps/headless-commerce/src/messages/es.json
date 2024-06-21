@@ -1,0 +1,55 @@
+{
+  "countrySelector" : {
+    "search_label" : "Buscar país",
+    "clear" : "Borrar",
+    "no_results" : "Lo siento, no se encontraron resultados",
+    "results" : "Resultados",
+    "language" : "Idioma"
+  },
+  "footer" : {
+    "sign_up" : "¡Usuario registrado!",
+    "enter_your_email" : "Indícanos tu correo",
+    "please_enter_email" : "Por favor, ingresa tu dirección de mail.",
+    "invalid_email_address" : "Dirección de mail no válida",
+    "subscribe" : "Suscríbete",
+    "something_wrong" : "¡Ha habido un error! Por favor vuelve a intentarlo."
+  },
+  "navigation" : {
+    "search_placeholder" : "Buscar, trajes, abrigos, etc.",
+    "do_you_mean" : "¿Quieres decir?",
+    "products" : "Productos",
+    "popular_searches" : "Búsquedas populares",
+    "categories" : "Categorías",
+    "category_result" : "{category} en {parentCategory}",
+    "no_results" : "No se han encontrado resultados para",
+    "no_results_description" : "Verifica la ortografía o intenta utilizar palabras claves menos específicas"
+  },
+  "switch_lang" : {
+    "update_location" : "Actualiza tu localización para ver productos y contenidos que sean pertinentes para ti.",
+    "switch_location" : "Cambiar ubicación",
+    "shipping_to" : "Envío a",
+    "not_shipping" : "Lo sentimos. Actualmente no realizamos envíos a tu país.",
+    "okay" : "De acuerdo"
+  },
+  "configurator" : {
+    "next" : "Siguiente",
+    "back" : "Anterior",
+    "finish_look" : "Completar el look",
+    "total" : "Total",
+    "add_to_bag" : "Añadir a la cesta",
+    "original_price" : "Precio original",
+    "out_of_stock" : "Fuera de stock",
+    "select_your_sizes" : "Selecciona tus tallas",
+    "one_size" : "Talle único",
+    "select_size" : "Seleccionar talla",
+    "edit" : "Modificar",
+    "size" : "Talla"
+  },
+  "sizeSelector" : {
+    "free_delivery" : "Envío gratuito",
+    "free_returns" : "Devoluciones gratuitas",
+    "size_guide" : "Guía de tallas",
+    "confirm" : "CONFIRMAR",
+    "select_your_size" : "Selecciona la talla"
+  }
+}

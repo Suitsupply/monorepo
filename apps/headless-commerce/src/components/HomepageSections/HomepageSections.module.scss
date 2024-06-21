@@ -1,0 +1,12 @@
+.section {
+  position: relative;
+  z-index: 1;
+
+  &__parallax {
+    z-index: 1;
+  }
+}
+
+.homepage-section--image-carousel {
+  z-index: 3;
+}

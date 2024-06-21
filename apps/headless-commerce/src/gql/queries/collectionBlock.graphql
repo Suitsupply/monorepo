@@ -1,0 +1,46 @@
+query collectionBlockContent($id: String!, $locale: String!, $preview: Boolean) {
+  imageCarrouselContainer(id: $id, locale: $locale, preview: $preview) {
+    carouselBlocksCollection {
+      items {
+        title
+        link {
+          relativeUrl
+          referenceId
+          extraParameters
+          linkType
+        }
+        promotionEvents {
+          promotionEventLabel
+          promotionEventAction
+          promotionEventCategory
+          promotionDimension24
+          promotionPosition
+          promotionCreative
+          promotionView
+          promotionClick
+        }
+        colorPalette
+        desktopCarrousel
+        tabletCarrousel
+        mobileCarrousel
+        imagesCollection {
+          items {
+            ... on MediaWrapperV2 {
+              altText
+              cloudinaryDesktopImage
+              cloudinaryMobileImage
+              cloudinaryTabletImage
+              description
+              internalTitle
+              lazyloading
+              staticImage
+            }
+          }
+        }
+        sys {
+          id
+        }
+      }
+    }
+  }
+}

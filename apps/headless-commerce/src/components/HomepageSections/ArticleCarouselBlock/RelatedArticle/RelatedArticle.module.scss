@@ -1,0 +1,72 @@
+@use '@suits/ss-design-system/dist/ss-components/styles/sass/mixins/_breakpoints.scss' as bp;
+
+.related-article {
+  color: var(--color-primary);
+  text-decoration: none;
+  background-color: transparent;
+
+  &__link {
+    position: relative;
+    width: 100%;
+    background-color: var(--color-background-light);
+    padding-bottom: 120.07%;
+    overflow: hidden;
+
+    @include bp.respond-until('md') {
+      padding-right: 4px;
+      flex: 0 0 100%;
+    }
+
+    img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: auto;
+    }
+  }
+
+  &__text-wrapper {
+    @include bp.respond-between('md', 'lg') {
+      padding: var(--spacing-base) 81px 0 0;
+    }
+
+    @include bp.respond-between('lg', 'xl') {
+      padding: 16px 56px 0 0;
+    }
+
+    @include bp.respond-from('xl') {
+      padding: 20px 56px 0 0;
+    }
+  }
+
+  &__title {
+    font-size: 14px;
+    line-height: 20px;
+    font-family: var(--font-main);
+    font-weight: var(--font-weight-light);
+    margin-bottom: 8px;
+  }
+
+  &__description {
+    @include bp.respond-until('md') {
+      font-size: 16px;
+      line-height: 24px;
+    }
+
+    @include bp.respond-between('md', 'lg') {
+      font-size: 17px;
+      line-height: 26px;
+    }
+
+    @include bp.respond-between('lg', 'xl') {
+      font-size: 17px;
+      line-height: 26px;
+    }
+
+    @include bp.respond-from('xl') {
+      font-size: 20px;
+      line-height: 28px;
+    }
+  }
+}

@@ -1,0 +1,122 @@
+fragment SubText on NavigationItemLable {
+  subText {
+    json
+    links {
+      entries {
+        inline {
+          ... on PriceInfo {
+            sys {
+              id
+            }
+            pricesCollection(limit: 2, where: { currencyCode_in: [$currencyCode, "default"] }) {
+              items {
+                currencyCode
+                priceValue
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+fragment ItemLabel on NavigationItem {
+  label {
+    text
+    icon
+    subMenuText
+    subMenuArrow
+    showIconSubMenuOnly
+    testAutomationClass
+    testAutomationAttribute
+    link {
+      linkType
+      referenceId
+      relativeUrl
+      extraParameters
+    }
+    ...SubText
+    promotionEvents {
+      promotionEventLabel
+      promotionEventAction
+      promotionEventCategory
+      promotionDimension24
+      promotionPosition
+      promotionCreative
+      promotionView
+      promotionClick
+    }
+  }
+}
+
+query navigationAll($locale: String!, $tags: [String!]!, $currencyCode: String!, $preview: Boolean) {
+  suSuNavigationMenuCollection(
+    order: [slug_DESC]
+    locale: $locale
+    where: { contentfulMetadata: { tags: { id_contains_some: $tags } } }
+    preview: $preview
+  ) {
+    items {
+      slug
+      contentfulMetadata {
+        tags {
+          id
+        }
+      }
+      groupCollection(limit: 3) {
+        total
+        #1st level
+        items {
+          text
+          hasTopDivider
+          fontStyling
+          itemsCollection(limit: 5) {
+            total
+            items {
+              sys {
+                id
+              }
+              ...ItemLabel
+              groupsCollection {
+                total
+                #2nd level
+                items {
+                  text
+                  hasTopDivider
+                  fontStyling
+                  itemsCollection(limit: 30) {
+                    items {
+                      sys {
+                        id
+                      }
+                      ...ItemLabel
+                      groupsCollection(limit: 3) {
+                        total
+                        items {
+                          text
+                          hasTopDivider
+                          fontStyling
+                          #3rd level
+                          itemsCollection(limit: 7) {
+                            total
+                            items {
+                              sys {
+                                id
+                              }
+                              ...ItemLabel
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

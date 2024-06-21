@@ -1,0 +1,29 @@
+query commerceGetProductsByIds($pids: [String]!, $siteInfo: SiteInfo!, $imgTransformationType: String!) {
+  getProductsByIds(pids: $pids, siteInfo: $siteInfo, imgTransformationType: $imgTransformationType) {
+    fitId
+    id
+    materialValue
+    name
+    onlineMaterial
+    price
+    type
+    url
+    mobileImage {
+      breakpoint
+      srcset
+      url
+    }
+    desktopImage {
+      breakpoint
+      srcset
+      url
+    }
+    availabilityStatus {
+      inStockDate
+      isAvailable
+      oneLeft
+      preOrder
+      showBadge
+    }
+  }
+}

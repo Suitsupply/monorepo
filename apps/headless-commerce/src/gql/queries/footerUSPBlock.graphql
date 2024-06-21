@@ -1,0 +1,76 @@
+query footerUSP($id: String!, $locale: String!, $preview: Boolean) {
+  footerUspBlock(id: $id, locale: $locale, preview: $preview) {
+    uspListCollection {
+      items {
+        __typename
+        ... on TextWrapperRich {
+          title
+          description
+          iconName
+          cta {
+            title
+            text {
+              json
+            }
+            link {
+              linkType
+              referenceId
+              relativeUrl
+              extraParameters
+              absoluteUrl
+            }
+            promotionEvents {
+              promotionEventLabel
+              promotionEventAction
+              promotionEventCategory
+              promotionDimension24
+              promotionPosition
+              promotionCreative
+              promotionView
+              promotionClick
+            }
+          }
+        }
+        ... on TextWrapperRichPanel {
+          title
+          description
+          iconName
+          styleExpertPanelCollection(limit: 1) {
+            items {
+              sys {
+                id
+              }
+            }
+          }
+          cta {
+            sys {
+              id
+            }
+            title
+            text {
+              json
+            }
+            link {
+              linkType
+              referenceId
+              relativeUrl
+              extraParameters
+              absoluteUrl
+            }
+            testAutomationAttribute
+            promotionEvents {
+              promotionEventLabel
+              promotionEventAction
+              promotionEventCategory
+              promotionDimension24
+              promotionPosition
+              promotionCreative
+              promotionView
+              promotionClick
+            }
+          }
+        }
+      }
+    }
+  }
+}

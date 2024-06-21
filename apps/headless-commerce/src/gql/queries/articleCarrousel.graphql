@@ -1,0 +1,44 @@
+query articleCarrouselContent($id: String!, $locale: String!, $preview: Boolean) {
+  articleCarrousel(id: $id, locale: $locale, preview: $preview) {
+    title
+    cta {
+      link {
+        extraParameters
+        linkType
+        relativeUrl
+        referenceId
+      }
+      title
+    }
+    contentCollection {
+      items {
+        ... on JournalPage {
+          thumbnailImage {
+            cloudinaryDesktopImage
+            cloudinaryTabletImage
+            cloudinaryMobileImage
+          }
+          title
+          slug
+          description
+          link {
+            extraParameters
+            linkType
+            relativeUrl
+            referenceId
+          }
+          promotionEvents {
+            promotionEventLabel
+            promotionEventAction
+            promotionEventCategory
+            promotionDimension24
+            promotionPosition
+            promotionCreative
+            promotionView
+            promotionClick
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,65 @@
+query shopCollection($id: String!, $locale: String!, $preview: Boolean) {
+  shopCollectionBlock(id: $id, locale: $locale, preview: $preview) {
+    title
+    contentSectionsCollection {
+      items {
+        __typename
+        ... on Button {
+          link {
+            linkType
+            referenceId
+            relativeUrl
+            extraParameters
+            absoluteUrl
+          }
+          buttonStyle
+          visibleOnMobile
+          visibleOnTablet
+          visibleOnDesktop
+          mobileButtonAlignment
+          tabletButtonAlignment
+          desktopButtonAlignment
+          buttonRichText {
+            json
+            links {
+              entries {
+                inline {
+                  sys {
+                    id
+                  }
+                }
+              }
+            }
+          }
+          promotionEvents {
+            promotionEventLabel
+            promotionEventAction
+            promotionEventCategory
+            promotionDimension24
+            promotionPosition
+            promotionCreative
+            promotionView
+            promotionClick
+          }
+        }
+        ... on ProductListing {
+          sys {
+            id
+          }
+          categoryId
+          qtyOfProducts
+          promotionEvents {
+            promotionEventLabel
+            promotionEventAction
+            promotionEventCategory
+            promotionDimension24
+            promotionPosition
+            promotionCreative
+            promotionView
+            promotionClick
+          }
+        }
+      }
+    }
+  }
+}

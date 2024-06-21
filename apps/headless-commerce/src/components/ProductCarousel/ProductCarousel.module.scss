@@ -1,0 +1,11 @@
+@use '@suits/ss-design-system/dist/ss-components/styles/sass/mixins/_breakpoints.scss' as bp;
+
+.product-carousel {
+  @include bp.respond-from('sm') {
+    margin-bottom: 108px;
+  }
+
+  @include bp.respond-until('sm') {
+    margin-bottom: 60px;
+  }
+}

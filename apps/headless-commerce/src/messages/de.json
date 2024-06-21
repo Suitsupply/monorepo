@@ -1,0 +1,55 @@
+{
+  "countrySelector" : {
+    "search_label" : "Nach Land suchen",
+    "clear" : "Auflösen",
+    "no_results" : "Entschuldige, es wurden keine Ergebnisse gefunden",
+    "results" : "Ergebnisse",
+    "language" : "Sprache"
+  },
+  "footer" : {
+    "sign_up" : "Du bist angemeldet!",
+    "enter_your_email" : "Gib deine E-Mail ein",
+    "please_enter_email" : "Bitte gib deine E-Mail ein.",
+    "invalid_email_address" : "Ungültige Email-Adresse",
+    "subscribe" : "Abonnieren",
+    "something_wrong" : "Etwas ist schief gegangen. Bitte erneut versuchen."
+  },
+  "navigation" : {
+    "search_placeholder" : "Suche, Anzüge, Mäntel, etc.",
+    "do_you_mean" : "Meinst du wirklich?",
+    "products" : "Produkte",
+    "popular_searches" : "Beliebte Suchanfragen",
+    "categories" : "Kategorien",
+    "category_result" : "{category} in {parentCategory}",
+    "no_results" : "Keine Ergebnisse gefunden für",
+    "no_results_description" : "Überprüfe die Schreibweise oder versuche es mit weniger spezifischen Suchbegriffen"
+  },
+  "switch_lang" : {
+    "update_location" : "Aktualisiere deinen Standort, um für dich relevante Produkte und Inhalte zu sehen.",
+    "switch_location" : "Standort wechseln",
+    "shipping_to" : "Lieferung nach",
+    "not_shipping" : "Es tut uns leid. Derzeit liefern wir nicht in dein Land.",
+    "okay" : "Okay"
+  },
+  "configurator" : {
+    "next" : "Nächste",
+    "back" : "Vorhergehend",
+    "finish_look" : "Veredele deinen Look",
+    "total" : "Summe",
+    "add_to_bag" : "In den Warenkorb",
+    "original_price" : "Ursprünglicher Preis",
+    "out_of_stock" : "Ausverkauft",
+    "select_your_sizes" : "Wähle deine Größen",
+    "one_size" : "Eine Größe",
+    "select_size" : "Größe wählen",
+    "edit" : "Bearbeiten",
+    "size" : "Größe"
+  },
+  "sizeSelector" : {
+    "free_delivery" : "Kostenlose Lieferung",
+    "free_returns" : "Kostenlose Rücksendungen",
+    "size_guide" : "Größen-Assistent",
+    "confirm" : "BESTÄTIGEN",
+    "select_your_size" : "Wähle deine Größe"
+  }
+}

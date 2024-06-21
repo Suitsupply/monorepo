@@ -1,0 +1,3 @@
+query GetCountOfWishlist($customerId: String!, $siteInfo: SiteInfo!) {
+  getCountOfWishlist(customerId: $customerId, siteInfo: $siteInfo)
+}

@@ -1,0 +1,24 @@
+.icon {
+  --icon-color: inherit;
+
+  align-items: center;
+  display: inline-flex;
+  font-size: inherit;
+  justify-content: center;
+  height: 1em;
+  line-height: 1;
+  margin: 0;
+  padding: 0;
+  width: 1em;
+
+  &.width-auto {
+    width: auto;
+  }
+
+  i {
+    font-family: var(--font-icon) !important;
+    font-style: normal;
+    color: var(--icon-color);
+    padding-top: 1px;
+  }
+}

@@ -1,0 +1,7 @@
+query cmsPageSlugs($locale: String!) {
+  cmsPageCollection(locale: $locale) {
+    items {
+      slug
+    }
+  }
+}

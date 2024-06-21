@@ -1,0 +1,88 @@
+@use '@suits/ss-design-system/dist/ss-components/styles/sass/mixins/_breakpoints.scss' as bp;
+
+.footer-store-column {
+  display: flex;
+  align-items: center;
+
+  @include bp.respond-until('xl') {
+    max-width: 100%;
+  }
+
+  @include bp.respond-from('sm') {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+}
+
+.footer-store-content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 80px;
+
+  @include bp.respond-from('xl') {
+    height: 100%;
+  }
+
+  @include bp.respond-between('lg', 'xl') {
+    padding-left: 20px;
+    padding-top: 56px;
+    padding-bottom: 78px;
+  }
+
+  @include bp.respond-between('md', 'lg') {
+    padding-top: 56px;
+    padding-bottom: 78px;
+  }
+
+  @include bp.respond-between('xs', 'sm') {
+    height: 200px;
+    padding-left: 20px;
+  }
+
+  @include bp.respond-between('sm', 'md') {
+    height: 230px;
+    padding-left: 20px;
+  }
+}
+
+.footer-store-title {
+  color: var(--color-surface);
+  margin-bottom: 16px;
+}
+
+.footer-store-text {
+  font-size: 14px;
+  color: var(--color-surface);
+  line-height: 20px;
+  max-width: 320px;
+  font-weight: 300;
+  margin-bottom: 24px;
+}
+
+.footer-store-block {
+  color: var(--color-primary);
+  text-decoration: none;
+  background-color: transparent;
+}
+
+.footer-store-container {
+  display: flex;
+
+  @include bp.respond-until('lg') {
+    flex-direction: column-reverse;
+  }
+
+  @include bp.respond-from('lg') {
+    flex-direction: row;
+  }
+}
+
+.footer-store-link {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--color-surface);
+}

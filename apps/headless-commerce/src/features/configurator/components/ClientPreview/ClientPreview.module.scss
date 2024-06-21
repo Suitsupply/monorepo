@@ -1,0 +1,76 @@
+@use '@suits/ss-design-system/dist/ss-components/styles/sass/mixins/_breakpoints.scss' as bp;
+
+.preview {
+  align-items: center;
+  background-color: var(--background-color);
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+
+  &-wrapper {
+    height: 100%;
+    position: relative;
+    width: 100%;
+
+    &-scale {
+      inset: 0;
+      position: absolute;
+
+      &-transition {
+        transform: scale(var(--image-scale));
+        transition-duration: 300ms;
+        transition-property: transform;
+      }
+    }
+
+    &-position {
+      height: 100%;
+      width: 100%;
+
+      &-transition {
+        transform: translateX(var(--image-focus-x)) translateY(var(--image-focus-y));
+        transition-duration: 300ms;
+        transition-property: transform;
+      }
+    }
+  }
+
+  img {
+    will-change: contents;
+  }
+
+  &-type {
+    &-static {
+      picture,
+      img {
+        width: 100%;
+        height: 100%;
+      }
+
+      img {
+        object-fit: cover;
+      }
+    }
+
+    &-layered {
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+
+      &-bowtieimage {
+        display: flex;
+        width: 100%;
+        height: 100%;
+
+        img {
+          object-fit: cover;
+        }
+      }
+    }
+  }
+}

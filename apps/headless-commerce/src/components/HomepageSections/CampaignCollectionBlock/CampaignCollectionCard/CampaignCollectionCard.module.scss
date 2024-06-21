@@ -1,0 +1,44 @@
+@use '@suits/ss-design-system/dist/ss-components/styles/sass/mixins/_breakpoints.scss' as bp;
+
+.campaign-collection__card {
+  display: block;
+  position: relative;
+
+  @include bp.respond-from('md') {
+    padding: 0 10px;
+  }
+
+  @include bp.respond-between('sm', 'md') {
+    padding: 0 6px;
+  }
+
+  @include bp.respond-until('sm') {
+    margin-bottom: 16px;
+  }
+}
+
+.text-container {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+
+  @include bp.respond-from('md') {
+    bottom: 80px;
+  }
+
+  @include bp.respond-between('sm', 'md') {
+    bottom: 60px;
+  }
+
+  @include bp.respond-until('sm') {
+    bottom: 50px;
+  }
+}
+
+.text-container--light {
+  color: var(--color-surface);
+}
+
+.text-container--dark {
+  color: var(--color-primary);
+}

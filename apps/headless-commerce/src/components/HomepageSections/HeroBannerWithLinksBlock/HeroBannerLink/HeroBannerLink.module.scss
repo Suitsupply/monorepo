@@ -1,0 +1,49 @@
+@use '@suits/ss-design-system/dist/ss-components/styles/sass/mixins/_breakpoints.scss' as bp;
+@use '@headless-commerce/styles/mixins.scss' as *;
+
+.hero-banner-link {
+  @include bp.respond-until('xl') {
+    margin-block-end: 12px;
+  }
+
+  @include bp.respond-between('xl', 'xxl') {
+    margin-block-end: 18px;
+  }
+
+  @include bp.respond-from('xxl') {
+    margin-block-end: 20px;
+  }
+
+  &__item {
+    color: var(--color-surface);
+    cursor: pointer;
+    font-weight: 500;
+    pointer-events: all;
+    text-decoration: none;
+    transition: opacity 0.2s ease-in-out;
+    width: fit-content;
+
+    @include hover {
+      color: var(--color-surface);
+      opacity: 0.7;
+    }
+
+    @include bp.respond-until('xl') {
+      font-size: 24px;
+      line-height: 30px;
+      letter-spacing: -0.3px;
+    }
+
+    @include bp.respond-between('xl', 'xxl') {
+      font-size: 28px;
+      line-height: 34px;
+      letter-spacing: -0.3px;
+    }
+
+    @include bp.respond-from('xxl') {
+      font-size: 32px;
+      line-height: 40px;
+      letter-spacing: -0.5px;
+    }
+  }
+}

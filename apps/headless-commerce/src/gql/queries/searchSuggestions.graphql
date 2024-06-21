@@ -1,0 +1,16 @@
+query SearchSuggestions($searchText: String!, $siteInfo: SiteInfo!) {
+  searchSuggestions(searchText: $searchText, siteInfo: $siteInfo) {
+    categorySuggestions {
+      id
+      name
+      url
+      parentCategoryName
+    }
+    productSuggestions {
+      id
+      name
+      url
+    }
+    suggestedPhrases
+  }
+}

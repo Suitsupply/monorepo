@@ -1,0 +1,350 @@
+@use '@suits/ss-design-system/dist/ss-components/styles/sass/mixins/_breakpoints.scss' as bp;
+@use '@headless-commerce/styles/mixins.scss' as *;
+
+.imagetext-card {
+  min-width: 0;
+
+  &__item {
+    position: relative;
+  }
+
+  @include bp.respond-from('md') {
+    flex: 0 0 30.7%;
+    display: flex;
+    align-items: center;
+
+    &__item {
+      flex: 0 1 50%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+  }
+
+  @include bp.respond-from('lg') {
+    margin-bottom: 20px;
+  }
+
+  @include bp.respond-between('md', 'lg') {
+    margin-bottom: 20px;
+  }
+
+  @include bp.respond-until('md') {
+    margin: 80px 15px 0;
+  }
+}
+
+// Card body
+.imagetext-card__body {
+  @include bp.respond-from('lg') {
+    padding-top: 20px;
+  }
+
+  @include bp.respond-between('md', 'lg') {
+    padding-top: 0;
+  }
+
+  @include bp.respond-until('md') {
+    padding-top: 32px;
+  }
+}
+
+.imagetext-card__title-wrap {
+  display: flex;
+  align-items: center;
+
+  @include bp.respond-from('lg') {
+    margin-bottom: 15px;
+  }
+
+  @include bp.respond-between('md', 'lg') {
+    margin-bottom: 10px;
+  }
+
+  @include bp.respond-from('md') {
+    flex-direction: column;
+  }
+
+  @include bp.respond-until('md') {
+    margin-bottom: 10px;
+  }
+}
+
+.imagetext-card__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--color-outline);
+  border-radius: 50%;
+
+  @include bp.respond-from('md') {
+    height: 42px;
+    width: 42px;
+    margin-bottom: 24px;
+  }
+
+  @include bp.respond-between('md', 'lg') {
+    height: 32px;
+    width: 32px;
+    margin-bottom: 15px;
+  }
+
+  @include bp.respond-until('md') {
+    height: 26px;
+    width: 26px;
+    margin-right: 13px;
+    margin-top: 4px;
+    margin-left: 5px;
+  }
+
+  @include bp.respond-from('lg') {
+    font-size: 22px;
+  }
+
+  @include bp.respond-until('lg') {
+    font-size: 17px;
+  }
+
+  > [class*='Icon'] {
+    font-weight: 600;
+  }
+}
+
+.imagetext-card__description {
+  @include bp.respond-from('md') {
+    margin: 0 auto;
+    text-align: center;
+    max-width: 370px;
+  }
+
+  @include bp.respond-until('md') {
+    max-width: 350px;
+  }
+}
+
+.imagetext-card__badge {
+  font-size: 10px;
+  line-height: 12px;
+  font-weight: 400;
+  font-weight: 300;
+  padding: 4px 6px;
+  margin-top: 3px;
+  margin-left: 15px;
+  color: var(--color-primary);
+  background-color: #f6f6f6;
+  border: 1px solid #f6f6f6;
+  border-radius: 4px;
+}
+
+.imagetext-card__pinpoint {
+  position: absolute;
+  color: var(--color-surface);
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: -10px;
+    bottom: 0;
+    background-color: var(--color-surface);
+
+    @include bp.respond-from('lg') {
+      height: 140px;
+      width: 2px;
+    }
+
+    @include bp.respond-until('lg') {
+      height: 70px;
+      width: 1px;
+    }
+  }
+}
+
+// Half-canvas animation
+.halfcanvas-animation {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  background-color: #efefef;
+  flex: 1 0 50%;
+
+  @include bp.respond-from('lg') {
+    padding: 290px 5px 65px;
+  }
+
+  @include bp.respond-between('md', 'lg') {
+    padding: 155px 5px 40px;
+  }
+
+  @include bp.respond-until('md') {
+    padding: 130px 5px 20px;
+  }
+}
+
+.halfcanvas-animation__images {
+  position: relative;
+
+  @include bp.respond-from('lg') {
+    width: 39.1%;
+  }
+
+  @include bp.respond-between('md', 'lg') {
+    width: 37.5%;
+  }
+
+  @include bp.respond-until('md') {
+    width: 41%;
+  }
+}
+
+.halfcanvas-animation__images img {
+  max-width: 100%;
+  max-height: 100%;
+  margin: 0 auto;
+  transition: 0.3s ease-out 0.2s;
+  will-change: transform;
+}
+
+.halfcanvas-animation__images img:not(.halfcanvas-animation__static-img) {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.halfcanvas-animation__inside-left {
+  transform: translate(0%, 0%);
+}
+
+.halfcanvas-animation__inside-right {
+  transform: translate(0%, 0%);
+}
+
+.halfcanvas-animation__shoulder-4-left {
+  transform: translate(0%, 0%);
+}
+
+.halfcanvas-animation__shoulder-4-right {
+  transform: translate(0%, 0%);
+}
+
+.halfcanvas-animation__shoulder-3-left {
+  transform: translate(0%, 0%);
+}
+
+.halfcanvas-animation__shoulder-3-right {
+  transform: translate(0%, 0%);
+}
+
+.halfcanvas-animation__shoulder-2-left {
+  transform: translate(0%, 0%);
+}
+
+.halfcanvas-animation__shoulder-2-right {
+  transform: translate(0%, 0%);
+}
+
+.halfcanvas-animation__shoulder-1-left {
+  transform: translate(0%, 0%);
+}
+
+.halfcanvas-animation__shoulder-1-right {
+  transform: translate(0%, 0%);
+}
+
+.halfcanvas-animation__pad-front-left {
+  transform: translate(0%, 0%);
+}
+
+.halfcanvas-animation__pad-front-right {
+  transform: translate(0%, 0%);
+}
+
+.halfcanvas-animation__half-front-left {
+  transform: translate(0%, 0%);
+}
+
+.halfcanvas-animation__half-front-right {
+  transform: translate(0%, 0%);
+}
+
+.halfcanvas-animation__front-left {
+  transform: translate(0%, 0%);
+}
+
+.halfcanvas-animation__front-right {
+  transform: translate(0%, 0%);
+}
+
+.halfcanvas-animation__collar {
+  transform: translate(0%, 0%);
+}
+
+[class*='halfcanvas-animation--animated'] > div > {
+  .halfcanvas-animation__inside-left {
+    transform: translate(-12%, 9%);
+  }
+
+  .halfcanvas-animation__inside-right {
+    transform: translate(12%, 9%);
+  }
+
+  .halfcanvas-animation__shoulder-4-left {
+    transform: translate(-24%, -10.25%);
+  }
+
+  .halfcanvas-animation__shoulder-4-right {
+    transform: translate(24%, -10.25%);
+  }
+
+  .halfcanvas-animation__shoulder-3-left {
+    transform: translate(-24.5%, -11.75%);
+  }
+
+  .halfcanvas-animation__shoulder-3-right {
+    transform: translate(24.5%, -11.75%);
+  }
+
+  .halfcanvas-animation__shoulder-2-left {
+    transform: translate(-25%, -13.5%);
+  }
+
+  .halfcanvas-animation__shoulder-2-right {
+    transform: translate(25%, -13.5%);
+  }
+
+  .halfcanvas-animation__shoulder-1-left {
+    transform: translate(-26%, -15.25%);
+  }
+
+  .halfcanvas-animation__shoulder-1-right {
+    transform: translate(26%, -15.25%);
+  }
+
+  .halfcanvas-animation__pad-front-left {
+    transform: translate(-28%, 9%);
+  }
+
+  .halfcanvas-animation__pad-front-right {
+    transform: translate(28%, 9%);
+  }
+
+  .halfcanvas-animation__half-front-left {
+    transform: translate(-39%, 9%);
+  }
+
+  .halfcanvas-animation__half-front-right {
+    transform: translate(39%, 9%);
+  }
+
+  .halfcanvas-animation__front-left {
+    transform: translate(-54%, 9%);
+  }
+
+  .halfcanvas-animation__front-right {
+    transform: translate(54%, 9%);
+  }
+
+  .halfcanvas-animation__collar {
+    transform: translateY(-4.5%);
+  }
+}

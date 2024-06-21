@@ -1,0 +1,51 @@
+query contentPageHeroBanner($id: String!, $locale: String!, $preview: Boolean) {
+  contentPageHeroBanner(id: $id, locale: $locale, preview: $preview) {
+    title {
+      json
+    }
+    viewHeightSetMobile
+    colorPalette
+    desktopTextAlignment
+    tabletTextAlignment
+    mobileTextAlignment
+    image {
+      ... on MediaWrapperV2 {
+        __typename
+        altText
+        cloudinaryMobileImage
+        cloudinaryTabletImage
+        cloudinaryDesktopImage
+        description
+        lazyloading
+      }
+    }
+    sublineShowOnDesktop
+    sublineShowOnMobile
+    sublineShowOnTablet
+    subline {
+      json
+      links {
+        entries {
+          inline {
+            ... on PriceInfo {
+              sys {
+                id
+              }
+              name
+              pricesCollection {
+                ... on PriceInfoPricesCollection {
+                  items {
+                    ... on PriceInfoValue {
+                      currencyCode
+                      priceValue
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

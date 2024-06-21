@@ -1,0 +1,209 @@
+@use '@suits/ss-design-system/dist/ss-components/styles/sass/mixins/_breakpoints.scss' as bp;
+@use '@headless-commerce/styles/mixins.scss' as *;
+@use './mixins.scss' as *;
+
+.menu {
+  @include menu-variables;
+  @include search-animation-variables;
+
+  --level-count: 3;
+  --portion: calc(100% / var(--level-count));
+
+  background-color: var(--color-surface);
+  height: 100%;
+  overflow: hidden;
+  top: 0;
+  width: 100%;
+
+  &__corner-button {
+    background-color: var(--color-surface);
+    top: 0;
+    left: 0;
+    position: absolute;
+    width: 100%;
+    z-index: 3;
+
+    @include bp.respond-from('md') {
+      height: 96px;
+    }
+
+    @include bp.respond-until('md') {
+      height: 80px;
+    }
+
+    button {
+      @include icon-large;
+
+      appearance: none;
+      background-color: transparent;
+      border: none;
+      color: var(--color-primary);
+      cursor: pointer;
+      outline: none;
+      position: absolute;
+      z-index: 2;
+
+      @include bp.respond-until('md') {
+        left: var(--menu-padding-small);
+        top: var(--menu-padding-small);
+      }
+
+      @include bp.respond-from('md') {
+        left: var(--menu-padding-large);
+        top: var(--menu-padding-large);
+      }
+
+      @include hover {
+        color: var(--color-secondary-variation);
+      }
+    }
+
+    &__search {
+      transition-property: transform;
+      will-change: transform;
+
+      &:disabled {
+        color: var(--color-primary);
+        cursor: unset;
+        pointer-events: none;
+      }
+    }
+  }
+
+  &__wrapper {
+    display: flex;
+    width: calc(100% * var(--level-count));
+    height: 100%;
+    transition: transform 0.3s ease;
+
+    &-position {
+      &-level {
+        &1 {
+          transform: translateX(0%);
+          position: relative;
+        }
+
+        &2 {
+          transform: translateX(calc(-1 * var(--portion)));
+        }
+
+        &3 {
+          transform: translateX(calc(-1 * (var(--portion) * 2)));
+        }
+      }
+    }
+  }
+
+  &__level {
+    background-color: var(--color-surface);
+    height: 100%;
+    flex: 0 0 var(--portion);
+
+    @include bp.respond-from('md') {
+      padding: var(--menu-padding-large);
+      padding-block-start: var(--menu-padding-large);
+    }
+
+    @include bp.respond-until('md') {
+      padding-inline: var(--menu-padding-small);
+      padding-block: 70px var(--menu-padding-small);
+    }
+
+    .menu__level-content {
+      @include hide-scroll-y;
+
+      height: 100%;
+
+      @include bp.respond-until('md') {
+        padding-block-start: 0;
+      }
+
+      @include bp.respond-from('md') {
+        padding-block-start: 60px;
+      }
+    }
+
+    &:first-child {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding-block-start: 70px;
+
+      .menu__level-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        flex-grow: 1;
+        opacity: 1;
+        padding-block-start: 0;
+        transform-origin: top left;
+        transition-property: opacity, transform;
+        width: 100%;
+      }
+    }
+  }
+
+  &__search {
+    &-active {
+      & .menu {
+        &__corner-button {
+          &__search {
+            transition-delay: 0ms;
+            transition-duration: var(--search-time-in);
+            transition-timing-function: var(--search-ease-in);
+
+            @include bp.respond-from('md') {
+              transform: translateY(50px);
+            }
+
+            @include bp.respond-until('md') {
+              transform: translateY(72px);
+            }
+          }
+        }
+
+        &__level:first-child {
+          .menu__level-content {
+            opacity: 0;
+            pointer-events: none;
+            position: absolute;
+            transition-duration: var(--search-time-in);
+            transition-timing-function: var(--search-ease-in);
+            transition-delay: 0s;
+
+            @include bp.respond-from('md') {
+              transform: translateY(50px);
+            }
+
+            @include bp.respond-until('md') {
+              transform: translateY(72px);
+            }
+          }
+        }
+      }
+    }
+
+    &-inactive {
+      & .menu {
+        &__corner-button {
+          &__search {
+            transform: translateY(0);
+            transition-delay: var(--search-time-in);
+            transition-duration: var(--search-time-in);
+            transition-timing-function: var(--search-ease-out);
+          }
+        }
+
+        &__level:first-child {
+          .menu__level-content {
+            opacity: 1;
+            pointer-events: all;
+            transition-delay: var(--search-time-in);
+            transition-duration: var(--search-time-in);
+            transition-timing-function: var(--search-ease-out);
+          }
+        }
+      }
+    }
+  }
+}

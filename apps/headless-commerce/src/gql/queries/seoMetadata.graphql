@@ -1,0 +1,7 @@
+query seoMetadataContent($id: String!, $locale: String, $preview: Boolean) {
+  seoMetadata(id: $id, locale: $locale, preview: $preview) {
+    pageDescription
+    pageTitle
+    keywords
+  }
+}

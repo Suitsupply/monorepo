@@ -1,0 +1,69 @@
+query heroBannerContent($id: String!, $locale: String!, $preview: Boolean) {
+  heroBanner(id: $id, locale: $locale, preview: $preview) {
+    image {
+      internalTitle
+      description
+      cloudinaryTabletImage
+      cloudinaryDesktopImage
+      cloudinaryMobileImage
+      altText
+      lazyloading
+    }
+    colorPalette
+    desktopTextAlignment
+    tabletTextAlignment
+    mobileTextAlignment
+    title {
+      json
+    }
+    promotionEvents {
+      promotionEventLabel
+      promotionEventAction
+      promotionEventCategory
+      promotionDimension24
+      promotionPosition
+      promotionCreative
+      promotionView
+      promotionClick
+    }
+    subline {
+      json
+      links {
+        entries {
+          inline {
+            ... on PriceInfo {
+              sys {
+                id
+              }
+              internalTitle
+              name
+              __typename
+              pricesCollection {
+                ... on PriceInfoPricesCollection {
+                  limit
+                  skip
+                  total
+                  items {
+                    ... on PriceInfoValue {
+                      currencyCode
+                      priceValue
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    link {
+      ... on NavigationLink {
+        internalTitle
+        relativeUrl
+        referenceId
+        extraParameters
+        linkType
+      }
+    }
+  }
+}

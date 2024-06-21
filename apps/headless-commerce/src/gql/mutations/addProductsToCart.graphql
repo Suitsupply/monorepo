@@ -1,0 +1,86 @@
+mutation AddProductsToCart($addProductsInput: AddProductsInput!) {
+  addProductsToCart(addProductsInput: $addProductsInput) {
+    code
+    success
+    message
+    # cart {
+    #   id
+    #   channelType
+    #   currency
+    #   totals {
+    #     orderTotal {
+    #       grossPrice
+    #       taxPrice
+    #     }
+    #     shippingTotal {
+    #       grossPrice
+    #       taxPrice
+    #     }
+    #   }
+    #   taxation
+    #   taxTotal
+    #   shipments {
+    #     gift
+    #     shipmentId
+    #     shipmentTotal
+    #     shippingTotal
+    #     shippingTotalTax
+    #     taxTotal
+    #     isCustomMadeShipment
+    #   }
+    #   lineItems {
+    #     itemId
+    #     productId
+    #     productName
+    #     quantity
+    #     price
+    #     priceAfterDiscount
+    #     shipmentId
+    #     availabilityStatus {
+    #       isAvailable
+    #       isStockThresholdReached
+    #       preOrder
+    #       oneLeft
+    #       showBadge
+    #       ATS
+    #       inStockDate
+    #     }
+    #     masterProductId
+    #     size
+    #     url
+    #     categoryId
+    #     desktopImage {
+    #       url
+    #       srcset
+    #       breakpoint
+    #     }
+    #     mobileImage {
+    #       url
+    #       srcset
+    #       breakpoint
+    #     }
+    #   }
+    #   giftCertificateItems {
+    #     price
+    #     itemId
+    #     recipientEmail
+    #     shipmentId
+    #     recipientName
+    #     senderName
+    #     message
+    #     type
+    #     isAmountExceeds
+    #   }
+    #   customerInfo {
+    #     customerId
+    #     email
+    #   }
+    #   numberOfProducts
+    #   isValid
+    #   errorCode
+    #   cartUrl
+    #   isShippingAvailable
+    #   checkoutFlows
+    # }
+  }
+}

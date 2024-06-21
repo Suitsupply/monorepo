@@ -1,0 +1,9 @@
+type SiteInfo {
+  siteId: Int!
+  locale: String!
+  currency: String!
+}
+
+query PopularSearch($siteInfo: SiteInfo!) {
+  getPopularSearchPhrases(siteInfo: $siteInfo)
+}

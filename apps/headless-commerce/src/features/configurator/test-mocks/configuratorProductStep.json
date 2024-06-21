@@ -1,0 +1,29 @@
+{
+  "__typename": "ProductStepConfigurator",
+  "categoryStep": "shoes",
+  "previewImageFocalPoint": null,
+  "previewImageZoom": null,
+  "productOptionsCollection": {
+    "__typename": "ProductStepConfiguratorProductOptionsCollection",
+    "items": [
+      {
+        "__typename": "ProductOptionConfigurator",
+        "previewImageLayerInfo": null,
+        "productId": "FW1708",
+        "productLayerImage": null,
+        "productName": "Leather Oxford",
+        "productThumbnailImage": null,
+        "recommendedIndication": null
+      },
+      {
+        "__typename": "ProductOptionConfigurator",
+        "previewImageLayerInfo": null,
+        "productId": "FW1710",
+        "productLayerImage": null,
+        "productName": "Velvet Slip-On",
+        "productThumbnailImage": null,
+        "recommendedIndication": null
+      }
+    ]
+  }
+}

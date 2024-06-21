@@ -1,0 +1,17 @@
+export type PageType =
+  | 'account'
+  | 'black-tie-configurator'
+  | 'cart'
+  | 'category'
+  | 'checkout'
+  | 'custommade'
+  | 'error'
+  | 'giftcard'
+  | 'home'
+  | 'journal'
+  | 'login'
+  | 'lookbuilder'
+  | 'product'
+  | 'store'
+  | 'support'
+  | 'wishlist';

@@ -1,0 +1,50 @@
+.loader {
+  --loader-max-width: 80px;
+
+  display: grid;
+  place-items: center;
+  height: 100%;
+  width: 100%;
+
+  > div {
+    background: var(--color-primary);
+    border-radius: 1px;
+    overflow: hidden;
+    height: 2px;
+    min-width: 40px;
+    max-width: var(--loader-max-width);
+    width: 100%;
+    position: relative;
+
+    > div {
+      background: var(--color-surface);
+      width: 200%;
+      height: 100%;
+      position: absolute;
+      right: 100%;
+      animation-duration: 1.5s;
+      animation-name: cross;
+      animation-iteration-count: infinite;
+    }
+  }
+
+  &.dark {
+    > div {
+      background: var(--color-background);
+
+      > div {
+        background: var(--color-primary);
+      }
+    }
+  }
+}
+
+@keyframes cross {
+  from {
+    transform: translateX(-150%);
+  }
+
+  to {
+    transform: translateX(150%);
+  }
+}

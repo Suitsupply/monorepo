@@ -1,0 +1,7 @@
+mutation UpdateSubscribe($updateSubscribeInput: UpdateSubscribeInput) {
+  updateSubscribe(updateSubscribeInput: $updateSubscribeInput) {
+    success
+    email
+    status
+  }
+}

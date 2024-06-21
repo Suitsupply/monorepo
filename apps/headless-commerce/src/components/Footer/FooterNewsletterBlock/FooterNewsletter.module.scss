@@ -1,0 +1,223 @@
+@use '@suits/ss-design-system/dist/ss-components/styles/sass/mixins/_breakpoints.scss' as bp;
+
+.footer-newsletter {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  color: var(--color-surface);
+  height: 225px;
+  font-weight: 500;
+  line-height: 32px;
+  font-size: 28px;
+
+  @include bp.respond-between('xs', 'sm') {
+    flex-direction: column;
+    justify-content: space-evenly;
+    margin-top: 30px;
+  }
+
+  @include bp.respond-between('sm', 'md') {
+    flex-direction: column;
+    justify-content: space-evenly;
+    margin-top: 46px;
+  }
+
+  @include bp.respond-from('md') {
+    border-bottom: 1px solid #333;
+  }
+
+  @include bp.respond-between('md', 'lg') {
+    flex-direction: column;
+    padding-top: 80px;
+    padding-left: 80px;
+    padding-right: 80px;
+    border-bottom: none;
+  }
+}
+
+.footer-newsletter-title-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding-left: 80px;
+
+  @include bp.respond-from('lg') {
+    flex: 0 0 50%;
+    max-width: 50%;
+    padding-bottom: 10px;
+    padding-left: 20px;
+  }
+
+  @include bp.respond-between('md', 'lg') {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  @include bp.respond-between('xs', 'md') {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  @include bp.respond-from('xl') {
+    padding-left: 80px;
+  }
+}
+
+.footer-newsletter-title {
+  font-weight: 500;
+  color: var(--color-surface);
+  line-height: 32px;
+  font-size: 28px;
+
+  @include bp.respond-from('lg') {
+    // max-width: 328px;
+  }
+
+  @include bp.respond-between('md', 'lg') {
+    max-width: 328px;
+    margin-bottom: 22px;
+  }
+
+  @include bp.respond-between('xs', 'md') {
+    font-size: 24px;
+    max-width: 280px;
+  }
+}
+
+.footer-newsletter-form-group {
+  width: 100%;
+  padding-right: 80px;
+
+  @include bp.respond-from('md') {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+
+  @include bp.respond-between('lg', 'xl') {
+    padding-right: 20px;
+  }
+
+  @include bp.respond-between('md', 'lg') {
+    padding-right: 0;
+    max-width: 100%;
+  }
+
+  @include bp.respond-between('xs', 'md') {
+    padding-left: 20px;
+    padding-right: 20px;
+    font-size: 24px;
+  }
+}
+
+.footer-newsletter-form {
+  display: flex;
+  height: 64px;
+
+  @include bp.respond-between('xs', 'lg') {
+    height: 56px;
+  }
+}
+
+.footer-newsletter-message {
+  width: 100%;
+  padding-top: 10px;
+}
+
+.footer-newsletter-error {
+  color: var(--color-error);
+  position: absolute;
+}
+
+.footer-newsletter-success {
+  color: var(--color-surface);
+  padding-top: 10px;
+  position: absolute;
+}
+
+.footer-newsletter-input {
+  width: 100%;
+  color: var(--color-surface);
+  background-color: #202020;
+  border: 1px solid #202020;
+  border-radius: 4px 0 0 4px;
+  transition: 0.3s ease-in-out;
+  line-height: 20px;
+  font-weight: 300;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  padding: 19px 1px 19px 23px;
+}
+
+.footer-newsletter-button {
+  color: var(--color-surface);
+  background-color: #202020;
+  border: 1px solid #202020;
+  top: 0;
+  right: 0;
+  padding: 19px 24px;
+  border-radius: 0 4px 4px 0;
+  transition: 0.3s ease-in-out;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-family: var(--font-main);
+  white-space: nowrap;
+
+  @include bp.respond-between('lg', 'xl') {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  @include bp.respond-between('md', 'lg') {
+    padding: 24px 19px 19px;
+  }
+
+  @include bp.respond-between('xs', 'md') {
+    padding: 16px 17px 17px;
+  }
+
+  > span {
+    display: flex;
+    flex-direction: column;
+    padding-right: 27px;
+    font-size: 25px;
+
+    @include bp.respond-between('xs', 'sm') {
+      padding: 0;
+    }
+  }
+
+  &:hover {
+    color: var(--color-secondary);
+  }
+}
+
+.footer-newsletter-icon {
+  font-size: 20px;
+}
+
+.footer-newsletter-input:focus {
+  outline: none;
+}
+
+.footer-newsletter-form-error {
+  border: 1px solid var(--color-error);
+  border-radius: 4px;
+}
+
+.footer-newsletter-form-valid {
+  border: none;
+}
+
+.visible {
+  visibility: visible;
+}
+
+.hidden {
+  visibility: hidden;
+  font-weight: 300;
+  line-height: 16px;
+}

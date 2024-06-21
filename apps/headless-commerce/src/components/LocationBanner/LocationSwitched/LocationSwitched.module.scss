@@ -1,0 +1,31 @@
+@use '@suits/ss-design-system/dist/ss-components/styles/sass/mixins/_breakpoints.scss' as bp;
+@use '../../../styles/mixins.scss' as *;
+
+.switched-location {
+  position: absolute;
+  top: 44px;
+  left: 0;
+  right: 0;
+  background-color: var(--color-primary);
+  color: var(--color-surface);
+  text-align: center;
+
+  @media (min-width: 992px) and (max-width: 1200px) {
+    top: 50px;
+  }
+
+  &__content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 0;
+
+    &_txt {
+      font-size: 12px;
+    }
+  }
+
+  &__flag {
+    margin-right: 6px;
+  }
+}

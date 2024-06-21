@@ -1,0 +1,121 @@
+@use '@suits/ss-design-system/dist/ss-components/styles/sass/global.scss' as *;
+@use '@suits/ss-design-system/dist/ss-components/styles/sass/mixins/_breakpoints.scss' as bp;
+@use './mixins.scss' as *;
+
+// Components import
+@use './components/TextAndImageColumnBanner';
+
+:root {
+  --overlay-opacity: 0;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-weight: 300;
+}
+
+body {
+  height: var(--screen-inner-height, 100vh);
+  width: 100vw;
+  max-width: 100%;
+  font-family: var(--font-main);
+  font-size: 16px;
+  font-weight: var(--font-weight-light);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  word-break: keep-all;
+
+  &.scroll-disabled {
+    position: fixed;
+
+    @include bp.respond-until('lg') {
+      overflow: hidden;
+    }
+
+    @include bp.respond-from('lg') {
+      overflow: hidden scroll;
+    }
+
+    top: var(--scroll-y, 0);
+  }
+}
+
+button {
+  font-family: var(--font-main);
+}
+
+.header-is-hidden {
+  visibility: hidden;
+}
+
+// Screen reader only
+.sr-only {
+  border: 0;
+  clip: rect(0, 0, 0, 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:focus {
+  transition: background-color 600000s 0s, color 600000s 0s;
+}
+
+#ot-sdk-btn-floating {
+  display: none;
+}
+
+// TODO: Move these styles to the canvas animation component
+.halfcanvas-animation__images {
+  position: relative;
+
+  @include bp.respond-from('lg') {
+    width: 39.1%;
+  }
+
+  @include bp.respond-between('md', 'lg') {
+    width: 37.5%;
+  }
+
+  @include bp.respond-until('md') {
+    width: 41%;
+  }
+}
+
+.halfcanvas-animation__images img {
+  max-width: 100%;
+  max-height: 100%;
+  margin: 0 auto;
+  transition: 0.3s ease-out 0.2s;
+  will-change: transform;
+}
+
+.halfcanvas-animation__images img:not(.halfcanvas-animation__static-img) {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.halfcanvas-animation__static-img {
+  position: relative;
+}
+
+.halfcanvas-animation__collar {
+  transform: translate(0%, 0%);
+}
+
+.halfcanvas-animation--animated > div > {
+  .halfcanvas-animation__collar {
+    transform: translateY(-4.5%);
+  }
+}
+
+#avo-debugger {
+  display: none !important;
+}

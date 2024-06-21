@@ -1,0 +1,89 @@
+@use '@suits/ss-design-system/dist/ss-components/styles/sass/mixins/_breakpoints.scss' as bp;
+
+.journal_center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 15px;
+  text-align: center;
+
+  &__button {
+    margin-inline: auto;
+    width: max-content;
+  }
+
+  // mobile
+  @include bp.respond-until('md') {
+    margin-block: 128px;
+    width: 100%;
+
+    &__title {
+      margin-block-end: 40px;
+    }
+
+    &__image {
+      margin-block: 0;
+    }
+
+    &__description {
+      margin-block: 30px;
+      max-width: 290px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    &__button {
+      margin-block: 12px;
+    }
+  }
+
+  // tablet
+  @include bp.respond-between('md', 'lg') {
+    margin-block: 100px;
+    margin-inline: auto;
+    width: 370px;
+
+    &__title {
+      margin-block-end: 48px;
+    }
+
+    &__image {
+      margin-block: 0;
+    }
+
+    &__description {
+      margin-inline: auto;
+      margin-block: 40px;
+      max-width: 300px;
+    }
+
+    &__button {
+      margin-block: 0;
+    }
+  }
+
+  // desktop
+  @include bp.respond-from('lg') {
+    margin-block: 144px;
+    margin-inline: auto;
+    width: 448px;
+
+    &__title {
+      margin-block-end: 40px;
+    }
+
+    &__image {
+      margin-block: 0;
+    }
+
+    &__description {
+      margin-inline: auto;
+      margin-block: 30px;
+      max-width: 300px;
+    }
+
+    &__button {
+      margin-block: 2px;
+    }
+  }
+}

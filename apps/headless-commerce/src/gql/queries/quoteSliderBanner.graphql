@@ -1,0 +1,13 @@
+query quoteSliderBanner($id: String!, $locale: String!, $preview: Boolean) {
+  quoteSliderBanner(id: $id, locale: $locale, preview: $preview) {
+    internalTitle
+    quoteItemCollection {
+      items {
+        quote {
+          json
+        }
+        quoteTitleImage
+      }
+    }
+  }
+}

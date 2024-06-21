@@ -1,0 +1,34 @@
+query storyboard($id: String!, $locale: String!, $preview: Boolean) {
+  storyboardBanner(id: $id, locale: $locale, preview: $preview) {
+    storyboardItemsCollection {
+      items {
+        styling
+        title
+        text {
+          json
+        }
+        link {
+          linkType
+          relativeUrl
+          extraParameters
+          absoluteUrl
+          referenceId
+        }
+        promotionEvents {
+          promotionEventLabel
+          promotionEventAction
+          promotionEventCategory
+          promotionDimension24
+          promotionPosition
+          promotionCreative
+          promotionView
+          promotionClick
+        }
+        testAutomationAttribute
+        sys {
+          id
+        }
+      }
+    }
+  }
+}

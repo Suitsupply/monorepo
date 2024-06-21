@@ -1,0 +1,164 @@
+@use '@suits/ss-design-system/dist/ss-components/styles/sass/mixins/_breakpoints.scss' as bp;
+
+.location-banner {
+  background-color: var(--color-surface);
+  border-radius: 4px;
+  left: 50%;
+  position: fixed;
+  transform: translateX(-50%);
+  width: var(--banner-width);
+  z-index: 9;
+
+  @include bp.respond-until('lg') {
+    --banner-width: 355px;
+
+    bottom: 10px;
+    padding: 30px 40px;
+  }
+
+  @include bp.respond-from('lg') {
+    --banner-width: 866px;
+
+    bottom: 20px;
+    padding: 20px 40px;
+  }
+
+  &__close-btn {
+    position: absolute;
+    height: 32px;
+    width: 32px;
+    background: none;
+    border: none;
+    color: var(--color-primary);
+    font-size: 22px;
+    outline: none;
+    padding: 5px;
+    right: 4px;
+    top: 4px;
+    transition: color 0.2s ease-in-out;
+
+    &:hover {
+      color: #c6c6c6;
+      cursor: pointer;
+    }
+  }
+
+  &__content {
+    display: flex;
+
+    @include bp.respond-until('lg') {
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+    }
+
+    &__text {
+      color: var(--color-secondary);
+
+      @include bp.respond-until('lg') {
+        margin-block: 8px 20px;
+      }
+
+      @include bp.respond-from('lg') {
+        margin-block: 2px 5px;
+      }
+    }
+
+    &__country {
+      align-items: center;
+      display: inline-flex;
+      height: 18px;
+
+      @include bp.respond-until('lg') {
+        justify-content: center;
+      }
+
+      &-flag {
+        margin-right: 6px;
+      }
+    }
+
+    &__cta {
+      display: grid;
+
+      @include bp.respond-until('lg') {
+        flex-grow: 0;
+        flex-shrink: 0;
+        flex-basis: unset;
+        margin-block-start: 28px;
+        place-items: unset;
+        width: 100%;
+      }
+
+      @include bp.respond-from('lg') {
+        align-content: center;
+        place-items: flex-end;
+        flex: 1 0 200px;
+      }
+
+      a {
+        background-color: var(--color-primary);
+        border-radius: 4px;
+        border: 1px solid var(--color-primary);
+        display: flex;
+        color: var(--color-surface);
+        cursor: pointer;
+        justify-content: center;
+        line-height: 20px;
+        padding: 12px 20px;
+        max-height: 44px;
+        text-align: center;
+        text-decoration: none;
+        transition: 0.2s ease-in-out;
+
+        &:focus-visible {
+          outline: solid 4px var(--color-secondary-variation);
+        }
+
+        @include bp.respond-until('lg') {
+          min-width: 100%;
+        }
+
+        @include bp.respond-from('lg') {
+          margin-inline-end: 10px;
+          min-width: 146px;
+        }
+      }
+    }
+  }
+}
+
+.unsupported-location {
+  @include bp.respond-from('lg') {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0;
+  }
+}
+
+.unsupported-location__text {
+  text-align: center;
+}
+
+.unsupported-location__confirm-button {
+  color: var(--color-surface);
+  background-color: var(--color-primary);
+  border: 1px solid #2d2e2c;
+  border-radius: 4px;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  @include bp.respond-from('lg') {
+    flex: 0 0 146px;
+    padding: 10px 20px;
+  }
+
+  @include bp.respond-until('lg') {
+    width: 100%;
+    padding: 10px 20px;
+    margin-top: 28px;
+  }
+}

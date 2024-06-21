@@ -1,0 +1,78 @@
+@use '@suits/ss-design-system/dist/ss-components/styles/sass/mixins/_breakpoints.scss' as bp;
+
+$link-hover-transition: color 0.2s ease-in-out;
+
+@mixin hover {
+  @media (hover: hover) {
+    &:hover,
+    &:active {
+      @content;
+    }
+  }
+}
+
+@mixin hide-scroll-y {
+  overflow-y: auto;
+  -ms-overflow-style: none;
+
+  /* Internet Explorer 10+ */
+  scrollbar-width: none;
+
+  /* Firefox */
+  overscroll-behavior-y: contain;
+
+  &::-webkit-scrollbar {
+    display: none;
+
+    /* Safari and Chrome */
+  }
+}
+
+// Mixin used for adding three dots at the end, if text overflows.
+@mixin text-overflow-elipsis {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+@mixin link {
+  appearance: none;
+  outline: none;
+  text-decoration: none;
+  background-color: transparent;
+}
+
+@mixin link-underline {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+@mixin button {
+  background: none;
+  cursor: pointer;
+  user-select: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  padding: 8px 20px;
+  transition: 0.2s ease-in-out;
+  color: var(--color-primary);
+}
+
+@mixin button-primary {
+  color: var(--color-surface);
+  border-color: var(--color-primary);
+  background-color: var(--color-primary);
+}
+
+@mixin button-outline {
+  color: var(--color-primary);
+  border-color: var(--color-outline);
+  background-color: var(--color-surface);
+}
+
+@mixin button-disabled {
+  background-color: var(--color-background-light);
+  color: var(--color-secondary-variation);
+  border-color: var(--color-background);
+  pointer-events: none;
+}

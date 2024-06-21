@@ -1,0 +1,13 @@
+.logo {
+  align-content: center;
+  display: grid;
+  transition: opacity 0.3s ease-in-out;
+
+  &:hover {
+    opacity: 0.75;
+  }
+}
+
+.logo__img {
+  width: 100%;
+}

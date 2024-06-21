@@ -1,0 +1,31 @@
+@use '@suits/ss-design-system/dist/ss-components/styles/sass/mixins/_breakpoints.scss' as bp;
+@use '../NavigationMenu/mixins.scss' as *;
+
+.navigation-item-submenu {
+  @include menu-variables;
+
+  padding-block-end: 30px;
+
+  @include bp.respond-until('md') {
+    padding-block-start: 10px;
+  }
+
+  @include bp.respond-from('md') {
+    padding-block-start: 32px;
+  }
+
+  display: flex;
+  align-items: center;
+
+  img {
+    margin-inline-end: 1ch;
+  }
+
+  &__no-href {
+    button {
+      --link-color-hover: var(--color-primary);
+
+      cursor: auto;
+    }
+  }
+}

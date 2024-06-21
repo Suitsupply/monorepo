@@ -1,0 +1,83 @@
+query cmsPageContent($slug: String!, $locale: String!, $tags: [String!]!, $preview: Boolean) {
+  cmsPageCollection(
+    order: [slug_DESC]
+    locale: $locale
+    where: { slug_contains: $slug, contentfulMetadata: { tags: { id_contains_some: $tags } } }
+    limit: 1
+    preview: $preview
+  ) {
+    items {
+      seoMetadata {
+        sys {
+          id
+        }
+      }
+      typeOfBanner
+      campaignSectionsCollection {
+        __typename
+        items {
+          ... on CardCarouselContainer {
+            __typename
+            sys {
+              id
+            }
+          }
+          ... on ContentPageHeroBanner {
+            __typename
+            sys {
+              id
+            }
+          }
+          ... on FaqAccordion {
+            __typename
+            sys {
+              id
+            }
+          }
+          ... on JournalCenterContentBlock {
+            __typename
+            sys {
+              id
+            }
+          }
+          ... on QuoteSliderBanner {
+            __typename
+            sys {
+              id
+            }
+          }
+          ... on ShopCollectionBlock {
+            __typename
+            sys {
+              id
+            }
+          }
+          ... on StickyButton {
+            __typename
+            sys {
+              id
+            }
+          }
+          ... on TextAndButtonBanner {
+            __typename
+            sys {
+              id
+            }
+          }
+          ... on TextAndImageColumnBanner {
+            __typename
+            sys {
+              id
+            }
+          }
+          ... on TextAndImageRowBanner {
+            __typename
+            sys {
+              id
+            }
+          }
+        }
+      }
+    }
+  }
+}

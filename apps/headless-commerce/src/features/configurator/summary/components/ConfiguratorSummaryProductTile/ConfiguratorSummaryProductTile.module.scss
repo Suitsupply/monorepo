@@ -1,0 +1,233 @@
+@use 'sass:color';
+@use '@suits/ss-design-system/dist/ss-components/styles/sass/mixins/_breakpoints.scss' as bp;
+@use '@headless-commerce/styles/mixins.scss' as *;
+
+.product-tile {
+  display: flex;
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.product-tile__image-wrapper {
+  position: relative;
+
+  @include bp.respond-from('lg') {
+    flex: 0 0 45.1%;
+    max-width: 45.1%;
+  }
+
+  @include bp.respond-until('lg') {
+    flex: 0 0 36%;
+    max-width: 36%;
+  }
+
+  picture {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
+}
+
+.product-tile__image-container {
+  position: relative;
+  width: 100%;
+  background-color: var(--color-background);
+  overflow: hidden;
+
+  @include bp.respond-from('lg') {
+    aspect-ratio: 185 / 220;
+    padding-bottom: 118.92%;
+  }
+
+  @include bp.respond-until('lg') {
+    aspect-ratio: 120/144;
+    padding-bottom: 120%;
+  }
+}
+
+.product-tile__image-container__oos {
+  opacity: 0.5;
+}
+
+.product-tile__image {
+  width: 100%;
+  height: auto;
+  vertical-align: middle;
+}
+
+.product-tile__body {
+  display: flex;
+  align-items: center;
+  color: var(--color-primary);
+  position: relative;
+
+  @include bp.respond-from('lg') {
+    flex: 0 0 54.9%;
+    max-width: 54.9%;
+    padding: 13px 0 13px 32px;
+  }
+
+  @include bp.respond-between('md', 'lg') {
+    padding: 32px 0 32px 32px;
+  }
+
+  @include bp.respond-until('lg') {
+    flex: 0 0 64%;
+    max-width: 64%;
+  }
+
+  @include bp.respond-until('md') {
+    padding: 12px 0 14px 24px;
+    max-width: 64%;
+  }
+}
+
+.product-tile__body-content {
+  width: 100%;
+  overflow: hidden;
+}
+
+.product-tile__body__oos-badge {
+  // Hardcoding color since SASS doesn't support CSS variables
+  @debug color.scale(#c33333, $alpha: 50%);
+
+  border-radius: 4px;
+  color: var(--color-error);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  margin-block-end: 10px;
+  padding: 6px 10px;
+  width: fit-content;
+
+  // @include bp.respond-from('lg') {
+  //   top: 13px;
+  //   left: 32px;
+  // }
+
+  // @include bp.respond-between('md', 'lg') {
+  //   top: 32px;
+  //   left: 32px;
+  // }
+
+  // @include bp.respond-until('md') {
+  //   top: 12px;
+  //   left: 24px;
+  // }
+}
+
+.product-tile__title {
+  @include link;
+  @include text-overflow-elipsis;
+
+  @include hover {
+    color: var(--color-secondary-variation);
+  }
+
+  display: block;
+  margin-bottom: 4px;
+  color: var(--color-primary);
+  transition: $link-hover-transition;
+}
+
+.product-tile__description {
+  display: block;
+  margin-bottom: 4px;
+
+  @include text-overflow-elipsis;
+}
+
+.product-tile__price {
+  display: block;
+
+  @include bp.respond-from('md') {
+    font-size: 15px;
+    line-height: 16px;
+  }
+
+  @include bp.respond-until('md') {
+    font-size: 13px;
+    line-height: 16px;
+  }
+}
+
+.product-tile__footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 16px;
+}
+
+.product-tile__badge {
+  position: relative;
+  padding: 6px 10px 6px 24px;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 400;
+  background-color: var(--color-background);
+  border-radius: 4px;
+
+  @include text-overflow-elipsis;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 13px;
+    left: 11px;
+    width: 10px;
+    height: 1px;
+    color: black;
+    background-color: var(--color-primary);
+    transform: rotate(-49deg);
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 15px;
+    left: 9px;
+    width: 5px;
+    height: 1px;
+    color: black;
+    background-color: var(--color-primary);
+    transform: rotate(46deg);
+  }
+}
+
+.product-tile__button {
+  @include button;
+  @include button-outline;
+  @include text-overflow-elipsis;
+
+  @include hover {
+    border-color: var(--color-secondary);
+  }
+
+  padding: 10px 20px;
+  margin-right: 10px;
+}
+
+.product-tile__button:disabled {
+  background-color: var(--color-background-light);
+  color: var(--color-secondary-variation);
+  cursor: not-allowed;
+}
+
+.product-tile__button--selected {
+  @include button-primary;
+
+  min-width: 110px;
+}
+
+.product-tile__edit-link {
+  @include link;
+  @include link-underline;
+
+  color: var(--color-primary);
+  transition: $link-hover-transition;
+
+  @include hover {
+    color: var(--color-secondary-variation);
+  }
+}

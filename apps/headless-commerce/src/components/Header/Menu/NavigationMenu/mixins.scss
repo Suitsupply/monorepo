@@ -1,0 +1,42 @@
+@use '@suits/ss-design-system/dist/ss-components/styles/sass/mixins/_breakpoints.scss' as bp;
+
+@mixin search-animation-variables {
+  --search-time-in: 0.4s;
+  --search-ease-in: cubic-bezier(0.5, 0, 0.3, 1);
+  --search-time-out: 0.2s;
+  --search-ease-out: ease-out;
+}
+
+@mixin menu-variables {
+  --menu-padding-large: 40px;
+  --menu-padding-small: 28px;
+  --item-height-large: 44px;
+  --item-height-small: 40px;
+}
+
+@mixin icon-large {
+  display: flex;
+  font-size: var(--icon-large);
+  height: var(--icon-large);
+  line-height: var(--icon-large);
+  align-items: center;
+  justify-self: center;
+  width: var(--icon-large);
+
+  @include bp.respond-from('md') {
+    --icon-large: 24px;
+  }
+
+  @include bp.respond-until('md') {
+    --icon-large: 20px;
+  }
+}
+
+@mixin icon-small {
+  display: grid;
+  font-size: 20px;
+  height: 20px;
+  line-height: 20px;
+  place-items: center;
+  width: 20px;
+}

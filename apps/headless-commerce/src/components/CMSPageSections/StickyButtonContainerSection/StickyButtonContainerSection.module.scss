@@ -1,0 +1,21 @@
+@use '@suits/ss-design-system/dist/ss-components/styles/sass/mixins/_breakpoints.scss' as bp;
+
+.sticky-button-container {
+  @include bp.respond-between('xs', 'md') {
+    &__mobile-no {
+      display: none;
+    }
+  }
+
+  @include bp.respond-between('md', 'lg') {
+    &__tablet-no {
+      display: none;
+    }
+  }
+
+  @include bp.respond-from('lg') {
+    &__desktop-no {
+      display: none;
+    }
+  }
+}

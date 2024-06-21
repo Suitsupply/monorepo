@@ -1,0 +1,5 @@
+import * as Types from './graphql';
+
+import { DocumentNode } from 'graphql';
+
+export const UpdateSubscribeDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateSubscribe"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"updateSubscribeInput"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"UpdateSubscribeInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateSubscribe"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"updateSubscribeInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"updateSubscribeInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"success"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"status"}}]}}]}}]} as unknown as DocumentNode;

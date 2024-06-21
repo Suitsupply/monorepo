@@ -1,0 +1,72 @@
+query homepageContent($locale: String!, $tags: [String!]!, $preview: Boolean) {
+  homepageCollection(
+    order: [slug_DESC]
+    limit: 1
+    locale: $locale
+    where: { contentfulMetadata: { tags: { id_contains_some: $tags } } }
+    preview: $preview
+  ) {
+    items {
+      seoMetadata {
+        sys {
+          id
+        }
+      }
+      contentfulMetadata {
+        tags {
+          id
+        }
+      }
+      campaignSectionsCollection {
+        items {
+          __typename
+          ... on HeroBannerWithLinks {
+            sys {
+              id
+            }
+          }
+          ... on ImageCarrouselContainer {
+            sys {
+              id
+            }
+          }
+          ... on ImageCarrouselContainer {
+            sys {
+              id
+            }
+          }
+          ... on StoryboardBanner {
+            sys {
+              id
+            }
+          }
+          ... on ArticleCarrousel {
+            sys {
+              id
+            }
+          }
+          ... on CampaignCarrousel {
+            sys {
+              id
+            }
+          }
+          ... on CampaignCollectionBlock {
+            sys {
+              id
+            }
+          }
+          ... on HeroBanner {
+            sys {
+              id
+            }
+          }
+          ... on ImageWithText {
+            sys {
+              id
+            }
+          }
+        }
+      }
+    }
+  }
+}

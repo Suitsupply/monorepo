@@ -1,0 +1,105 @@
+@use '@suits/ss-design-system/dist/ss-components/styles/sass/mixins/_breakpoints.scss' as bp;
+
+.hero-banner {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background-color: #efefef;
+
+  img,
+  picture {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  img {
+    object-fit: cover;
+    object-position: bottom;
+  }
+
+  &__image-link {
+    display: block;
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+
+    &::after {
+      content: '';
+      display: block;
+      position: absolute;
+      opacity: var(--overlay-opacity);
+      inset: 0;
+      background-color: rgba(#000, 0.2);
+    }
+  }
+
+  &__links {
+    --bottom-distance: 46px;
+
+    padding-block-start: calc(var(--screen-inner-height, 100vh) - 46px);
+    position: relative;
+    left: 0;
+    width: max-content;
+    z-index: 2;
+    pointer-events: none;
+
+    @include bp.respond-between('md', 'xl') {
+      --bottom-distance: 48px;
+    }
+
+    @include bp.respond-between('xl', 'xxl') {
+      --bottom-distance: 56px;
+    }
+
+    @include bp.respond-from('xxl') {
+      --bottom-distance: 62px;
+    }
+
+    &-list {
+      list-style-type: none;
+      width: max-content;
+      pointer-events: auto;
+
+      @include bp.respond-until('md') {
+        padding-inline: 16px;
+        padding-block-end: 16px;
+      }
+
+      @include bp.respond-between('md', 'xl') {
+        padding-inline: 28px;
+        padding-block-end: 28px;
+      }
+
+      @include bp.respond-between('xl', 'xxl') {
+        padding-inline: 32px;
+        padding-block-end: 32px;
+      }
+
+      @include bp.respond-from('xxl') {
+        padding-inline: 32px;
+        padding-block-end: 32px;
+      }
+    }
+  }
+}
+
+.hero-banner__wrapper {
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  transform: translateZ(0);
+  transition: opacity 0.3s ease-out;
+}
+
+.hero-banner__wrapper--scrolled {
+  display: block;
+  position: absolute;
+  top: auto;
+  bottom: 0;
+}

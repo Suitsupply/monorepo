@@ -1,0 +1,50 @@
+query campaignCollectionBlockContent($id: String!, $locale: String!, $preview: Boolean) {
+  campaignCollectionBlock(id: $id, locale: $locale, preview: $preview) {
+    title
+    sys {
+      id
+    }
+    cta {
+      link {
+        relativeUrl
+        referenceId
+        extraParameters
+        linkType
+      }
+    }
+    contentCollection {
+      items {
+        ... on ImageWithText {
+          image {
+            cloudinaryMobileImage
+            cloudinaryDesktopImage
+            cloudinaryTabletImage
+            altText
+            lazyloading
+          }
+          title
+          colorPalette
+          link {
+            relativeUrl
+            referenceId
+            extraParameters
+            linkType
+          }
+          subline {
+            json
+          }
+          promotionEvents {
+            promotionEventLabel
+            promotionEventAction
+            promotionEventCategory
+            promotionDimension24
+            promotionPosition
+            promotionCreative
+            promotionView
+            promotionClick
+          }
+        }
+      }
+    }
+  }
+}

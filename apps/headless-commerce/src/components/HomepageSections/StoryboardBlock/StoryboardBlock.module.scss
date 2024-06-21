@@ -1,0 +1,39 @@
+@use '@suits/ss-design-system/dist/ss-components/styles/sass/mixins/_breakpoints.scss' as bp;
+
+.storyboard {
+  background-color: black;
+  display: flex;
+  align-content: center;
+  flex-direction: column;
+  margin: 0;
+  position: relative;
+
+  @include bp.respond-until('md') {
+    align-items: start;
+  }
+
+  @include bp.respond-from('md') {
+    align-items: center;
+  }
+
+  &__links {
+    padding-block: 40px 58px;
+    position: relative;
+
+    @include bp.respond-until('md') {
+      padding-inline-start: 16px;
+      text-align: start;
+    }
+
+    @include bp.respond-from('md') {
+      text-align: center;
+    }
+
+    @include bp.respond-from('xxl') {
+      font-size: 36px;
+      line-height: 44px;
+      letter-spacing: -0.8px;
+      padding-inline-start: 92px;
+    }
+  }
+}

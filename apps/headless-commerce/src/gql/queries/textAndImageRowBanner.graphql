@@ -1,0 +1,32 @@
+query textAndImageRowBannerQuery($id: String!, $locale: String!, $preview: Boolean) {
+  textAndImageRowBanner(id: $id, locale: $locale, preview: $preview) {
+    iconName
+    title
+    description {
+      json
+    }
+    mediaContentCollection {
+      items {
+        __typename
+        ... on MediaWrapperV2 {
+          altText
+          cloudinaryMobileImage
+          cloudinaryTabletImage
+          cloudinaryDesktopImage
+          description
+          lazyloading
+        }
+        ... on DynamicMediaWrapper {
+          dynamicContent
+        }
+        ... on PinpointOverlayIndicator {
+          desktopPinpointPosition
+          tabletPinpointPosition
+          mobilePinpointPosition
+          text
+          textPosition
+        }
+      }
+    }
+  }
+}

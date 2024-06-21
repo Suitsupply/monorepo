@@ -1,0 +1,51 @@
+@use '@suits/ss-design-system/dist/ss-components/styles/sass/mixins/_breakpoints.scss' as bp;
+
+.menu-group {
+  display: block;
+  padding-block: 0 20px;
+
+  &:first-child {
+    @include bp.respond-until('md') {
+      padding-block-start: 10px;
+    }
+
+    @include bp.respond-from('md') {
+      padding-block-start: 56px;
+    }
+  }
+
+  &__level1 {
+    &:first-child {
+      @include bp.respond-until('md') {
+        padding-block-start: 10px;
+      }
+
+      @include bp.respond-from('md') {
+        padding-block-start: 26px;
+      }
+    }
+  }
+
+  &__level2 {
+    &:first-child {
+      @include bp.respond-until('md') {
+        padding-block-start: 10px;
+      }
+
+      @include bp.respond-from('md') {
+        padding-block-start: 26px;
+      }
+    }
+  }
+
+  &__title {
+    display: block;
+    text-transform: uppercase;
+    color: var(--color-secondary);
+    margin-block: 20px 16px;
+  }
+
+  &:not(.visible) {
+    display: none;
+  }
+}

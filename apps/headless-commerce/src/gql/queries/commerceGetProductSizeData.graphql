@@ -1,0 +1,40 @@
+fragment SizeDetails on Size {
+  id
+  sizeColumnKey
+  displayValue
+  variantID
+  availabilityStatus {
+    ATS
+    isAvailable
+    preOrder
+    inStockDate
+  }
+}
+
+query commerceGetProductSizeData($pid: String!, $siteInfo: SiteInfo!) {
+  getProductSizeData(pid: $pid, siteInfo: $siteInfo) {
+    rows {
+      id
+      name
+      description
+    }
+    rowsData {
+      regular {
+        ...SizeDetails
+      }
+      long {
+        ...SizeDetails
+      }
+      short {
+        ...SizeDetails
+      }
+      size {
+        ...SizeDetails
+      }
+    }
+    sortedSizeColumn {
+      key
+      value
+    }
+  }
+}

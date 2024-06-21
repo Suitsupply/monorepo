@@ -1,0 +1,25 @@
+query commerceCampaignCarrousel($categoryId: String!, $siteInfo: SiteInfo!, $limit: Int!) {
+  productSearchForHomePage(categoryId: $categoryId, siteInfo: $siteInfo, limit: $limit) {
+    id
+    name
+    url
+    price
+    currency
+    desktopImage {
+      srcset
+      breakpoint
+      url
+    }
+    mobileImage {
+      breakpoint
+      srcset
+      url
+    }
+  }
+}
+
+type SiteInfo {
+  siteId: Int!
+  locale: String!
+  currency: String!
+}

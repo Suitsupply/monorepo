@@ -1,0 +1,15 @@
+query footerNewsletterBlock($id: String!, $locale: String!, $preview: Boolean) {
+  footerNewsletterBlock(id: $id, locale: $locale, preview: $preview) {
+    title
+    promotionEvents {
+      promotionEventLabel
+      promotionEventAction
+      promotionEventCategory
+      promotionDimension24
+      promotionPosition
+      promotionCreative
+      promotionView
+      promotionClick
+    }
+  }
+}

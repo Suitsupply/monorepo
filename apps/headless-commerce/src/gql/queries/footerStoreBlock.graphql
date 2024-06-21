@@ -1,0 +1,40 @@
+query footerStoreBlock($id: String!, $locale: String!, $preview: Boolean) {
+  footerStoreBlock(id: $id, locale: $locale, preview: $preview) {
+    title
+    description
+    internalTitle
+    cta {
+      title
+      text {
+        json
+      }
+      styling
+      link {
+        ... on NavigationLink {
+          internalTitle
+          relativeUrl
+          referenceId
+          extraParameters
+          linkType
+        }
+      }
+      promotionEvents {
+        promotionEventLabel
+        promotionEventAction
+        promotionEventCategory
+        promotionDimension24
+        promotionPosition
+        promotionCreative
+        promotionView
+        promotionClick
+      }
+    }
+    image {
+      description
+      lazyloading
+      cloudinaryDesktopImage
+      cloudinaryMobileImage
+      cloudinaryTabletImage
+    }
+  }
+}

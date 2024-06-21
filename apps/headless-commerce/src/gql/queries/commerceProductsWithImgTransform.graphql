@@ -1,0 +1,61 @@
+type SiteInfo {
+  currency: String!
+  locale: String!
+  siteId: String!
+}
+
+query commerceProductsWithImgTransform(
+  $categoryId: String!
+  $siteInfo: SiteInfo!
+  $desktopImgTransformationType: String!
+  $mobileImgTransformationType: String!
+  $limit: Int
+) {
+  productSearchWithImgTransform(
+    categoryId: $categoryId
+    siteInfo: $siteInfo
+    desktopImgTransformationType: $desktopImgTransformationType
+    mobileImgTransformationType: $mobileImgTransformationType
+    limit: $limit
+  ) {
+    materialValue
+    desktopImage {
+      url
+      srcset
+      breakpoint
+    }
+    mobileImage {
+      url
+      srcset
+      breakpoint
+    }
+    setProducts {
+      type
+      name
+      categoryName
+      categoryId
+      materialValue
+      price
+      id
+      size
+      colorId
+    }
+    type
+    name
+    categoryName
+    categoryId
+    price
+    url
+    id
+    size
+    colorId
+    isCustomMadeProduct
+    badge
+    isFabricAvailable
+    isEnabledCustomizeButton
+    fabricCodeID
+    availabilityStatus {
+      preOrder
+    }
+  }
+}

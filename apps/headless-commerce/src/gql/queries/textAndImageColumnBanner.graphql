@@ -1,0 +1,171 @@
+query textAndImageColumnBanner($id: String!, $locale: String!, $preview: Boolean) {
+  textAndImageColumnBanner(id: $id, locale: $locale, preview: $preview) {
+    contentOrderDesktop
+    contentOrderMobile
+    contentOrderTablet
+    contentCollection {
+      items {
+        ... on MediaWrapperV2 {
+          __typename
+          sys {
+            id
+          }
+          altText
+          cloudinaryMobileImage
+          cloudinaryTabletImage
+          cloudinaryDesktopImage
+          description
+          lazyloading
+        }
+        ... on TextAndButtonBanner {
+          __typename
+          sys {
+            id
+          }
+          desktopCopyAlignment
+          mobileCopyAlignment
+          tabletCopyAlignment
+          button {
+            ... on Button {
+              tabletButtonAlignment
+              desktopButtonAlignment
+              mobileButtonAlignment
+              visibleOnTablet
+              visibleOnDesktop
+              visibleOnMobile
+              buttonStyle
+              buttonRichText {
+                json
+                links {
+                  entries {
+                    inline {
+                      ... on PriceInfo {
+                        sys {
+                          id
+                        }
+                        internalTitle
+                        name
+                        __typename
+                        pricesCollection {
+                          ... on PriceInfoPricesCollection {
+                            limit
+                            skip
+                            total
+                            items {
+                              ... on PriceInfoValue {
+                                currencyCode
+                                priceValue
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+              link {
+                absoluteUrl
+                extraParameters
+                linkType
+                referenceId
+                relativeUrl
+              }
+              promotionEvents {
+                promotionPosition
+                promotionEventLabel
+                promotionEventCategory
+                promotionEventAction
+                promotionDimension24
+                promotionCreative
+                promotionClick
+                promotionView
+              }
+            }
+            ... on StickyButton {
+              buttonRichText {
+                json
+                links {
+                  entries {
+                    inline {
+                      ... on PriceInfo {
+                        sys {
+                          id
+                        }
+                        internalTitle
+                        name
+                        __typename
+                        pricesCollection {
+                          ... on PriceInfoPricesCollection {
+                            limit
+                            skip
+                            total
+                            items {
+                              ... on PriceInfoValue {
+                                currencyCode
+                                priceValue
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+              stickyOnTablet
+              stickyOnMobile
+              stickyOnDesktop
+              visibleOnTablet
+              visibleOnMobile
+              visibleOnDesktop
+              buttonStyle
+              link {
+                absoluteUrl
+                extraParameters
+                linkType
+                referenceId
+                relativeUrl
+              }
+              promotionEvents {
+                promotionPosition
+                promotionEventLabel
+                promotionEventCategory
+                promotionEventAction
+                promotionDimension24
+                promotionCreative
+                promotionClick
+                promotionView
+              }
+            }
+          }
+          text {
+            json
+            links {
+              entries {
+                inline {
+                  ... on PriceInfo {
+                    sys {
+                      id
+                    }
+                    name
+                    pricesCollection {
+                      ... on PriceInfoPricesCollection {
+                        items {
+                          ... on PriceInfoValue {
+                            currencyCode
+                            priceValue
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

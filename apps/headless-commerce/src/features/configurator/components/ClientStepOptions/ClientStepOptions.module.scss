@@ -1,0 +1,87 @@
+@use '@suits/ss-design-system/dist/ss-components/styles/sass/mixins/_breakpoints.scss' as bp;
+
+.options {
+  --gutter: 6px;
+
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-around;
+  overflow: auto visible;
+  width: 100%;
+
+  * {
+    box-sizing: border-box;
+  }
+
+  &-list {
+    display: grid;
+    overflow: auto visible;
+    gap: var(--gap);
+
+    &::before,
+    &::after {
+      content: '';
+    }
+
+    @include bp.respond-until('sm') {
+      --border-offset: 2px;
+      --gap: 10px;
+      --option-size: calc(88px + var(--border-offset) * 2);
+    }
+
+    @include bp.respond-between('sm', 'lg') {
+      --border-offset: 3px;
+      --option-size: calc(130px + var(--border-offset) * 2);
+    }
+
+    @include bp.respond-until('lg') {
+      --border-offset: 3px;
+      --gap: 0px;
+
+      padding-block-start: 3px;
+      margin-inline: auto;
+      grid-template-rows: 1fr;
+      grid-template-columns:
+        var(--gutter) repeat(var(--options-count), var(--option-size))
+        var(--gutter);
+      width: fit-content;
+    }
+
+    @include bp.respond-from('lg') {
+      --option-size: 130px;
+      --gap: 5px;
+
+      grid-auto-rows: min-content;
+      grid-auto-flow: row;
+      grid-template-columns: 100%;
+      height: 100%;
+      overflow: unset;
+      padding: 6px 20px;
+      width: 100%;
+
+      &::before,
+      &::after {
+        content: unset;
+      }
+    }
+
+    &__half {
+      --gap: 5px;
+
+      margin-inline: initial;
+      place-content: center;
+      width: 100%;
+
+      @include bp.respond-until('lg') {
+        --gap: 0px;
+
+        grid-template-columns:
+          var(--gutter) repeat(
+            var(--options-count),
+            min(358px, calc((100% - (2 * var(--gutter)) - (3 * var(--gap))) / 2))
+          )
+          var(--gutter);
+      }
+    }
+  }
+}

@@ -1,0 +1,56 @@
+query HeroBannerWithLinksContent($id: String!, $locale: String!, $preview: Boolean) {
+  heroBannerWithLinks(id: $id, locale: $locale, preview: $preview) {
+    link {
+      relativeUrl
+      referenceId
+      extraParameters
+      linkType
+    }
+    content {
+      __typename
+      ... on MediaWrapperV2 {
+        altText
+        cloudinaryDesktopImage
+        cloudinaryMobileImage
+        cloudinaryTabletImage
+        lazyloading
+      }
+    }
+    promotionEvents {
+      promotionEventLabel
+      promotionEventAction
+      promotionEventCategory
+      promotionDimension24
+      promotionPosition
+      promotionCreative
+      promotionView
+      promotionClick
+    }
+    heroListLinksCollection {
+      items {
+        internalTitle
+        sys {
+          id
+        }
+        link {
+          relativeUrl
+          referenceId
+          extraParameters
+          linkType
+        }
+        linkText
+        testAutomationAttribute
+        promotionEvents {
+          promotionEventLabel
+          promotionEventAction
+          promotionEventCategory
+          promotionDimension24
+          promotionPosition
+          promotionCreative
+          promotionView
+          promotionClick
+        }
+      }
+    }
+  }
+}

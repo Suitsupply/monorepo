@@ -1,0 +1,89 @@
+query footerBottomBlock($id: String!, $locale: String!, $preview: Boolean) {
+  footerBottomBlock(id: $id, locale: $locale, preview: $preview) {
+    __typename
+    internalTitle
+    contentSectionsCollection(limit: 10) {
+      __typename
+      items {
+        __typename
+        ... on Cta {
+          title
+          text {
+            json
+          }
+          link {
+            ... on NavigationLink {
+              internalTitle
+              relativeUrl
+              referenceId
+              extraParameters
+              linkType
+            }
+          }
+          styling
+          promotionEvents {
+            promotionEventLabel
+            promotionEventAction
+            promotionEventCategory
+            promotionDimension24
+            promotionPosition
+            promotionCreative
+            promotionView
+            promotionClick
+          }
+        }
+        ... on LinkWithImage {
+          title
+          cloudinaryImage
+          link {
+            ... on NavigationLink {
+              internalTitle
+              relativeUrl
+              referenceId
+              extraParameters
+              linkType
+            }
+          }
+          promotionEvents {
+            promotionEventLabel
+            promotionEventAction
+            promotionEventCategory
+            promotionDimension24
+            promotionPosition
+            promotionCreative
+            promotionView
+            promotionClick
+          }
+        }
+        ... on SocialLinksWrapper {
+          internalTitle
+          contentSectionsCollection(limit: 10) {
+            items {
+              link {
+                ... on NavigationLink {
+                  internalTitle
+                  relativeUrl
+                  referenceId
+                  extraParameters
+                  linkType
+                  absoluteUrl
+                }
+              }
+              iconName
+              promotionEvents {
+                promotionEventLabel
+                promotionEventAction
+                promotionEventCategory
+                promotionDimension24
+                promotionPosition
+                promotionCreative
+                promotionView
+                promotionClick
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

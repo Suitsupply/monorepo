@@ -1,0 +1,95 @@
+query footerContactAndLinksBlock($id: String!, $countryCode: String!, $locale: String!, $preview: Boolean) {
+  footerContactAndLinksBlock(id: $id, locale: $locale, preview: $preview) {
+    title
+    listSectionsCollection(limit: 4) {
+      __typename
+      items {
+        title
+        ctaCollection {
+          items {
+            title
+            styling
+            link {
+              ... on NavigationLink {
+                internalTitle
+                relativeUrl
+                referenceId
+                extraParameters
+                linkType
+                absoluteUrl
+                contentfulMetadata {
+                  tags {
+                    id
+                  }
+                }
+                sys {
+                  environmentId
+                  id
+                  spaceId
+                }
+              }
+            }
+            promotionEvents {
+              promotionEventLabel
+              promotionEventAction
+              promotionEventCategory
+              promotionDimension24
+              promotionPosition
+              promotionCreative
+              promotionView
+              promotionClick
+            }
+          }
+        }
+      }
+    }
+    contactSection {
+      title
+      contentSectionsCollection(limit: 6) {
+        __typename
+        items {
+          title
+          promotionEvents {
+            promotionEventLabel
+            promotionEventAction
+            promotionEventCategory
+            promotionDimension24
+            promotionPosition
+            promotionCreative
+            promotionView
+            promotionClick
+          }
+          text {
+            __typename
+            json
+            links {
+              entries {
+                inline {
+                  ... on PhoneInfo {
+                    phoneNumbersCollection(limit: 5, where: { countryCode_in: [$countryCode, "default"] }) {
+                      items {
+                        phoneDisplay
+                        phoneValue
+                        countryCode
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+          link {
+            ... on NavigationLink {
+              internalTitle
+              relativeUrl
+              referenceId
+              extraParameters
+              absoluteUrl
+              linkType
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,12 @@
+query CommerceCampaignPromotion($campaignId: String!, $siteInfo: SiteInfo!) {
+  promotionByCampaignId(campaignId: $campaignId, siteInfo: $siteInfo) {
+    price
+    discountPrice
+  }
+}
+
+type SiteInfo {
+  siteId: Int!
+  locale: String!
+  currency: String!
+}

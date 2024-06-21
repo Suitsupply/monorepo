@@ -1,0 +1,18 @@
+query commerceProductAvailability($pids: [String]!, $siteInfo: SiteInfo!) {
+  getProductsByIds(pids: $pids, siteInfo: $siteInfo) {
+    id
+    availabilityStatus {
+      isAvailable
+      preOrder
+      oneLeft
+      showBadge
+      inStockDate
+    }
+  }
+}
+
+type SiteInfo {
+  siteId: Int!
+  locale: String!
+  currency: String!
+}

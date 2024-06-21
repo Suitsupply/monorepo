@@ -1,0 +1,17 @@
+query GetCartByCustomer($customerId: ID!, $siteInfo: SiteInfo!) {
+  getCartByCustomer(customerId: $customerId, siteInfo: $siteInfo) {
+    currency
+    lineItems {
+      productId
+      masterProductId
+      price
+      priceAfterDiscount
+      quantity
+      size
+    }
+    giftCertificateItems {
+      price
+      type
+    }
+  }
+}

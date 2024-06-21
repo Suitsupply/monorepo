@@ -1,0 +1,70 @@
+@use '@suits/ss-design-system/dist/ss-components/styles/sass/mixins/_breakpoints.scss' as bp;
+@use '@headless-commerce/styles/mixins.scss' as *;
+
+.shop-collection {
+  @include bp.respond-from('lg') {
+    margin-bottom: 120px;
+  }
+
+  @include bp.respond-between('md', 'lg') {
+    margin-bottom: 120px;
+  }
+
+  @include bp.respond-until('md') {
+    margin-bottom: 50px;
+  }
+
+  &__title {
+    text-align: center;
+    width: 100%;
+
+    @include bp.respond-until('md') {
+      margin-block: 0 50px;
+    }
+
+    @include bp.respond-from('md') {
+      margin-block: 0 60px;
+    }
+  }
+
+  &__grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    @include bp.respond-from('md') {
+      gap: 8px;
+    }
+
+    @include bp.respond-until('md') {
+      gap: 0;
+    }
+  }
+
+  &__product {
+    flex-shrink: 0;
+    margin-block-end: 60px;
+
+    @include bp.respond-until('md') {
+      width: 100%;
+    }
+
+    @include bp.respond-from('md') {
+      width: calc(50% - 4px);
+    }
+
+    &-info {
+      padding: 15px;
+    }
+
+    &-material {
+      color: var(--color-secondary);
+    }
+  }
+
+  &__button {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+}

@@ -1,0 +1,26 @@
+@use '@suits/ss-design-system/dist/ss-components/styles/sass/mixins/_breakpoints.scss' as bp;
+
+.footer-usp-block {
+  border-top: solid 1px #333;
+  border-bottom: solid 1px #333;
+  display: flex;
+  flex-direction: column;
+
+  @include bp.respond-until('md') {
+    padding: 45px 0;
+  }
+
+  @include bp.respond-between('md', 'lg') {
+    padding: 65px 25px;
+  }
+
+  @include bp.respond-between('lg', 'xl') {
+    flex-direction: row;
+    padding-block: 65px;
+  }
+
+  @include bp.respond-from('xl') {
+    flex-direction: row;
+    padding: 80px 65px;
+  }
+}
