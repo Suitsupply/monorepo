@@ -177,32 +177,32 @@ jobs:
   #       displayName: 'Run e2e tests'
   #       continueOnError: 'false'
 
-  - job: ClearCache
-    dependsOn: Deploy
-    condition: and(succeeded('Deploy'), ne(variables.IS_PR, true))
-    displayName: "Clear cache"
-    steps:
-      - task: DownloadSecureFile@1
-        name: "akamaiConfig"
-        displayName: "Get secure file for akamai"
-        inputs:
-          secureFile: ".edgerc"
+  # - job: ClearCache
+  #   dependsOn: Deploy
+  #   condition: and(succeeded('Deploy'), ne(variables.IS_PR, true))
+  #   displayName: "Clear cache"
+  #   steps:
+  #     - task: DownloadSecureFile@1
+  #       name: "akamaiConfig"
+  #       displayName: "Get secure file for akamai"
+  #       inputs:
+  #         secureFile: ".edgerc"
 
-      - bash: |
-          # Homebrew is the easiest way to install these tools. Otherwise you need to download & install the binaries. Homebrew only works on
-          # the Ubuntu and MacOS hosted agents
-          eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-          echo $(cp_codes)
-          brew -v
-          brew config
-          brew update
-          brew search akamai
-          brew info akamai
-          brew install akamai
-          # Make akamai think it asked the 'share statistics' question already.
-          mkdir ~/.akamai-cli
-          printf '[cli]\nenable-cli-statistics=false' >> ~/.akamai-cli/config
-          # Install Akamai plugin for working with purge
-          akamai install purge
-          akamai purge --edgerc $(akamaiConfig.secureFilePath) invalidate --cpcode $(cp_codes)
-        displayName: "Install Akamai Command Line Tools & purge cache"
+  #     - bash: |
+  #         # Homebrew is the easiest way to install these tools. Otherwise you need to download & install the binaries. Homebrew only works on
+  #         # the Ubuntu and MacOS hosted agents
+  #         eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+  #         echo $(cp_codes)
+  #         brew -v
+  #         brew config
+  #         brew update
+  #         brew search akamai
+  #         brew info akamai
+  #         brew install akamai
+  #         # Make akamai think it asked the 'share statistics' question already.
+  #         mkdir ~/.akamai-cli
+  #         printf '[cli]\nenable-cli-statistics=false' >> ~/.akamai-cli/config
+  #         # Install Akamai plugin for working with purge
+  #         akamai install purge
+  #         akamai purge --edgerc $(akamaiConfig.secureFilePath) invalidate --cpcode $(cp_codes)
+  #       displayName: "Install Akamai Command Line Tools & purge cache"
