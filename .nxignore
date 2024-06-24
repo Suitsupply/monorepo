@@ -6,7 +6,6 @@
 .direnv/
 .eslintcache
 .idea/
-.idea/
 .next/
 .nx
 .nx/cache/
