@@ -103,9 +103,13 @@ jobs:
       # Load NPM packages from cache.
       - task: Cache@2
         inputs:
-          key: 'pnpm | "$(Agent.OS)" | pnpm-lock.yaml'
+          key: '"pnpm" | "$(Agent.OS)" | "pnpm-lock.yaml"'
+          restoreKeys: |
+            "pnpm" | "$(Agent.OS)" | "pnpm-lock.yaml"
+            "pnpm" | "$(Agent.OS)"
+            "pnpm"
           path: $(pnpm_config_cache)
-        displayName: Cache pnpm
+        displayName: Cache PNPM
 
       # Install NX.
       - script: |
@@ -116,17 +120,22 @@ jobs:
       # Load Turbo cache.
       - task: Cache@2
         inputs:
-          key: 'turbo | "$(Agent.OS)" | pnpm-lock.yaml'
-          path: .turbo
-        displayName: Cache turbo
+          key: '"turbo" | "$(Agent.OS)" | "$(Build.SourceBranch)" | "$(Build.SourceVersion)"'
+          restoreKeys: |
+            "turbo" | "$(Agent.OS)" | "$(Build.SourceBranch)"
+            "turbo" | "$(Agent.OS)" | "main"
+            "turbo" | "$(Agent.OS)"
+            "turbo"
+          path: node_modules/.cache
+        displayName: Cache Turbo
 
-      # Install pnpm.
+      # Install PNPM.
       - script: |
           corepack enable
           corepack prepare pnpm@latest-8 --activate
         displayName: "Setup PNPM"
 
-      # Set pnpm config.
+      # Set PNPM config.
       - script: pnpm config set store-dir $(pnpm_config_cache)
         displayName: "Setup PNPM Config"
 
