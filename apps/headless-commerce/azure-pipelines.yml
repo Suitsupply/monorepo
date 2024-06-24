@@ -146,6 +146,12 @@ jobs:
         displayName: 'PNPM Install'
         continueOnError: 'false'
 
+      # Vercel Pull.
+      - script: |
+          vercel pull --yes --token=$(VERCEL_TOKEN) --scope=suitsupply-team
+          vercel env pull .env --yes --token=$(VERCEL_TOKEN) --scope=suitsupply-team
+        displayName: 'Vercel Pull'
+
       # Test.
       - script: |
           pnpm nx run @susu/headless-commerce:test
