@@ -85,9 +85,6 @@ variables:
   - name: APPLICATION_VERCEL_SCOPE
     value: suitsupply-team
 
-  - name: NX_CACHE
-    value: apps/$(APPLICATION_NAME)/.nx
-
 jobs:
   - job: InstallAndTest
     displayName: 'Install dependencies and run tests'
@@ -97,48 +94,50 @@ jobs:
         inputs:
           versionSpec: $(node_version_spec)
           checkLatest: true
-        continueOnError: false
 
       # Authenticate with NPM.
       - task: npmAuthenticate@0
         inputs:
           workingFile: '.npmrc'
-        continueOnError: false
 
-      # Load NPM packages from cache.
+      # Cache PNPM.
       - task: Cache@2
         inputs:
-          key: 'pnpm | "$(Agent.OS)" | pnpm-lock.yaml'
+          key: '"pnpm" | "$(Agent.OS)" | "pnpm-lock.yaml"'
+          restoreKeys: |
+            "pnpm" | "$(Agent.OS)" | "pnpm-lock.yaml"
+            "pnpm" | "$(Agent.OS)"
+            "pnpm"
           path: $(pnpm_config_cache)
-        displayName: Cache pnpm
-        continueOnError: false
+        displayName: Cache PNPM
 
-      # Install NX.
-      - script: |
-          mkdir -p .nx/workspace-data
-          touch .nx/workspace-data/lockfile.hash
-        displayName: 'Ensure NX cache key file'
-        continueOnError: 'false'
+      # # Install NX.
+      # - script: |
+      #     mkdir -p .nx/workspace-data
+      #     touch .nx/workspace-data/lockfile.hash
+      #   displayName: 'Ensure NX cache key file'
 
-      # Load NX cache.
+      # Cache NX.
       - task: Cache@2
         inputs:
-          key: 'nx | "$(Agent.OS)" | .nx/workspace-data/lockfile.hash'
-          path: $(NX_CACHE)
+          key: '"nx" | "$(Agent.OS)" | "$(Build.SourceBranch)" | "$(Build.SourceVersion)"'
+          restoreKeys: |
+            "nx" | "$(Agent.OS)" | "$(Build.SourceBranch)"
+            "nx" | "$(Agent.OS)" | "main"
+            "nx" | "$(Agent.OS)"
+            "nx"
+          path: .nx
         displayName: Cache NX
-        continueOnError: false
 
-      # Install pnpm.
+      # Install PNPM.
       - script: |
           corepack enable
           corepack prepare pnpm@latest-8 --activate
         displayName: 'Setup PNPM'
-        continueOnError: 'false'
 
-      # Set pnpm config.
+      # Set PNPM config.
       - script: pnpm config set store-dir $(pnpm_config_cache)
         displayName: 'Setup PNPM Config'
-        continueOnError: 'false'
 
       # Vercel Pull.
       - script: |
@@ -150,30 +149,25 @@ jobs:
       - script: |
           pnpm install
         displayName: 'PNPM Install'
-        continueOnError: 'false'
 
       # Test.
       - script: |
           pnpm nx run @susu/headless-commerce:test-coverage
         displayName: 'Lint and Test'
-        continueOnError: 'false'
 
       # Deploy.
       - script: |
           vercel --prod --token=$(VERCEL_TOKEN) --scope=$(APPLICATION_VERCEL_SCOPE) > deployment-url.txt
         displayName: 'Deploy Main'
         condition: ne(variables.is_preview, true)
-        continueOnError: 'false'
       - script: |
           vercel --token=$(VERCEL_TOKEN) --scope=$(APPLICATION_VERCEL_SCOPE) > deployment-url.txt
         displayName: 'Deploy Preview'
         condition: eq(variables.is_preview, true)
-        continueOnError: 'false'
       - task: PublishPipelineArtifact@1
         inputs:
           targetPath: 'deployment-url.txt'
           artifact: 'deployment-url'
-        continueOnError: false
 
       # Publish coverage report.
       - task: PublishCodeCoverageResults@2
@@ -181,7 +175,6 @@ jobs:
           summaryFileLocation: './apps/headless-commerce/coverage/clover.xml'
           pathToSources: '.'
           failIfCoverageEmpty: true
-        continueOnError: false
 
   # - job: Deploy
   #   dependsOn: InstallAndTest
@@ -239,7 +232,6 @@ jobs:
   #         export DEPLOY_URL=$(cat $(Pipeline.Workspace)/deployment-url.txt)
   #         pnpm test:e2e
   #       displayName: 'Run e2e tests'
-  #       continueOnError: 'false'
 
   # - job: ClearCache
   #   dependsOn: Deploy
