@@ -6,7 +6,8 @@
     "dev": "next dev --turbo --port 3000",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "update-dependencies": "pnpm npm-check-updates -u"
   },
   "dependencies": {
     "@susu/ui": "workspace:*",
