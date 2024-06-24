@@ -148,19 +148,17 @@ jobs:
 
       # Test.
       - script: |
-          pnpm nx run @susu/headless-commerce:build
+          pnpm nx run @susu/headless-commerce:test
         displayName: 'Lint and Test'
         continueOnError: 'false'
 
       # Deploy.
       - script: |
-          cd $(APPLICATION_DIRECTORY)
           vercel --prod --token=$(VERCEL_TOKEN) --scope=$(APPLICATION_VERCEL_SCOPE) > deployment-url.txt
         displayName: 'Deploy Main'
         condition: ne(variables.is_preview, true)
         continueOnError: 'false'
       - script: |
-          cd $(APPLICATION_DIRECTORY)
           vercel --token=$(VERCEL_TOKEN) --scope=$(APPLICATION_VERCEL_SCOPE) > deployment-url.txt
         displayName: 'Deploy Preview'
         condition: eq(variables.is_preview, true)
