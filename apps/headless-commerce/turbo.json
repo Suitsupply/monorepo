@@ -5,9 +5,6 @@
   ],
   "tasks": {
     "lint": {
-      "dependsOn": [
-        "^lint"
-      ],
       "env": [
         "AKAMAI_*",
         "EDGE_CONFIG",
@@ -20,10 +17,6 @@
       ]
     },
     "test": {
-      "dependsOn": [
-        "^test",
-        "lint"
-      ],
       "env": [
         "AKAMAI_*",
         "EDGE_CONFIG",
@@ -36,10 +29,6 @@
       ]
     },
     "build": {
-      "dependsOn": [
-        "^build",
-        "test"
-      ],
       "inputs": [
         "$TURBO_DEFAULT$",
         ".env*"
@@ -58,14 +47,6 @@
         "SFCC_*",
         "VERCEL_ENV"
       ]
-    },
-    "dev": {
-      "cache": false,
-      "persistent": true
-    },
-    "start": {
-      "cache": false,
-      "persistent": true
     }
   }
 }

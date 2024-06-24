@@ -1,0 +1,34 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "extends": [
+    "//"
+  ],
+  "tasks": {
+    "lint": {
+      "env": [
+        "NEXT_*",
+        "NODE_ENV"
+      ]
+    },
+    "test": {
+      "env": [
+        "NEXT_*",
+        "NODE_ENV"
+      ]
+    },
+    "build": {
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        ".env*"
+      ],
+      "outputs": [
+        ".next/**",
+        "!.next/cache/**"
+      ],
+      "env": [
+        "NEXT_*",
+        "NODE_ENV"
+      ]
+    }
+  }
+}
