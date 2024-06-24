@@ -1,81 +1,81 @@
-# Turborepo starter
+# Monorepo POC
 
-This is an official starter Turborepo.
+This repository is a proof of concept for a monorepo setup using Turborepo.
 
-## Using this example
+## Getting Started
 
-Run the following command:
+To get started with this monorepo, clone the repository and install the dependencies:
 
 ```sh
-npx create-turbo@latest
+git clone <repository-url>
+cd Monorepo-POC
+pnpm install
 ```
 
-## What's inside?
+## What's Inside?
 
-This Turborepo includes the following packages/apps:
+This monorepo includes several applications and packages, structured as follows:
 
-### Apps and Packages
+### Apps
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@susu/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
+- `_template`: A template application for starting new projects.
+- `headless-commerce`: A headless commerce application.
+- `providing-application`: An application providing various services.
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+### Packages
+
+- `_template`: A template package for starting new packages.
+- `@susu/eslint-config`: ESLint configurations for consistent code style.
+- `@susu/typescript-config`: Shared TypeScript configurations.
+- `@susu/ui`: A shared UI component library.
+
+Each package and app is fully typed with [TypeScript](https://www.typescriptlang.org/).
 
 ### Utilities
 
-This Turborepo has some additional tools already setup for you:
+The monorepo is equipped with several tools to ensure code quality and ease of development:
 
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
+- [TypeScript](https://www.typescriptlang.org/) for static type checking.
+- [ESLint](https://eslint.org/) for code linting.
+- [Prettier](https://prettier.io) for code formatting.
+- [Husky](https://typicode.github.io/husky/#/) for Git hooks.
 
-### Build
+### Build and Development
 
-To build all apps and packages, run the following command:
+To build all apps and packages, run:
 
-```
-cd my-turborepo
+```sh
 pnpm build
 ```
 
-### Develop
+For development, you can start all apps and packages with:
 
-To develop all apps and packages, run the following command:
-
-```
-cd my-turborepo
+```sh
 pnpm dev
 ```
 
-### Remote Caching
+### Testing
 
-Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
+Run tests across all packages and apps with:
 
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup), then enter the following commands:
-
-```
-cd my-turborepo
-npx turbo login
+```sh
+pnpm test
 ```
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
+### Remote Caching with Turborepo
 
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
+Turborepo supports [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines. This feature is useful for sharing build caches with your team and CI/CD pipelines.
 
-```
-npx turbo link
-```
+To enable Remote Caching, you will need a Vercel account. Follow the instructions in the repository's `README.md` to set up Remote Caching.
 
-## Useful Links
+## CI/CD
 
-Learn more about the power of Turborepo:
+This monorepo is configured with Azure Pipelines for continuous integration and deployment. Check `azure-pipelines.yml` in the `headless-commerce` app for the CI/CD configuration.
 
-- [Tasks](https://turbo.build/repo/docs/core-concepts/monorepos/running-tasks)
-- [Caching](https://turbo.build/repo/docs/core-concepts/caching)
-- [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching)
-- [Filtering](https://turbo.build/repo/docs/core-concepts/monorepos/filtering)
-- [Configuration Options](https://turbo.build/repo/docs/reference/configuration)
-- [CLI Usage](https://turbo.build/repo/docs/reference/command-line-reference)
+## Contributing
+
+Contributions are welcome! Please read the contributing guide in `README.md` for more information on how to get started.
+
+## License
+
+This project is licensed under the MIT License - see the `LICENSE` file for details.
