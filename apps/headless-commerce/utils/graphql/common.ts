@@ -12,5 +12,4 @@ export const CONTENTFUL_TOKEN =
 
 // Contentful has a rate limit of 55 per second. We found that at 50 per second
 // we were still getting rate limited.
-// export const rateLimit = (1000 / 50) * 2;
-export const rateLimit = 500;
+export const rateLimit = (1000 / 50) * 2;
