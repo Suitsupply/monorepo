@@ -1,7 +1,7 @@
 import HomepageSections from '@headless-commerce/components/HomepageSections/HomepageSections';
 import BaseLayout from '@headless-commerce/components/Layouts/BaseLayout/BaseLayout';
 import { baseURL } from '@headless-commerce/config/config';
-import { type Locale, locales } from '@headless-commerce/config/locale';
+import { locales, type Locale } from '@headless-commerce/config/locale';
 import footerContext from '@headless-commerce/contexts/footer';
 import headerContext from '@headless-commerce/contexts/header';
 import { CMSHeaderType } from '@headless-commerce/contexts/header/types';
@@ -17,6 +17,8 @@ import { countries } from '@headless-commerce/utils/configuration/country';
 import { createServerComponentURQLClient } from '@headless-commerce/utils/graphql/server';
 import { getCountryCode, getLanguageFromLocale } from '@headless-commerce/utils/localeUtils';
 import { buildMetadata } from '@headless-commerce/utils/metadata';
+import { ClientComponent } from '@susu/providing-application/src/app/components/ClientComponent';
+import { ServerComponent } from '@susu/providing-application/src/app/components/ServerComponent';
 import { registerUrql } from '@urql/next/rsc';
 import type { Metadata } from 'next';
 
@@ -95,6 +97,10 @@ export default async function IndexPage({ params: { locale } }: Readonly<IndexPa
       locale={locale}
       header={header}
     >
+      <ServerComponent>
+        <ClientComponent />
+      </ServerComponent>
+
       <HomepageSections homepageContent={homepageContent} locale={locale} />
     </BaseLayout>
   );

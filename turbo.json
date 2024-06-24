@@ -1,9 +1,21 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "tasks": {
+    "lint": {
+      "dependsOn": [
+        "^lint"
+      ]
+    },
+    "test": {
+      "dependsOn": [
+        "^test",
+        "lint"
+      ]
+    },
     "build": {
       "dependsOn": [
-        "^build"
+        "^build",
+        "test"
       ],
       "inputs": [
         "$TURBO_DEFAULT$",
@@ -12,31 +24,6 @@
       "outputs": [
         ".next/**",
         "!.next/cache/**"
-      ],
-      "env": [
-        "AKAMAI_*",
-        "EDGE_CONFIG",
-        "NEXT_*",
-        "NODE_ENV",
-        "REVALIDATION_API_KEY",
-        "SESSION_HOSTNAME",
-        "SFCC_*",
-        "VERCEL_ENV"
-      ]
-    },
-    "lint": {
-      "dependsOn": [
-        "^lint"
-      ],
-      "env": [
-        "AKAMAI_*",
-        "EDGE_CONFIG",
-        "NEXT_*",
-        "NODE_ENV",
-        "REVALIDATION_API_KEY",
-        "SESSION_HOSTNAME",
-        "SFCC_*",
-        "VERCEL_ENV"
       ]
     },
     "dev": {
