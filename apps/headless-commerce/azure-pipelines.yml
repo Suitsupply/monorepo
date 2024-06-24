@@ -154,7 +154,7 @@ jobs:
 
       # Test.
       - script: |
-          pnpm nx run @susu/headless-commerce:test
+          pnpm nx run @susu/headless-commerce:test-coverage
         displayName: 'Lint and Test'
         continueOnError: 'false'
 
@@ -178,7 +178,7 @@ jobs:
       # Publish coverage report.
       - task: PublishCodeCoverageResults@2
         inputs:
-          summaryFileLocation: './coverage/clover.xml'
+          summaryFileLocation: './apps/headless-commerce/coverage/clover.xml'
           pathToSources: '.'
           failIfCoverageEmpty: true
         continueOnError: false

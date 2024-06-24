@@ -13,7 +13,7 @@
     "lint:tsc": "tsc -p . --noEmit",
     "start": "next start",
     "test": "vitest run --passWithNoTests",
-    "test:coverage": "vitest run --coverage",
+    "test-coverage": "vitest run --passWithNoTests --coverage",
     "update-packages": "pnpx npm-check-updates -u && pnpm i"
   },
   "dependencies": {

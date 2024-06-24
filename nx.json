@@ -8,6 +8,10 @@
       "cache": true,
       "dependsOn": ["^test", "lint"]
     },
+    "test-coverage": {
+      "cache": true,
+      "dependsOn": ["^test-coverage", "lint"]
+    },
     "build": {
       "cache": true,
       "dependsOn": ["^build", "test"]

@@ -1,0 +1,36 @@
+{
+  "name": "@susu/array",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/array/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "dependsOn": ["^lint"]
+    },
+    "dev": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": ["pnpm dev"],
+        "cwd": "packages/array",
+        "forwardAllArgs": true
+      },
+      "dependsOn": ["lint"]
+    },
+    "test": {
+      "dependsOn": ["^test", "lint"]
+    },
+    "test-coverage": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": ["pnpm run test-coverage"],
+        "cwd": "packages/array",
+        "forwardAllArgs": true
+      },
+      "dependsOn": ["^test-coverage", "lint"]
+    },
+    "build": {
+      "dependsOn": ["^build", "test"]
+    }
+  },
+  "tags": []
+}

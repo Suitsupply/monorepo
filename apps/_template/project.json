@@ -1,0 +1,36 @@
+{
+  "name": "@susu/application-template",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/_template/src",
+  "projectType": "application",
+  "targets": {
+    "lint": {
+      "dependsOn": ["^lint"]
+    },
+    "dev": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": ["pnpm dev"],
+        "cwd": "apps/_template",
+        "forwardAllArgs": true
+      },
+      "dependsOn": ["lint"]
+    },
+    "test": {
+      "dependsOn": ["^test", "lint"]
+    },
+    "test-coverage": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": ["pnpm run test-coverage"],
+        "cwd": "apps/_template",
+        "forwardAllArgs": true
+      },
+      "dependsOn": ["^test-coverage", "lint"]
+    },
+    "build": {
+      "dependsOn": ["^build", "test"]
+    }
+  },
+  "tags": []
+}

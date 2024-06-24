@@ -99,7 +99,7 @@ jobs:
 
       - script: |
           pnpm lint
-          pnpm test:coverage
+          pnpm run test-coverage
         displayName: 'Lint and Test'
         continueOnError: 'false'
 

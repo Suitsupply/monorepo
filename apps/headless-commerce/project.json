@@ -2,7 +2,7 @@
   "name": "@susu/headless-commerce",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/headless-commerce/src",
-  "projectType": "library",
+  "projectType": "application",
   "targets": {
     "codegen": {
       "cache": true,
@@ -27,6 +27,15 @@
     },
     "test": {
       "dependsOn": ["^test", "lint", "codegen"]
+    },
+    "test-coverage": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": ["pnpm run test-coverage"],
+        "cwd": "apps/headless-commerce",
+        "forwardAllArgs": true
+      },
+      "dependsOn": ["^test-coverage", "lint", "codegen"]
     },
     "build": {
       "dependsOn": ["^build", "test", "codegen"]
