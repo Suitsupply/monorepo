@@ -5,7 +5,7 @@
   "scripts": {
     "build": "next build",
     "codegen": "graphql-codegen --config codegen.ts",
-    "dev": "next dev --turbo",
+    "dev": "next dev --turbo --port 3002",
     "install:playwright": "pnpm exec playwright install",
     "lint": "next lint",
     "lint1": "pnpm lint:tsc && pnpm lint:style && pnpm lint:next",
@@ -21,7 +21,7 @@
     "vercel:link:testing": "pnpm vercel link --yes --cwd . --scope suitsupply-team --project headless-ecommerce-testing"
   },
   "dependencies": {
-    "@repo/ui": "workspace:*",
+    "@susu/ui": "workspace:*",
     "@ariakit/react": "^0.3.14",
     "@contentful/rich-text-react-renderer": "^15.19.4",
     "@datadog/browser-rum": "^5.9.0",

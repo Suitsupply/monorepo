@@ -1,5 +1,5 @@
 {
-  "name": "@susu/ui",
+  "name": "@susu/package-template",
   "version": "0.0.0",
   "private": true,
   "exports": {
