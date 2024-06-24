@@ -100,12 +100,12 @@ jobs:
         inputs:
           workingFile: ".npmrc"
 
-      # Load NPM packages from cache.
-      - task: Cache@2
-        inputs:
-          key: 'pnpm | "$(Agent.OS)" | pnpm-lock.yaml'
-          path: $(pnpm_config_cache)
-        displayName: Cache pnpm
+      # # Load NPM packages from cache.
+      # - task: Cache@2
+      #   inputs:
+      #     key: 'pnpm | "$(Agent.OS)" | pnpm-lock.yaml'
+      #     path: $(pnpm_config_cache)
+      #   displayName: Cache pnpm
 
       # # Install NX.
       # - script: |
@@ -113,32 +113,32 @@ jobs:
       #     touch .nx/workspace-data/lockfile.hash
       #   displayName: "Ensure NX cache key file"
 
-      # Load Turbo cache.
-      - task: Cache@2
-        inputs:
-          key: 'turbo | "$(Agent.OS)" | pnpm-lock.yaml'
-          path: .turbo
-        displayName: Cache turbo
+      # # Load Turbo cache.
+      # - task: Cache@2
+      #   inputs:
+      #     key: 'turbo | "$(Agent.OS)" | pnpm-lock.yaml'
+      #     path: .turbo
+      #   displayName: Cache turbo
 
-      # Install pnpm.
-      - script: |
-          corepack enable
-          corepack prepare pnpm@latest-8 --activate
-        displayName: "Setup PNPM"
+      # # Install pnpm.
+      # - script: |
+      #     corepack enable
+      #     corepack prepare pnpm@latest-8 --activate
+      #   displayName: "Setup PNPM"
 
-      # Set pnpm config.
-      - script: pnpm config set store-dir $(pnpm_config_cache)
-        displayName: "Setup PNPM Config"
+      # # Set pnpm config.
+      # - script: pnpm config set store-dir $(pnpm_config_cache)
+      #   displayName: "Setup PNPM Config"
 
-      # Install dependencies.
-      - script: |
-          pnpm install
-        displayName: "PNPM Install"
+      # # Install dependencies.
+      # - script: |
+      #     pnpm install
+      #   displayName: "PNPM Install"
 
-      # Lint.
-      - script: |
-          pnpm turbo --summarize=true --remote-only=false --filter="@susu/headless-commerce" lint
-        displayName: "Lint"
+      # # Lint.
+      # - script: |
+      #     pnpm turbo --summarize=true --remote-only=false --filter="@susu/headless-commerce" lint
+      #   displayName: "Lint"
 
       # # Test.
       # - script: |
@@ -153,12 +153,12 @@ jobs:
       # Deploy.
       - script: |
           cd $(APPLICATION_DIRECTORY)
-          vercel --prod --token=$(VERCEL_TOKEN) --scope=$(APPLICATION_VERCEL_SCOPE) > deployment-url.txt
+          npx vercel --prod --token=$(VERCEL_TOKEN) --scope=$(APPLICATION_VERCEL_SCOPE) > deployment-url.txt
         displayName: "Deploy Main"
         condition: ne(variables.is_preview, true)
       - script: |
           cd $(APPLICATION_DIRECTORY)
-          vercel --token=$(VERCEL_TOKEN) --scope=$(APPLICATION_VERCEL_SCOPE) > deployment-url.txt
+          npx vercel --token=$(VERCEL_TOKEN) --scope=$(APPLICATION_VERCEL_SCOPE) > deployment-url.txt
         displayName: "Deploy Preview"
         condition: eq(variables.is_preview, true)
       - task: PublishPipelineArtifact@1
