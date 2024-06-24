@@ -157,17 +157,18 @@ jobs:
       # Build.
       - script: |
           pnpm turbo --summarize=true --remote-only=false --filter="@susu/headless-commerce" build
+          vercel build
         displayName: "Build"
 
       # Deploy.
       - script: |
           cd $(APPLICATION_DIRECTORY)
-          npx vercel --prod --token=$(VERCEL_TOKEN) --scope=$(APPLICATION_VERCEL_SCOPE) > deployment-url.txt
+          npx vercel --prod --token=$(VERCEL_TOKEN) --scope=$(APPLICATION_VERCEL_SCOPE) --prebuilt > deployment-url.txt
         displayName: "Deploy Main"
         condition: ne(variables.is_preview, true)
       - script: |
           cd $(APPLICATION_DIRECTORY)
-          npx vercel --token=$(VERCEL_TOKEN) --scope=$(APPLICATION_VERCEL_SCOPE) > deployment-url.txt
+          npx vercel --token=$(VERCEL_TOKEN) --scope=$(APPLICATION_VERCEL_SCOPE) --prebuilt > deployment-url.txt
         displayName: "Deploy Preview"
         condition: eq(variables.is_preview, true)
       - task: PublishPipelineArtifact@1
