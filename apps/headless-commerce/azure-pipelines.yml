@@ -1,18 +1,18 @@
 trigger:
   branches:
     include:
-      - main
-      - release
-      - develop
-      - feature/*
-      - bugfix/*
+      # - main
+      - release-nx
+      # - develop
+      # - feature/*
+      # - bugfix/*
 
-pr:
-  branches:
-    include:
-      - main
-      - release
-      - develop
+# pr:
+#   branches:
+#     include:
+#       - main
+#       - release
+#       - develop
 
 pool:
   vmImage: ubuntu-latest
