@@ -1,0 +1,41 @@
+@use '@suits/ss-design-system/dist/ss-components/styles/sass/mixins/_breakpoints.scss' as bp;
+@use '@susu/headless-commerce/styles/mixins.scss' as *;
+
+.faq-accordion {
+  width: 100%;
+  background-color: #fafafa;
+}
+
+.faq-accordion__wrapper {
+  @include bp.respond-from('lg') {
+    padding-top: 160px;
+    padding-bottom: 200px;
+    margin: 0 auto;
+    margin-top: 30px;
+    max-width: 630px;
+  }
+
+  @include bp.respond-between('md', 'lg') {
+    padding-top: 130px;
+    padding-bottom: 190px;
+    margin: 0 auto;
+    max-width: 506px;
+  }
+
+  @include bp.respond-until('md') {
+    margin: 40px 20px 0;
+    padding: 80px 0 100px;
+  }
+}
+
+.faq-accordion__title {
+  text-align: center;
+
+  @include bp.respond-from('md') {
+    padding-bottom: 100px;
+  }
+
+  @include bp.respond-until('md') {
+    padding-bottom: 60px;
+  }
+}

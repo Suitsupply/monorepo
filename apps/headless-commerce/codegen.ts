@@ -1,4 +1,3 @@
-/* eslint-disable sonarjs/no-duplicate-string */
 import type { CodegenConfig } from '@graphql-codegen/cli';
 import dotEnv from 'dotenv';
 import { existsSync } from 'fs';
@@ -57,7 +56,7 @@ const typescriptOperationsConfig = {
 
 const config: CodegenConfig = {
   overwrite: true,
-  documents: ['src/gql/fragments/**/*.graphql', 'src/gql/mutations/**/*.graphql', 'src/gql/queries/**/*.graphql'],
+  documents: ['gql/fragments/**/*.graphql', 'gql/mutations/**/*.graphql', 'gql/queries/**/*.graphql'],
   schema: [
     {
       [CONTENTFUL_URL]: {
@@ -72,12 +71,12 @@ const config: CodegenConfig = {
   ],
   generates: {
     'schema.graphql': { plugins: ['schema-ast'] },
-    'src/gql/generated/schema.graphql': { plugins: ['schema-ast'] },
-    'src/gql/generated/graphql.ts': { plugins: ['typescript', fragmentMatcherPlugin] },
-    'src/gql/generated/fragments.json': { plugins: ['introspection'] },
+    'gql/generated/schema.graphql': { plugins: ['schema-ast'] },
+    'gql/generated/graphql.ts': { plugins: ['typescript', fragmentMatcherPlugin] },
+    'gql/generated/fragments.json': { plugins: ['introspection'] },
 
     // Used with Server Components
-    'src/gql/generated/operations.ts': {
+    'gql/generated/operations.ts': {
       preset: nearOperationFilePreset,
       presetConfig: {
         extension: '.operation.ts',
@@ -89,7 +88,7 @@ const config: CodegenConfig = {
     },
 
     // Used with Server Components
-    'src/gql/generated/documentNodes.ts': {
+    'gql/generated/documentNodes.ts': {
       preset: nearOperationFilePreset,
       presetConfig: {
         extension: '.documentNode.ts',
@@ -104,7 +103,7 @@ const config: CodegenConfig = {
     },
 
     // Used with Client Components
-    'src/gql/generated/urql.ts': {
+    'gql/generated/urql.ts': {
       preset: nearOperationFilePreset,
       presetConfig: {
         extension: '.urql.tsx',

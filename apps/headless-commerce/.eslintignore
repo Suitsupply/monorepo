@@ -1,0 +1,13 @@
+/.eslintcache
+/.eslintrc.json
+/.next
+/.prettierignore
+/.prettierrc.json
+/.tsbuildinfo
+/gql/generated
+/node_modules/
+/package.json
+/project.json
+/src/**/*.test.ts
+/tsconfig.json
+/vitest.config.ts

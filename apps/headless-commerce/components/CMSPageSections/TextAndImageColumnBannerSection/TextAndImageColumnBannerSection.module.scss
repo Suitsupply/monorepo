@@ -1,0 +1,57 @@
+@use '@suits/ss-design-system/dist/ss-components/styles/sass/mixins/_breakpoints.scss' as bp;
+@use '@susu/headless-commerce/styles/mixins.scss' as *;
+
+.textimage__banner {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+
+  &__image-wrapper {
+    display: block;
+
+    @include bp.respond-from('md') {
+      margin-bottom: 0;
+    }
+
+    @include bp.respond-until('md') {
+      margin-bottom: 60px;
+    }
+  }
+}
+
+.textimage--desktop-text-image {
+  @include bp.respond-from('lg') {
+    flex-direction: column-reverse;
+  }
+}
+
+.textimage--tablet-text-image {
+  @include bp.respond-between('md', 'lg') {
+    flex-direction: column-reverse;
+  }
+}
+
+.textimage--mobile-text-image {
+  @include bp.respond-until('md') {
+    margin-top: 100px;
+    flex-direction: column-reverse;
+  }
+}
+
+.textimage--desktop-image-text {
+  @include bp.respond-from('lg') {
+    flex-direction: column;
+  }
+}
+
+.textimage--tablet-image-text {
+  @include bp.respond-between('md', 'lg') {
+    flex-direction: column;
+  }
+}
+
+.textimage--mobile-image-text {
+  @include bp.respond-until('md') {
+    flex-direction: column;
+  }
+}

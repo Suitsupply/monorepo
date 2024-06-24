@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "esModuleInterop": true,
+    "jsx": "preserve",
+    "noEmit": true,
+    "emitDeclarationOnly": false,
+    "resolveJsonModule": true,
+    "skipDefaultLibCheck": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "strictNullChecks": true,
+    "baseUrl": ".",
+    "paths": {
+      "@susu/array": ["packages/array/src"],
+      "@susu/array/*": ["packages/array/src/*"],
+      "@susu/headless-commerce": ["apps/headless-commerce"],
+      "@susu/headless-commerce/*": ["apps/headless-commerce/*"]
+    }
+  }
+}

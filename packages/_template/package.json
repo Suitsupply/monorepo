@@ -1,29 +1,22 @@
 {
   "name": "@susu/package-template",
-  "version": "0.0.0",
-  "private": true,
-  "exports": {
-    "./button": "./src/button.tsx",
-    "./card": "./src/card.tsx",
-    "./code": "./src/code.tsx"
-  },
+  "version": "0.1.0",
+  "type": "module",
+  "main": "./src/index.js",
+  "typings": "./src/index.d.ts",
   "scripts": {
-    "lint": "eslint . --max-warnings 0",
-    "generate:component": "turbo gen react-component",
-    "update-dependencies": "pnpm npm-check-updates -u"
+    "lint": "pnpm lint:tsc && pnpm lint:eslint",
+    "lint:eslint": "eslint --fix --cache --cache-location .eslintcache --no-error-on-unmatched-pattern .",
+    "lint:tsc": "tsc -p . --noEmit",
+    "test": "vitest run --passWithNoTests",
+    "update-packages": "pnpx npm-check-updates -u && pnpm i"
   },
   "devDependencies": {
-    "@repo/eslint-config": "workspace:*",
-    "@repo/typescript-config": "workspace:*",
-    "@turbo/gen": "^1.12.4",
-    "@types/node": "^20.11.24",
-    "@types/eslint": "^8.56.5",
-    "@types/react": "^18.2.61",
-    "@types/react-dom": "^18.2.19",
-    "eslint": "^8.57.0",
-    "typescript": "^5.3.3"
-  },
-  "dependencies": {
-    "react": "^18.2.0"
+    "@typescript-eslint/parser": "^7.12.0",
+    "@types/node": "^20.11.16",
+    "@vitest/coverage-v8": "^1.2.2",
+    "@vitest/spy": "^1.2.2",
+    "@vitest/ui": "^1.0.4",
+    "vitest": "^1.2.2"
   }
 }

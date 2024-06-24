@@ -1,1 +1,8 @@
+#!/usr/bin/env bash
+set -e
+. "$(dirname "$0")/_/husky.sh"
+
+echo "> pre-push"
+
+echo "> pre-push > pnpm test"
 pnpm test

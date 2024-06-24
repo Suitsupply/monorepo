@@ -1,9 +1,10 @@
+// import { setTestCookieVals } from '@susu/headless-commerce/utils/test/e2e';
 import { expect, test } from '@playwright/test';
-import * as headlessCookiePopup from './page-objects/headless/cookie-popup';
-import * as headlessHomePage from './page-objects/headless/home';
-import * as headlessMenu from './page-objects/headless/menu';
-import * as salesforceCookiePopup from './page-objects/salesforce/cookie-popup';
-import * as salesforceNavigationBar from './page-objects/salesforce/navigation-bar';
+import * as headlessCookiePopup from '@susu/headless-commerce/tests/page-objects/headless/cookie-popup';
+import * as headlessHomePage from '@susu/headless-commerce/tests/page-objects/headless/home';
+import * as headlessMenu from '@susu/headless-commerce/tests/page-objects/headless/menu';
+import * as salesforceCookiePopup from '@susu/headless-commerce/tests/page-objects/salesforce/cookie-popup';
+import * as salesforceNavigationBar from '@susu/headless-commerce/tests/page-objects/salesforce/navigation-bar';
 
 test('cart', async ({ browser }) => {
   test.slow();

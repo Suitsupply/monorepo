@@ -1,0 +1,87 @@
+@use '@suits/ss-design-system/dist/ss-components/styles/sass/mixins/_breakpoints.scss' as bp;
+@use '@susu/headless-commerce/styles/mixins.scss' as *;
+
+.sticky-button-container {
+  @include bp.respond-between('xs', 'md') {
+    &__mobile-no {
+      display: none;
+    }
+  }
+
+  @include bp.respond-between('md', 'lg') {
+    &__tablet-no {
+      display: none;
+    }
+  }
+
+  @include bp.respond-from('lg') {
+    &__desktop-no {
+      display: none;
+    }
+  }
+}
+
+.sticky-button {
+  padding-bottom: 0;
+  display: flex;
+  justify-content: center;
+
+  &__wrapper {
+    position: fixed;
+    display: flex;
+    height: 70px;
+    width: 100%;
+    bottom: 0;
+
+    @include bp.respond-between('xs', 'md') {
+      &__mobile-yes {
+        background-color: var(--color-surface);
+      }
+    }
+
+    @include bp.respond-between('md', 'lg') {
+      &__tablet-yes {
+        background-color: var(--color-surface);
+      }
+    }
+
+    @include bp.respond-from('lg') {
+      &__desktop-yes {
+        background-color: var(--color-surface);
+      }
+    }
+  }
+
+  &__fixed {
+    z-index: 999;
+    bottom: 12px;
+    left: 16px;
+    right: 16px;
+  }
+
+  @include bp.respond-between('xs', 'md') {
+    > a {
+      width: auto;
+    }
+
+    &__mobile-yes {
+      position: fixed;
+
+      > a {
+        width: 100%;
+      }
+    }
+  }
+
+  @include bp.respond-between('md', 'lg') {
+    &__tablet-yes {
+      position: fixed;
+    }
+  }
+
+  @include bp.respond-from('lg') {
+    &__desktop-yes {
+      position: fixed;
+    }
+  }
+}

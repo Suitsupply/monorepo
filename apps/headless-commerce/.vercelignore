@@ -1,0 +1,10 @@
+!.next
+!.npmrc
+.next/cache
+
+/.eslintcache
+/.eslintrc.json
+/.prettierignore
+/.prettierrc.json
+/.tsbuildinfo
+/vitest.config.ts

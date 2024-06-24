@@ -1,0 +1,33 @@
+{
+  "countrySelector": {
+    "search_label": "국가 검색",
+    "clear": "새로고침",
+    "no_results": "죄송합니다, 검색 결과를 찾지 못했습니다",
+    "results": "결과",
+    "language": "언어"
+  },
+  "footer": {
+    "sign_up": "가입 하셨군요!",
+    "enter_your_email": "이메일을 입력하세요",
+    "please_enter_email": "이메일을 입력하세요.",
+    "invalid_email_address": "이메일이 유효하지 않습니다",
+    "subscribe": "구독하기",
+    "something_wrong": "잘못된 시도입니다. 다시 시도해주세요."
+  },
+  "navigation": {
+    "search_placeholder": "수트, 코트 등을 검색하세요",
+    "do_you_mean": "이러한 말인가요?",
+    "products": "상품",
+    "popular_searches": "인기 검색어",
+    "categories": "카테고리",
+    "no_results": "찾을 수 없는 정보:",
+    "no_results_description": "철자를 확인하거나 덜 구체적인 키워드를 사용하세요"
+  },
+  "switch_lang": {
+    "update_location": "더욱 알맞은 제품과 내용을 보기 위해 현재 위치를 변경하세요.",
+    "switch_location": "위치 변경",
+    "shipping_to": "배송지 ",
+    "not_shipping": "죄송합니다. 현재 해당 지역에 배송이 불가능합니다.",
+    "okay": "네"
+  }
+}

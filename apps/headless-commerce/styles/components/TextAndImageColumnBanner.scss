@@ -1,0 +1,137 @@
+@use '@suits/ss-design-system/dist/ss-components/styles/sass/mixins/_breakpoints.scss' as bp;
+@use '@susu/headless-commerce/styles/mixins.scss' as *;
+
+.text-banner {
+  @include bp.respond-until('md') {
+    margin-bottom: 0 !important;
+  }
+
+  &__heading-wrapper {
+    display: flex;
+
+    // Center
+    &--desktop-center {
+      @include bp.respond-from('lg') {
+        align-items: center;
+      }
+    }
+
+    &--tablet-center {
+      @include bp.respond-between('md', 'lg') {
+        align-items: center;
+      }
+    }
+
+    &--mobile-center {
+      @include bp.respond-until('md') {
+        align-items: center;
+      }
+    }
+
+    // Left
+    &--desktop-left {
+      @include bp.respond-from('lg') {
+        align-items: start;
+      }
+    }
+
+    &--tablet-left {
+      @include bp.respond-between('md', 'lg') {
+        align-items: start;
+      }
+    }
+
+    &--mobile-left {
+      @include bp.respond-until('md') {
+        align-items: start;
+      }
+    }
+
+    // Right
+    &--desktop-right {
+      @include bp.respond-from('lg') {
+        align-items: end;
+      }
+    }
+
+    &--tablet-right {
+      @include bp.respond-between('md', 'lg') {
+        align-items: end;
+      }
+    }
+
+    &--mobile-right {
+      @include bp.respond-until('md') {
+        align-items: end;
+      }
+    }
+  }
+
+  // Inner heading items.
+  &__heading {
+    &--desktop-center {
+      @include bp.respond-from('lg') {
+        justify-content: center;
+        text-align: center;
+      }
+    }
+
+    &--tablet-center {
+      @include bp.respond-between('md', 'lg') {
+        justify-content: center;
+        text-align: center;
+      }
+    }
+
+    &--mobile-center {
+      @include bp.respond-until('md') {
+        justify-content: center;
+        text-align: center;
+      }
+    }
+
+    // Left
+    &--desktop-left {
+      @include bp.respond-from('lg') {
+        justify-content: start;
+        text-align: left;
+      }
+    }
+
+    &--tablet-left {
+      @include bp.respond-between('md', 'lg') {
+        justify-content: start;
+        text-align: left;
+      }
+    }
+
+    &--mobile-left {
+      @include bp.respond-until('md') {
+        justify-content: start;
+        text-align: left;
+      }
+    }
+
+    // Right
+    &--desktop-right {
+      @include bp.respond-from('lg') {
+        justify-content: end;
+        text-align: right;
+      }
+    }
+
+    &--tablet-right {
+      @include bp.respond-between('md', 'lg') {
+        justify-content: end;
+        text-align: right;
+      }
+    }
+
+    &--mobile-right {
+      @include bp.respond-until('md') {
+        justify-content: end;
+        text-align: right;
+      }
+    }
+  }
+}

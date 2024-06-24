@@ -1,0 +1,137 @@
+@use '@suits/ss-design-system/dist/ss-components/styles/sass/mixins/_breakpoints.scss' as bp;
+@use '@susu/headless-commerce/styles/mixins.scss' as *;
+@use '@susu/headless-commerce/styles/variables.scss' as *;
+
+.configurator-summary__sticky-bag {
+  width: 100%;
+  background-color: var(--color-surface);
+}
+
+.configurator-summary__sticky-wrapper {
+  border-top: 1px solid var(--color-outline);
+
+  @include bp.respond-from('xl') {
+    padding: 40px 0 96px;
+  }
+
+  @include bp.respond-between('lg', 'xl') {
+    padding: 40px 0 80px;
+  }
+
+  @include bp.respond-from('lg') {
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  @include bp.respond-until('lg') {
+    width: 100%;
+  }
+
+  @include bp.respond-between('md', 'lg') {
+    padding: 40px 0 56px;
+  }
+
+  @include bp.respond-until('md') {
+    padding: 40px 0 80px;
+  }
+}
+
+.configurator-summary__text-wrap {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2px;
+}
+
+.configurator-summary__text-wrap--bold {
+  margin-top: 8px;
+
+  > span {
+    font-weight: 500 !important;
+  }
+}
+
+.configurator-summary__button-wrapper {
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  background-color: var(--color-surface);
+
+  @include bp.respond-from('lg') {
+    background-color: transparent;
+  }
+
+  @include bp.respond-between('md', 'lg') {
+    text-align: center;
+  }
+
+  @include bp.respond-between('md', 'lg') {
+    padding: 20px 16px;
+  }
+
+  @include bp.respond-until('md') {
+    padding: 20px 16px;
+  }
+
+  &.red {
+    background-color: var(--color-error);
+  }
+}
+
+.configurator-summary__button-wrapper--hidden {
+  display: none;
+}
+
+.configurator-summary__button-wrapper--sticky {
+  border-top: 1px solid var(--color-outline);
+  transition: transform 0.3s ease-in-out;
+  transform: translateY(100%);
+
+  &--visible {
+    transform: translateY(0);
+  }
+}
+
+.configurator-summary__button-inner {
+  @include bp.respond-from('xl') {
+    padding: 20px 90px;
+  }
+
+  @include bp.respond-between('lg', 'xl') {
+    padding: 20px;
+  }
+
+  @include bp.respond-from('lg') {
+    width: 41%;
+    float: right;
+    background-color: var(--color-surface);
+  }
+}
+
+.configurator-summary__button {
+  @include button;
+  @include button-primary;
+
+  width: 100%;
+  position: relative;
+
+  @include bp.respond-between('md', 'lg') {
+    max-width: 490px;
+  }
+
+  @include bp.respond-until('lg') {
+    padding: 10px 20px;
+  }
+}
+
+.configurator-summary__button--loading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: var(--color-primary);
+  border-radius: 4px;
+}
+
+.configurator-summary__button--disabled {
+  @include button-disabled;
+}

@@ -1,36 +1,59 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/create-next-app).
+# Headless Commerce
 
-## Getting Started
+This is a repository for Suitsupply Headless Commerce application.
 
-First, run the development server:
+# Required tools and respective versions
+
+"node": 18.15.0
+"pnpm": 7.26.0
+"next": "13.2.4",
+"react": "18.2.0",
+
+# Getting Started
+
+Install the dependencies
+
+```bash
+pnpm install
+```
+
+Setup Vercel configuration
+
+```bash
+pnpm i -g vercel
+vercel login (select the relevant team and project)
+vercel link  (select Suitsupply Team - 2 second in a list then put "headless-ecommerce" for project name)
+vercel env pull .env.local (this will create a .env.development.local file with environment variables)
+```
+
+Start the development server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Run the production build
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run build
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load Inter, a custom Google Font.
+Start the production server
 
-## Learn More
+```bash
+npm run start
+```
 
-To learn more about Next.js, take a look at the following resources:
+Application is bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Tests
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+This is how to generate tests with Github Copilot. If you come across a better prompt imput, please improve it:
 
-## Deploy on Vercel
+```
+@workspace /test Generate vitest unit tests for this code. Make sure all possible permutations are tested. Use the 'describe', 'it' and 'expect' functions from the vitest module to build a tree of tests. You cannot use the 'test' function. Use the 'vi' object from vitest to do mocks. This is the documentation on how to do that: https://vitest.dev/guide/mocking.html#functions. Use the 'vi.spyOn' function to create spies for functions on objects and 'vi.fn' for functions. Be sure to include an 'afterEach' that calls 'vi.restoreAllMocks()'.
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+@workspace /test Generate vitest unit tests for this code. Make sure all possible permutations are tested. Use the 'describe', 'it' and 'expect' functions from the vitest module to build a tree of tests. You cannot use the 'test' function.
+```

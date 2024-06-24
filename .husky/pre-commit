@@ -1,1 +1,21 @@
-pnpm lint
+#!/usr/bin/env bash
+set -e
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo "> pre-commit"
+
+# Added, modified, copied, renamed, typechanged (except the removed files),
+# unmerged and unknown (so not removed).
+export STAGED_FILES="$(git diff --cached --name-only --diff-filter=ACMRTUX)"
+
+# Run formatting only on files that will remain in the repository
+echo "> pre-commit > nx format:write"
+pnpm nx format:write --files $STAGED_FILES
+
+# Run linting only on files that will remain in the repository
+echo "> pre-commit > nx affected --uncommitted --target lint"
+pnpm nx affected --uncommitted --target lint
+
+# git add all required staged files
+echo "> pre-commit > git add $STAGED_FILES"
+git add $STAGED_FILES

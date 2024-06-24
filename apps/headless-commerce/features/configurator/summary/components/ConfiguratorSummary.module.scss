@@ -1,0 +1,113 @@
+@use '@suits/ss-design-system/dist/ss-components/styles/sass/mixins/_breakpoints.scss' as bp;
+@use '@susu/headless-commerce/styles/mixins.scss' as *;
+@use '@susu/headless-commerce/styles/variables.scss' as *;
+
+.configurator-summary {
+  width: 100%;
+
+  @include bp.respond-from('lg') {
+    display: flex;
+  }
+}
+
+.configurator-summary__title {
+  text-align: center;
+
+  @include bp.respond-from('md') {
+    margin-bottom: 32px;
+  }
+
+  @include bp.respond-until('md') {
+    margin-bottom: 40px;
+  }
+}
+
+.configurator-summary__image-wrapper {
+  background-color: var(--color-background);
+  display: flex;
+  justify-content: center;
+
+  @include bp.respond-from('xxl') {
+    padding-top: $header-height-xxl;
+  }
+
+  @include bp.respond-between('xl', 'xxl') {
+    padding-top: $header-height-xl;
+  }
+
+  @include bp.respond-between('lg', 'xl') {
+    padding-top: $header-height-lg;
+  }
+
+  @include bp.respond-from('lg') {
+    position: sticky;
+    top: 0;
+    left: 0;
+    flex: 0 0 59%;
+    max-width: 59%;
+    height: 100vh;
+  }
+
+  @include bp.respond-until('lg') {
+    margin-top: $header-height-md;
+    display: none;
+  }
+
+  img {
+    display: block;
+    height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+    width: auto;
+  }
+}
+
+.configurator-summary__image {
+  @include bp.respond-from('lg') {
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: auto;
+    max-width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    object-fit: contain;
+  }
+
+  @include bp.respond-until('lg') {
+    height: 100%;
+    width: 100%;
+    padding-top: $header-height-md;
+  }
+}
+
+.configurator-summary__product-tiles {
+  @include bp.respond-from('xl') {
+    flex: 0 0 41%;
+    max-width: 41%;
+    padding: 90px 90px 0;
+  }
+
+  @include bp.respond-between('lg', 'xl') {
+    flex: 0 0 41%;
+    max-width: 41%;
+    padding: 60px 20px 0;
+  }
+
+  @include bp.respond-between('md', 'lg') {
+    margin: 74px auto 0;
+    padding: 0 40px 45px;
+    max-width: 568px;
+  }
+
+  @include bp.respond-until('md') {
+    margin-top: 74px;
+    padding: 0 25px 0 16px;
+  }
+}
+
+.configurator-summary__products-wrapper {
+  padding-bottom: 33px;
+}

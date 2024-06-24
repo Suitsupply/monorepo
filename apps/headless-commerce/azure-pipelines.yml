@@ -19,20 +19,20 @@ pool:
 
 variables:
   - ${{ if eq(variables['Build.SourceBranchName'], 'main') }}:
-      - group: "headless-commerce-main"
+      - group: 'headless-commerce-main'
   - ${{ if eq(variables['Build.SourceBranchName'], 'release') }}:
-      - group: "headless-commerce-release"
+      - group: 'headless-commerce-release'
   - ${{ if eq(variables['Build.SourceBranchName'], 'develop') }}:
-      - group: "headless-commerce-develop"
+      - group: 'headless-commerce-develop'
 
   - name: CI
-    value: "true"
+    value: 'true'
 
   - name: node_version_spec
-    value: "20.12.2"
+    value: '20.12.2'
 
   - name: node_modules_root
-    value: "."
+    value: '.'
 
   - name: pnpm_config_cache
     value: $(Pipeline.Workspace)/.pnpm-store
@@ -85,111 +85,113 @@ variables:
   - name: APPLICATION_VERCEL_SCOPE
     value: suitsupply-team
 
+  - name: NX_CACHE
+    value: apps/$(APPLICATION_NAME)/.nx
+
 jobs:
   - job: InstallAndTest
-    displayName: "Install dependencies and run tests"
+    displayName: 'Install dependencies and run tests'
     steps:
       # Set Node version.
       - task: NodeTool@0
         inputs:
           versionSpec: $(node_version_spec)
           checkLatest: true
+        continueOnError: false
 
-      # # Authenticate with NPM.
-      # - task: npmAuthenticate@0
-      #   inputs:
-      #     workingFile: ".npmrc"
+      # Authenticate with NPM.
+      - task: npmAuthenticate@0
+        inputs:
+          workingFile: '.npmrc'
+        continueOnError: false
 
-      # # Load NPM packages from cache.
-      # - task: Cache@2
-      #   inputs:
-      #     key: '"pnpm" | "$(Agent.OS)" | "pnpm-lock.yaml"'
-      #     restoreKeys: |
-      #       "pnpm" | "$(Agent.OS)" | "pnpm-lock.yaml"
-      #       "pnpm" | "$(Agent.OS)"
-      #       "pnpm"
-      #     path: $(pnpm_config_cache)
-      #   displayName: Cache PNPM
+      # Load NPM packages from cache.
+      - task: Cache@2
+        inputs:
+          key: 'pnpm | "$(Agent.OS)" | pnpm-lock.yaml'
+          path: $(pnpm_config_cache)
+        displayName: Cache pnpm
+        continueOnError: false
 
-      # # Load Turbo cache.
-      # - task: Cache@2
-      #   inputs:
-      #     key: '"turbo" | "$(Agent.OS)" | "$(Build.SourceBranch)" | "$(Build.SourceVersion)"'
-      #     restoreKeys: |
-      #       "turbo" | "$(Agent.OS)" | "$(Build.SourceBranch)"
-      #       "turbo" | "$(Agent.OS)" | "main"
-      #       "turbo" | "$(Agent.OS)"
-      #       "turbo"
-      #     path: node_modules/.cache
-      #   displayName: Cache Turbo
+      # Install NX.
+      - script: |
+          mkdir -p .nx/workspace-data
+          touch .nx/workspace-data/lockfile.hash
+        displayName: 'Ensure NX cache key file'
+        continueOnError: 'false'
 
-      # # Install PNPM.
-      # - script: |
-      #     corepack enable
-      #     corepack prepare pnpm@latest-8 --activate
-      #   displayName: "Setup PNPM"
+      # Load NX cache.
+      - task: Cache@2
+        inputs:
+          key: 'nx | "$(Agent.OS)" | .nx/workspace-data/lockfile.hash'
+          path: $(NX_CACHE)
+        displayName: Cache NX
+        continueOnError: false
 
-      # # Set PNPM config.
-      # - script: pnpm config set store-dir $(pnpm_config_cache)
-      #   displayName: "Setup PNPM Config"
+      # Install pnpm.
+      - script: |
+          corepack enable
+          corepack prepare pnpm@latest-8 --activate
+        displayName: 'Setup PNPM'
+        continueOnError: 'false'
 
-      # # Install dependencies.
-      # - script: |
-      #     pnpm install
-      #   displayName: "PNPM Install"
+      # Set pnpm config.
+      - script: pnpm config set store-dir $(pnpm_config_cache)
+        displayName: 'Setup PNPM Config'
+        continueOnError: 'false'
 
-      # # Lint.
-      # - script: |
-      #     pnpm turbo --summarize=true --remote-only=false --filter="@susu/headless-commerce" lint
-      #   displayName: "Lint"
+      # Install dependencies.
+      - script: |
+          pnpm install
+        displayName: 'PNPM Install'
+        continueOnError: 'false'
 
-      # # Test.
-      # - script: |
-      #     pnpm run test
-      #   displayName: "Test"
-
-      # # Build.
-      # - script: |
-      #     pnpm turbo --summarize=true --remote-only=false --filter="@susu/headless-commerce" build
-      #     vercel build
-      #   displayName: "Build"
+      # Test.
+      - script: |
+          pnpm nx run @susu/headless-commerce:build
+        displayName: 'Lint and Test'
+        continueOnError: 'false'
 
       # Deploy.
       - script: |
-          npx vercel --prod --token=$(VERCEL_TOKEN) --scope=$(APPLICATION_VERCEL_SCOPE) > deployment-url.txt
-        displayName: "Deploy Main"
+          cd $(APPLICATION_DIRECTORY)
+          vercel --prod --token=$(VERCEL_TOKEN) --scope=$(APPLICATION_VERCEL_SCOPE) > deployment-url.txt
+        displayName: 'Deploy Main'
         condition: ne(variables.is_preview, true)
+        continueOnError: 'false'
       - script: |
-          npx vercel --token=$(VERCEL_TOKEN) --scope=$(APPLICATION_VERCEL_SCOPE) > deployment-url.txt
-        displayName: "Deploy Preview"
+          cd $(APPLICATION_DIRECTORY)
+          vercel --token=$(VERCEL_TOKEN) --scope=$(APPLICATION_VERCEL_SCOPE) > deployment-url.txt
+        displayName: 'Deploy Preview'
         condition: eq(variables.is_preview, true)
+        continueOnError: 'false'
       - task: PublishPipelineArtifact@1
         inputs:
-          targetPath: "deployment-url.txt"
-          artifact: "deployment-url"
+          targetPath: 'deployment-url.txt'
+          artifact: 'deployment-url'
+        continueOnError: false
 
-      # # Publish coverage report.
-      # - task: PublishCodeCoverageResults@2
-      #   inputs:
-      #     summaryFileLocation: "./coverage/clover.xml"
-      #     pathToSources: "."
-      #     failIfCoverageEmpty: true
+      # Publish coverage report.
+      - task: PublishCodeCoverageResults@2
+        inputs:
+          summaryFileLocation: './coverage/clover.xml'
+          pathToSources: '.'
+          failIfCoverageEmpty: true
+        continueOnError: false
 
   # - job: Deploy
   #   dependsOn: InstallAndTest
-  #   condition: and(succeeded('InstallAndTest'), ne(variables.is_PR, true))
+  #   condition: and(succeeded('InstallAndTest'), ne(variables.is_pr, true))
   #   displayName: "Deploy"
   #   steps:
   #     - script: |
   #         vercel deploy --prod --token=$(VERCEL_TOKEN) --scope=suitsupply-team > deployment-url.txt
   #       displayName: "Deploy Main"
   #       condition: ne(variables.is_preview, true)
-
   #     - script: |
   #         vercel deploy --token=$(VERCEL_TOKEN) --scope=suitsupply-team > deployment-url.txt
   #       displayName: "Deploy Preview"
   #       condition: eq(variables.is_preview, true)
-
   #     - task: PublishPipelineArtifact@1
   #       inputs:
   #         targetPath: "deployment-url.txt"
@@ -201,47 +203,39 @@ jobs:
   #   displayName: 'E2E Tests'
   #   steps:
   #     - checkout: self
-
   #     - task: NodeTool@0
   #       inputs:
   #         versionSpec: $(node_version_spec)
   #         checkLatest: true
-
   #     - task: npmAuthenticate@0
   #       inputs:
   #         workingFile: '.npmrc'
-
   #     - task: Cache@2
   #       inputs:
   #         key: 'pnpm | "$(Agent.OS)" | pnpm-lock.yaml'
   #         path: $(pnpm_config_cache)
   #       displayName: Cache pnpm
-
   #     - script: |
   #         corepack enable
   #         corepack prepare pnpm@latest-8 --activate
   #       displayName: 'Setup PNPM'
-
   #     - script: pnpm config set store-dir $(pnpm_config_cache)
   #       displayName: 'Setup PNPM Config'
-
   #     - script: |
   #         pnpm install
   #       displayName: 'PNPM Install'
-
   #     - script: |
   #         pnpm exec playwright install --with-deps
   #       displayName: 'Install Playwright'
-
   #     - task: DownloadPipelineArtifact@2
   #       inputs:
   #         artifact: 'deployment-url'
   #         path: $(Pipeline.Workspace)
-
   #     - script: |
   #         export DEPLOY_URL=$(cat $(Pipeline.Workspace)/deployment-url.txt)
   #         pnpm test:e2e
   #       displayName: 'Run e2e tests'
+  #       continueOnError: 'false'
 
   # - job: ClearCache
   #   dependsOn: Deploy
@@ -253,7 +247,6 @@ jobs:
   #       displayName: "Get secure file for akamai"
   #       inputs:
   #         secureFile: ".edgerc"
-
   #     - bash: |
   #         # Homebrew is the easiest way to install these tools. Otherwise you need to download & install the binaries. Homebrew only works on
   #         # the Ubuntu and MacOS hosted agents

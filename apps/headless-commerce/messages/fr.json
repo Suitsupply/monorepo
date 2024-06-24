@@ -1,0 +1,55 @@
+{
+  "countrySelector": {
+    "search_label": "Rechercher un pays",
+    "clear": "Effacer",
+    "no_results": "Désolé, aucune résultat trouvé",
+    "results": "Résultats",
+    "language": "Langue"
+  },
+  "footer": {
+    "sign_up": "Vous êtes abonné !",
+    "enter_your_email": "Veuillez entrer votre adresse e-mail",
+    "please_enter_email": "Saisissez votre adresse e-mail.",
+    "invalid_email_address": "Adresse e-mail non valide",
+    "subscribe": "M'abonner",
+    "something_wrong": "Quelque chose s'est mal passé ?Veuillez réessayer."
+  },
+  "navigation": {
+    "search_placeholder": "Rechercher, costumes, manteaux, etc.",
+    "do_you_mean": "Voulez-vous dire ?",
+    "products": "Produits",
+    "popular_searches": "Recherches populaires",
+    "categories": "Catégories",
+    "category_result": "{category} dans {parentCategory}",
+    "no_results": "Aucun résultat pour",
+    "no_results_description": "Vérifiez l'orthographe ou utilisez des termes moins spécifiques"
+  },
+  "switch_lang": {
+    "update_location": "Mettez à jour votre adresse pour voir les produits et les contenus les plus pertinents pour vous.",
+    "switch_location": "Changer l'adresse",
+    "shipping_to": "Livraison à",
+    "not_shipping": "Nous sommes désolés. Nous ne livrons pas dans votre pays.",
+    "okay": "D'accord"
+  },
+  "configurator": {
+    "next": "Suivant",
+    "back": "Précédent",
+    "finish_look": "Compléter le look",
+    "total": "Total",
+    "add_to_bag": "Ajouter au panier",
+    "original_price": "Prix de départ",
+    "out_of_stock": "Épuisé",
+    "select_your_sizes": "Sélectionnez votre taille",
+    "one_size": "Taille unique",
+    "select_size": "Choisir la taille",
+    "edit": "Modifier",
+    "size": "Taille"
+  },
+  "sizeSelector": {
+    "free_delivery": "Livraison gratuite",
+    "free_returns": "Retours gratuits",
+    "size_guide": "Guide des tailles",
+    "confirm": "CONFIRMER",
+    "select_your_size": "Sélectionnez votre taille"
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "name": "@susu/headless-commerce",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/headless-commerce/src",
+  "projectType": "library",
+  "targets": {
+    "codegen": {
+      "cache": true,
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": ["pnpm codegen"],
+        "cwd": "apps/headless-commerce",
+        "forwardAllArgs": true
+      }
+    },
+    "lint": {
+      "dependsOn": ["^lint", "codegen"]
+    },
+    "dev": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": ["pnpm dev"],
+        "cwd": "apps/headless-commerce",
+        "forwardAllArgs": true
+      },
+      "dependsOn": ["lint", "codegen"]
+    },
+    "test": {
+      "dependsOn": ["^test", "lint", "codegen"]
+    },
+    "build": {
+      "dependsOn": ["^build", "test", "codegen"]
+    }
+  },
+  "tags": []
+}

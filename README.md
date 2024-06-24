@@ -1,81 +1,26 @@
-# Monorepo POC
+# Introduction
 
-This repository is a proof of concept for a monorepo setup using Turborepo.
+TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project.
 
-## Getting Started
+# Getting Started
 
-To get started with this monorepo, clone the repository and install the dependencies:
+TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
 
-```sh
-git clone <repository-url>
-cd Monorepo-POC
-pnpm install
-```
+1. Installation process
+2. Software dependencies
+3. Latest releases
+4. API references
 
-## What's Inside?
+# Build and Test
 
-This monorepo includes several applications and packages, structured as follows:
+TODO: Describe and show how to build your code and run the tests.
 
-### Apps
+# Contribute
 
-- `_template`: A template application for starting new projects.
-- `headless-commerce`: A headless commerce application.
-- `providing-application`: An application providing various services.
+TODO: Explain how other users and developers can contribute to make your code better.
 
-### Packages
+If you want to learn more about creating good readme files then refer the following [guidelines](https://docs.microsoft.com/en-us/azure/devops/repos/git/create-a-readme?view=azure-devops). You can also seek inspiration from the below readme files:
 
-- `_template`: A template package for starting new packages.
-- `@susu/eslint-config`: ESLint configurations for consistent code style.
-- `@susu/typescript-config`: Shared TypeScript configurations.
-- `@susu/ui`: A shared UI component library.
-
-Each package and app is fully typed with [TypeScript](https://www.typescriptlang.org/).
-
-### Utilities
-
-The monorepo is equipped with several tools to ensure code quality and ease of development:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking.
-- [ESLint](https://eslint.org/) for code linting.
-- [Prettier](https://prettier.io) for code formatting.
-- [Husky](https://typicode.github.io/husky/#/) for Git hooks.
-
-### Build and Development
-
-To build all apps and packages, run:
-
-```sh
-pnpm build
-```
-
-For development, you can start all apps and packages with:
-
-```sh
-pnpm dev
-```
-
-### Testing
-
-Run tests across all packages and apps with:
-
-```sh
-pnpm test
-```
-
-### Remote Caching with Turborepo
-
-Turborepo supports [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines. This feature is useful for sharing build caches with your team and CI/CD pipelines.
-
-To enable Remote Caching, you will need a Vercel account. Follow the instructions in the repository's `README.md` to set up Remote Caching.
-
-## CI/CD
-
-This monorepo is configured with Azure Pipelines for continuous integration and deployment. Check `azure-pipelines.yml` in the `headless-commerce` app for the CI/CD configuration.
-
-## Contributing
-
-Contributions are welcome! Please read the contributing guide in `README.md` for more information on how to get started.
-
-## License
-
-This project is licensed under the MIT License - see the `LICENSE` file for details.
+- [ASP.NET Core](https://github.com/aspnet/Home)
+- [Visual Studio Code](https://github.com/Microsoft/vscode)
+- [Chakra Core](https://github.com/Microsoft/ChakraCore)

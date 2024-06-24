@@ -1,0 +1,16 @@
+export type PageType =
+  | 'home'
+  | 'product'
+  | 'category'
+  | 'journal'
+  | 'store'
+  | 'lookbuilder'
+  | 'login'
+  | 'wishlist'
+  | 'account'
+  | 'checkout'
+  | 'cart'
+  | 'support'
+  | 'custommade'
+  | 'giftcard'
+  | 'error';
