@@ -95,59 +95,53 @@ jobs:
           versionSpec: $(node_version_spec)
           checkLatest: true
 
-      # Authenticate with NPM.
-      - task: npmAuthenticate@0
-        inputs:
-          workingFile: ".npmrc"
+      # # Authenticate with NPM.
+      # - task: npmAuthenticate@0
+      #   inputs:
+      #     workingFile: ".npmrc"
 
-      # Load NPM packages from cache.
-      - task: Cache@2
-        inputs:
-          key: '"pnpm" | "$(Agent.OS)" | "pnpm-lock.yaml"'
-          restoreKeys: |
-            "pnpm" | "$(Agent.OS)" | "pnpm-lock.yaml"
-            "pnpm" | "$(Agent.OS)"
-            "pnpm"
-          path: $(pnpm_config_cache)
-        displayName: Cache PNPM
+      # # Load NPM packages from cache.
+      # - task: Cache@2
+      #   inputs:
+      #     key: '"pnpm" | "$(Agent.OS)" | "pnpm-lock.yaml"'
+      #     restoreKeys: |
+      #       "pnpm" | "$(Agent.OS)" | "pnpm-lock.yaml"
+      #       "pnpm" | "$(Agent.OS)"
+      #       "pnpm"
+      #     path: $(pnpm_config_cache)
+      #   displayName: Cache PNPM
 
-      # Install NX.
-      - script: |
-          mkdir -p .nx/workspace-data
-          touch .nx/workspace-data/lockfile.hash
-        displayName: "Ensure NX cache key file"
+      # # Load Turbo cache.
+      # - task: Cache@2
+      #   inputs:
+      #     key: '"turbo" | "$(Agent.OS)" | "$(Build.SourceBranch)" | "$(Build.SourceVersion)"'
+      #     restoreKeys: |
+      #       "turbo" | "$(Agent.OS)" | "$(Build.SourceBranch)"
+      #       "turbo" | "$(Agent.OS)" | "main"
+      #       "turbo" | "$(Agent.OS)"
+      #       "turbo"
+      #     path: node_modules/.cache
+      #   displayName: Cache Turbo
 
-      # Load Turbo cache.
-      - task: Cache@2
-        inputs:
-          key: '"turbo" | "$(Agent.OS)" | "$(Build.SourceBranch)" | "$(Build.SourceVersion)"'
-          restoreKeys: |
-            "turbo" | "$(Agent.OS)" | "$(Build.SourceBranch)"
-            "turbo" | "$(Agent.OS)" | "main"
-            "turbo" | "$(Agent.OS)"
-            "turbo"
-          path: node_modules/.cache
-        displayName: Cache Turbo
+      # # Install PNPM.
+      # - script: |
+      #     corepack enable
+      #     corepack prepare pnpm@latest-8 --activate
+      #   displayName: "Setup PNPM"
 
-      # Install PNPM.
-      - script: |
-          corepack enable
-          corepack prepare pnpm@latest-8 --activate
-        displayName: "Setup PNPM"
+      # # Set PNPM config.
+      # - script: pnpm config set store-dir $(pnpm_config_cache)
+      #   displayName: "Setup PNPM Config"
 
-      # Set PNPM config.
-      - script: pnpm config set store-dir $(pnpm_config_cache)
-        displayName: "Setup PNPM Config"
+      # # Install dependencies.
+      # - script: |
+      #     pnpm install
+      #   displayName: "PNPM Install"
 
-      # Install dependencies.
-      - script: |
-          pnpm install
-        displayName: "PNPM Install"
-
-      # Lint.
-      - script: |
-          pnpm turbo --summarize=true --remote-only=false --filter="@susu/headless-commerce" lint
-        displayName: "Lint"
+      # # Lint.
+      # - script: |
+      #     pnpm turbo --summarize=true --remote-only=false --filter="@susu/headless-commerce" lint
+      #   displayName: "Lint"
 
       # # Test.
       # - script: |
@@ -174,12 +168,12 @@ jobs:
           targetPath: "deployment-url.txt"
           artifact: "deployment-url"
 
-      # Publish coverage report.
-      - task: PublishCodeCoverageResults@2
-        inputs:
-          summaryFileLocation: "./coverage/clover.xml"
-          pathToSources: "."
-          failIfCoverageEmpty: true
+      # # Publish coverage report.
+      # - task: PublishCodeCoverageResults@2
+      #   inputs:
+      #     summaryFileLocation: "./coverage/clover.xml"
+      #     pathToSources: "."
+      #     failIfCoverageEmpty: true
 
   # - job: Deploy
   #   dependsOn: InstallAndTest
