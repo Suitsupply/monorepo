@@ -1,0 +1,9 @@
+{
+  "*.{ts,tsx,js,jsx}": [
+    "eslint --fix",
+    "pnpm test:staged",
+    "pnpm test:staged:coverage"
+  ],
+  "*.{css,scss}": "stylelint",
+  "*.**": "prettier --write"
+}

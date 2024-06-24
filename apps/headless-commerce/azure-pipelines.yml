@@ -100,55 +100,55 @@ jobs:
         inputs:
           workingFile: ".npmrc"
 
-      # # Load NPM packages from cache.
-      # - task: Cache@2
-      #   inputs:
-      #     key: 'pnpm | "$(Agent.OS)" | pnpm-lock.yaml'
-      #     path: $(pnpm_config_cache)
-      #   displayName: Cache pnpm
+      # Load NPM packages from cache.
+      - task: Cache@2
+        inputs:
+          key: 'pnpm | "$(Agent.OS)" | pnpm-lock.yaml'
+          path: $(pnpm_config_cache)
+        displayName: Cache pnpm
 
-      # # Install NX.
-      # - script: |
-      #     mkdir -p .nx/workspace-data
-      #     touch .nx/workspace-data/lockfile.hash
-      #   displayName: "Ensure NX cache key file"
+      # Install NX.
+      - script: |
+          mkdir -p .nx/workspace-data
+          touch .nx/workspace-data/lockfile.hash
+        displayName: "Ensure NX cache key file"
 
-      # # Load Turbo cache.
-      # - task: Cache@2
-      #   inputs:
-      #     key: 'turbo | "$(Agent.OS)" | pnpm-lock.yaml'
-      #     path: .turbo
-      #   displayName: Cache turbo
+      # Load Turbo cache.
+      - task: Cache@2
+        inputs:
+          key: 'turbo | "$(Agent.OS)" | pnpm-lock.yaml'
+          path: .turbo
+        displayName: Cache turbo
 
-      # # Install pnpm.
-      # - script: |
-      #     corepack enable
-      #     corepack prepare pnpm@latest-8 --activate
-      #   displayName: "Setup PNPM"
+      # Install pnpm.
+      - script: |
+          corepack enable
+          corepack prepare pnpm@latest-8 --activate
+        displayName: "Setup PNPM"
 
-      # # Set pnpm config.
-      # - script: pnpm config set store-dir $(pnpm_config_cache)
-      #   displayName: "Setup PNPM Config"
+      # Set pnpm config.
+      - script: pnpm config set store-dir $(pnpm_config_cache)
+        displayName: "Setup PNPM Config"
 
-      # # Install dependencies.
-      # - script: |
-      #     pnpm install
-      #   displayName: "PNPM Install"
+      # Install dependencies.
+      - script: |
+          pnpm install
+        displayName: "PNPM Install"
 
-      # # Lint.
-      # - script: |
-      #     pnpm turbo --summarize=true --remote-only=false --filter="@susu/headless-commerce" lint
-      #   displayName: "Lint"
+      # Lint.
+      - script: |
+          pnpm turbo --summarize=true --remote-only=false --filter="@susu/headless-commerce" lint
+        displayName: "Lint"
 
       # # Test.
       # - script: |
       #     pnpm run test
       #   displayName: "Test"
 
-      # # Build.
-      # - script: |
-      #     pnpm turbo --summarize=true --remote-only=false run -F @susu/headless-commerce build
-      #   displayName: "Build"
+      # Build.
+      - script: |
+          pnpm turbo --summarize=true --remote-only=false --filter="@susu/headless-commerce" build
+        displayName: "Build"
 
       # Deploy.
       - script: |
