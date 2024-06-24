@@ -11,10 +11,12 @@
         "commands": ["pnpm codegen"],
         "cwd": "apps/headless-commerce",
         "forwardAllArgs": true
-      }
+      },
+      "inputs": ["{projectRoot}/gql/**/*", "!{projectRoot}/gql/generated/**/*"]
     },
     "lint": {
-      "dependsOn": ["^lint", "codegen"]
+      "dependsOn": ["^lint", "codegen"],
+      "inputs": ["{projectRoot}/**/*", "!{projectRoot}/gql/generated/**/*"]
     },
     "dev": {
       "executor": "nx:run-commands",
@@ -26,7 +28,8 @@
       "dependsOn": ["lint", "codegen"]
     },
     "test": {
-      "dependsOn": ["^test", "lint", "codegen"]
+      "dependsOn": ["^test", "lint", "codegen"],
+      "inputs": ["{projectRoot}/**/*", "!{projectRoot}/gql/generated/**/*"]
     },
     "test-coverage": {
       "executor": "nx:run-commands",
@@ -35,10 +38,12 @@
         "cwd": "apps/headless-commerce",
         "forwardAllArgs": true
       },
-      "dependsOn": ["^test-coverage", "lint", "codegen"]
+      "dependsOn": ["^test-coverage", "lint", "codegen"],
+      "inputs": ["{projectRoot}/**/*", "!{projectRoot}/gql/generated/**/*"]
     },
     "build": {
-      "dependsOn": ["^build", "test", "codegen"]
+      "dependsOn": ["^build", "test", "codegen"],
+      "inputs": ["{projectRoot}/**/*", "!{projectRoot}/gql/generated/**/*"]
     }
   },
   "tags": []

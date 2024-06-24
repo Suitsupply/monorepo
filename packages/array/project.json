@@ -5,7 +5,26 @@
   "projectType": "library",
   "targets": {
     "lint": {
-      "dependsOn": ["^lint"]
+      "dependsOn": ["^lint"],
+      "inputs": ["{projectRoot}/src/**/*"]
+    },
+    "test": {
+      "dependsOn": ["^test", "lint"],
+      "inputs": ["{projectRoot}/src/**/*"]
+    },
+    "test-coverage": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": ["pnpm run test-coverage"],
+        "cwd": "packages/array",
+        "forwardAllArgs": true
+      },
+      "dependsOn": ["^test-coverage", "lint"],
+      "inputs": ["{projectRoot}/src/**/*"]
+    },
+    "build": {
+      "dependsOn": ["^build", "test"],
+      "inputs": ["{projectRoot}/src/**/*"]
     },
     "dev": {
       "executor": "nx:run-commands",
@@ -15,21 +34,6 @@
         "forwardAllArgs": true
       },
       "dependsOn": ["lint"]
-    },
-    "test": {
-      "dependsOn": ["^test", "lint"]
-    },
-    "test-coverage": {
-      "executor": "nx:run-commands",
-      "options": {
-        "commands": ["pnpm run test-coverage"],
-        "cwd": "packages/array",
-        "forwardAllArgs": true
-      },
-      "dependsOn": ["^test-coverage", "lint"]
-    },
-    "build": {
-      "dependsOn": ["^build", "test"]
     }
   },
   "tags": []
