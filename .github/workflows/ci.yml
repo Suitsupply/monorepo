@@ -84,49 +84,20 @@ jobs:
             pnpm-
 
       # TODO: Document.
-      - uses: nrwl/nx-set-shas@v3
+      # - uses: nrwl/nx-set-shas@v3
+      # AFFECTED_PROJECTS=$(pnpm nx show projects --affected)
 
-      # TODO: Document.
-      # This line is needed for nx affected to work when CI is running on a PR
-      - run: git branch --track main origin/main
-        if: ${{ github.event_name }} == 'pull_request'
-
-      # Main builds
-      - name: Main Set Affected Projects
-        if: ${{ env.is_pr }} == 'false'
+      - name: Lint & Test & Build
         run: |
-          echo "AFFECTED_PROJECTS=$(pnpm nx show projects --affected)" >> $GITHUB_ENV
-          echo "$(pnpm nx print-affected --select=projects)"
-
-      - name: Main Lint & Test & Build
-        if: ${{ env.is_pr }} == 'false'
-        run: |
-          AFFECTED_PROJECTS=$(pnpm nx show projects --affected)
-          nx affected \
-            -t lint test build
+          nx run @susu/headless-commerce:build
 
       - name: Main Deploy Headless
-        if: ${{ env.is_pr }} == 'false' && contains(env.AFFECTED_PROJECTS, '@susu/headless-commerce')
+        if: ${{ env.is_pr }} == 'false'
         run: |
           vercel --prod --token=${{ secrets.VERCEL_TOKEN }} --scope=${{ secrets.APPLICATION_VERCEL_SCOPE }} > deployment-url.txt
 
-      # PR builds
-      - name: PR Set Affected Projects
-        if: ${{ env.is_pr }} == 'true'
-        run: |
-          echo "AFFECTED_PROJECTS=$(pnpm nx show projects --affected --base=main --head=HEAD)" >> $GITHUB_ENV
-          echo "$(pnpm nx print-affected --select=projects --base=main --head=HEAD)"
-
-      - name: PR Lint & Test & Build
-        if: ${{ env.is_pr }} == 'true'
-        run: |
-          nx affected \
-            -t lint test build \
-            --base=main \
-            --head=HEAD
-
       - name: PR Deploy Headless
-        if: ${{ env.is_pr }} == 'true' && contains(env.AFFECTED_PROJECTS, '@susu/headless-commerce')
+        if: ${{ env.is_pr }} == 'true'
         run: |
           vercel --token=${{ secrets.VERCEL_TOKEN }} --scope=${{ secrets.APPLICATION_VERCEL_SCOPE }} > deployment-url.txt
 
