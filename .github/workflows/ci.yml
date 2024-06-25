@@ -20,6 +20,7 @@ jobs:
     env:
       CI: true
       node_version_spec: 20.12.2
+      pnpm_version_spec: 9.4.0
       node_modules_root: '.'
       pnpm_config_cache: ${{ github.workspace }}/.pnpm-store
       is_pr: ${{ github.event_name == 'pull_request' }}
@@ -37,7 +38,7 @@ jobs:
       - name: PNPM Setup
         uses: pnpm/action-setup@v2
         with:
-          version: ${{ env.node_version_spec }}
+          version: ${{ env.pnpm_version_spec }}
 
       - name: PNPM Cache Restore
         uses: actions/cache/restore@v3
