@@ -1,5 +1,6 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
+  "sharedGlobals": ["{workspaceRoot}/.github/workflows/ci.yml"],
   "targetDefaults": {
     "lint": {
       "cache": true,

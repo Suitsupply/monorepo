@@ -1,0 +1,120 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+      - acceptance
+      - testing
+      - feature/**
+      - bugfix/**
+  pull_request:
+    # branches:
+    #   - main
+    #   - acceptance
+    #   - testing
+
+jobs:
+  install_and_test:
+    runs-on: ubuntu-latest
+    env:
+      CI: true
+      node_version_spec: 20.12.2
+      node_modules_root: '.'
+      pnpm_config_cache: ${{ github.workspace }}/.pnpm-store
+      is_pr: ${{ github.event_name == 'pull_request' }}
+      is_main_branch: ${{ github.ref == 'refs/heads/main' }}
+      is_acceptance_branch: ${{ github.ref == 'refs/heads/acceptance' }}
+      is_testing_branch: ${{ github.ref == 'refs/heads/testing' }}
+      is_preview: ${{ github.event_name == 'pull_request' || (github.ref != 'refs/heads/main' && github.ref != 'refs/heads/acceptance' && github.ref != 'refs/heads/testing') }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: PNPM Setup
+        uses: pnpm/action-setup@v2
+        with:
+          version: ${{ env.node_version_spec }}
+
+      - name: PNPM Cache Restore
+        uses: actions/cache/restore@v3
+        with:
+          path: |
+            node_modules
+          key: pnpm-${{ runner.os }}-${{ github.sha }}-pnpm-lock.yaml
+          restore-keys: |
+            pnpm-${{ runner.os }}-${{ github.sha }}-
+            pnpm-${{ runner.os }}-
+            pnpm-
+
+      - name: NX Cache Restore
+        uses: actions/cache/restore@v3
+        with:
+          path: |
+            .nx
+          key: nx-${{ runner.os }}-${{ github.sha }}
+          restore-keys: |
+            nx-${{ runner.os }}-
+            nx-
+
+      - name: Vercel Pull
+        run: |
+          vercel pull --yes --token=${{ secrets.VERCEL_TOKEN }} --scope=${{ secrets.APPLICATION_VERCEL_SCOPE }}
+          vercel env pull .env --yes --token=${{ secrets.VERCEL_TOKEN }} --scope=${{ secrets.APPLICATION_VERCEL_SCOPE }}
+
+      - name: PNPM Config
+        run: pnpm config set store-dir ${{ env.pnpm_config_cache }}
+
+      - name: PNPM Install
+        run: npm install -g pnpm
+
+      - name: PNPM Cache Save
+        uses: actions/cache/save@v3
+        with:
+          path: |
+            node_modules
+          key: pnpm-${{ runner.os }}-${{ github.sha }}-pnpm-lock.yaml
+          restore-keys: |
+            pnpm-${{ runner.os }}-${{ github.sha }}-
+            pnpm-${{ runner.os }}-
+            pnpm-
+
+      - uses: nrwl/nx-set-shas@v3
+      # This line is needed for nx affected to work when CI is running on a PR
+      - run: git branch --track main origin/main
+        if: ${{ github.event_name == 'pull_request' }}
+      - run: pnpm nx affected -t lint test build --parallel=3
+      - run: pnpm nx affected -t e2e --parallel=1
+
+      - name: NX Cache Save
+        uses: actions/cache/save@v3
+        with:
+          path: |
+            .nx
+          key: nx-${{ runner.os }}-${{ github.sha }}
+          restore-keys: |
+            nx-${{ runner.os }}-
+            nx-
+
+      - name: Deploy Main
+        if: ${{ env.is_preview == 'false' }}
+        run: vercel --prod --token=${{ secrets.VERCEL_TOKEN }} --scope=${{ secrets.APPLICATION_VERCEL_SCOPE }} > deployment-url.txt
+
+      - name: Deploy Preview
+        if: ${{ env.is_preview == 'true' }}
+        run: vercel --token=${{ secrets.VERCEL_TOKEN }} --scope=${{ secrets.APPLICATION_VERCEL_SCOPE }} > deployment-url.txt
+
+      # - name: Publish deployment URL
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     name: deployment-url
+      #     path: deployment-url.txt
+
+      # - name: Publish coverage report
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     name: code-coverage-report
+      #     path: ./apps/headless-commerce/coverage/clover.xml
