@@ -86,8 +86,16 @@ jobs:
 
       - name: Vercel Pull
         run: |
-          vercel pull --yes --token=${{ secrets.VERCEL_TOKEN }} --scope=${{ secrets.VERCEL_SCOPE }}
-          vercel env pull .env --yes --token=${{ secrets.VERCEL_TOKEN }} --scope=${{ secrets.VERCEL_SCOPE }}
+          vercel pull \
+            --yes \
+            --environment=${{ needs.set_environment.outputs.environment }} \
+            --token=${{ secrets.VERCEL_TOKEN }} \
+            --scope=${{ secrets.VERCEL_SCOPE }}
+          vercel env pull .env \
+            --yes \
+            --environment=${{ needs.set_environment.outputs.environment }} \
+            --token=${{ secrets.VERCEL_TOKEN }} \
+            --scope=${{ secrets.VERCEL_SCOPE }}
 
       - name: PNPM Config
         run: pnpm config set store-dir ${{ env.pnpm_config_cache }}
