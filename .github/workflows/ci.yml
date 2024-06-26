@@ -126,10 +126,6 @@ jobs:
           path: |
             node_modules
           key: pnpm-${{ runner.os }}-${{ github.sha }}-pnpm-lock.yaml
-          restore-keys: |
-            pnpm-${{ runner.os }}-${{ github.sha }}-
-            pnpm-${{ runner.os }}-
-            pnpm-
 
       # TODO: Document.
       # - uses: nrwl/nx-set-shas@v3
@@ -145,9 +141,6 @@ jobs:
           path: |
             .nx
           key: nx-${{ runner.os }}-${{ github.sha }}
-          restore-keys: |
-            nx-${{ runner.os }}-
-            nx-
 
       - name: Main Deploy Headless
         if: ${{ env.is_pr }} == 'false'
