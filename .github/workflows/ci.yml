@@ -120,6 +120,11 @@ jobs:
 
       - name: Vercel Pull
         run: |
+          vercel link \
+            --yes \
+            --cwd . \
+            --token=${{ secrets.VERCEL_TOKEN }} \
+            --scope=${{ secrets.VERCEL_SCOPE }}
           vercel pull \
             --yes \
             --environment=${{ needs.set_environment.outputs.vercel_environment }} \
@@ -130,6 +135,7 @@ jobs:
             --environment=${{ needs.set_environment.outputs.vercel_environment }} \
             --token=${{ secrets.VERCEL_TOKEN }} \
             --scope=${{ secrets.VERCEL_SCOPE }}
+          cp -R .vercel apps/headless-commerce/.vercel
           cp .env.local apps/headless-commerce/.env.local
 
       - name: Lint & Test
