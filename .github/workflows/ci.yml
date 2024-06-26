@@ -121,18 +121,6 @@ jobs:
       # - uses: nrwl/nx-set-shas@v3
       # AFFECTED_PROJECTS=$(pnpm nx show projects --affected)
 
-      - name: Build Cache Restore
-        uses: actions/cache/restore@v3
-        with:
-          path: |
-            apps/headless-commerce/.vercel
-            apps/headless-commerce/.next
-          key: build-${{ runner.os }}-${{ github.ref }}-${{ github.sha }}
-          restore-keys: |
-            build-${{ runner.os }}-${{ github.ref }}-
-            build-${{ runner.os }}-
-            build-
-
       - name: Vercel Pull
         run: |
           vercel link \
@@ -157,31 +145,23 @@ jobs:
         run: |
           pnpm nx run @susu/headless-commerce:test-coverage
 
-      - name: Preview Build
-        if: ${{ env.is_pr == 'true' }}
-        run: |
-          pnpm nx run @susu/headless-commerce:build-ci
-
-      - name: Production Build
-        if: ${{ env.is_pr == 'false' }}
-        run: |
-          pnpm nx run @susu/headless-commerce:build-ci -- \
-            --prod
-
-      - name: Build Cache Save
-        uses: actions/cache/save@v3
-        with:
-          path: |
-            apps/headless-commerce/.vercel
-            apps/headless-commerce/.next
-          key: build-${{ runner.os }}-${{ github.ref }}-${{ github.sha }}
-
       - name: NX Cache Save
         uses: actions/cache/save@v3
         with:
           path: |
             .nx
           key: nx-${{ runner.os }}-${{ github.sha }}
+
+      # - name: Preview Build
+      #   if: ${{ env.is_pr == 'true' }}
+      #   run: |
+      #     pnpm nx run @susu/headless-commerce:build-ci
+
+      # - name: Production Build
+      #   if: ${{ env.is_pr == 'false' }}
+      #   run: |
+      #     pnpm nx run @susu/headless-commerce:build-ci -- \
+      #       --prod
 
       # - uses: amondnet/vercel-action@v25
       #   with:
@@ -203,7 +183,6 @@ jobs:
         run: |
           cd apps/headless-commerce
           vercel --prod \
-            --prebuilt \
             --token=${{ secrets.VERCEL_TOKEN }} \
             --scope=${{ secrets.VERCEL_SCOPE }} \
             > deployment-url.txt
@@ -213,7 +192,6 @@ jobs:
         run: |
           cd apps/headless-commerce
           vercel \
-            --prebuilt \
             --token=${{ secrets.VERCEL_TOKEN }} \
             --scope=${{ secrets.VERCEL_SCOPE }} \
             > deployment-url.txt
