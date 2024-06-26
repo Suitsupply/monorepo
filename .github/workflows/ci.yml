@@ -142,18 +142,21 @@ jobs:
             .nx
           key: nx-${{ runner.os }}-${{ github.sha }}
 
-      - name: Main Deploy Headless
-        if: ${{ env.is_pr }} == 'false'
-        run: |
-          vercel --prod \
-            --token=${{ secrets.VERCEL_TOKEN }} \
-            --scope=${{ secrets.VERCEL_SCOPE }} \
-            > deployment-url.txt
-
-      - name: PR Deploy Headless
+      - uses: amondnet/vercel-action@v25
         if: ${{ env.is_pr }} == 'true'
-        run: |
-          vercel \
-            --token=${{ secrets.VERCEL_TOKEN }} \
-            --scope=${{ secrets.VERCEL_SCOPE }} \
-            > deployment-url.txt
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID}}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID}}
+          scope: ${{ secrets.VERCEL_SCOPE}}
+
+      - uses: amondnet/vercel-action@v25
+        if: ${{ env.is_pr }} == 'false'
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          vercel-args: '--prod'
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID}}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID}}
+          scope: ${{ secrets.VERCEL_SCOPE}}
