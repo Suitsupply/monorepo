@@ -110,8 +110,12 @@ jobs:
       - name: PNPM Config
         run: pnpm config set store-dir ${{ env.pnpm_config_cache }}
 
-      - name: PNPM Install
+      - name: Install PNPM
         run: npm install -g pnpm
+
+      - name: PNPM Install
+        run: |
+          pnpm install
 
       - name: PNPM Cache Save
         uses: actions/cache/save@v3
@@ -130,7 +134,17 @@ jobs:
 
       - name: Lint & Test & Build
         run: |
-          nx run @susu/headless-commerce:build
+          pnpm nx run @susu/headless-commerce:test-coverage
+
+      - name: NX Cache Save
+        uses: actions/cache/save@v3
+        with:
+          path: |
+            .nx
+          key: nx-${{ runner.os }}-${{ github.sha }}
+          restore-keys: |
+            nx-${{ runner.os }}-
+            nx-
 
       - name: Main Deploy Headless
         if: ${{ env.is_pr }} == 'false'
@@ -147,13 +161,3 @@ jobs:
             --token=${{ secrets.VERCEL_TOKEN }} \
             --scope=${{ secrets.VERCEL_SCOPE }} \
             > deployment-url.txt
-
-      - name: NX Cache Save
-        uses: actions/cache/save@v3
-        with:
-          path: |
-            .nx
-          key: nx-${{ runner.os }}-${{ github.sha }}
-          restore-keys: |
-            nx-${{ runner.os }}-
-            nx-
