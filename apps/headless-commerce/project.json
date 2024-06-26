@@ -10,49 +10,64 @@
       "options": {
         "commands": ["pnpm codegen"],
         "cwd": "apps/headless-commerce",
-        "forwardAllArgs": true
+        "forwardAllArgs": false
       },
       "inputs": ["{projectRoot}/gql/**/*", "!{projectRoot}/gql/generated/**/*"]
     },
     "lint": {
+      "cache": true,
+      "options": {
+        "forwardAllArgs": false
+      },
       "dependsOn": ["^lint", "codegen"],
       "inputs": ["{projectRoot}/**/*", "!{projectRoot}/gql/generated/**/*"]
     },
-    "dev": {
-      "executor": "nx:run-commands",
-      "options": {
-        "commands": ["pnpm dev"],
-        "cwd": "apps/headless-commerce",
-        "forwardAllArgs": true
-      },
-      "dependsOn": ["lint", "codegen"]
-    },
     "test": {
+      "cache": true,
+      "options": {
+        "forwardAllArgs": false
+      },
       "dependsOn": ["^test", "lint", "codegen"],
       "inputs": ["{projectRoot}/**/*", "!{projectRoot}/gql/generated/**/*"]
     },
     "test-coverage": {
+      "cache": true,
       "executor": "nx:run-commands",
       "options": {
         "commands": ["pnpm run test-coverage"],
         "cwd": "apps/headless-commerce",
-        "forwardAllArgs": true
+        "forwardAllArgs": false
       },
       "dependsOn": ["^test-coverage", "lint", "codegen"],
       "inputs": ["{projectRoot}/**/*", "!{projectRoot}/gql/generated/**/*"]
     },
+    "dev": {
+      "cache": false,
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": ["pnpm dev"],
+        "cwd": "apps/headless-commerce",
+        "forwardAllArgs": false
+      },
+      "dependsOn": ["lint", "codegen"]
+    },
     "build": {
+      "cache": true,
+      "options": {
+        "forwardAllArgs": true
+      },
       "dependsOn": ["^build", "test", "codegen"],
       "inputs": ["{projectRoot}/**/*", "!{projectRoot}/gql/generated/**/*"]
     },
     "build-ci": {
+      "cache": true,
       "executor": "nx:run-commands",
       "options": {
         "commands": ["pnpm vercel build --yes"],
         "cwd": "{projectRoot}",
         "forwardAllArgs": true
       },
-      "dependsOn": ["test", "codegen"],
+      "dependsOn": [],
       "inputs": ["{projectRoot}/**/*", "!{projectRoot}/gql/generated/**/*"]
     }
   },

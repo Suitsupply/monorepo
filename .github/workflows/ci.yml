@@ -132,14 +132,18 @@ jobs:
             --scope=${{ secrets.VERCEL_SCOPE }}
           cp .env.local apps/headless-commerce/.env.local
 
-      - name: Lint & Test & Build
+      - name: Lint & Test
+        run: |
+          pnpm nx run @susu/headless-commerce:test-coverage
+
+      - name: Preview Build
         if: ${{ env.is_pr == 'true' }}
         run: |
           pnpm nx run @susu/headless-commerce:build-ci -- \
             --token=${{ secrets.VERCEL_TOKEN }} \
             --scope=${{ secrets.VERCEL_SCOPE }}
 
-      - name: Lint & Test & Build
+      - name: Production Build
         if: ${{ env.is_pr == 'false' }}
         run: |
           pnpm nx run @susu/headless-commerce:build-ci -- \
