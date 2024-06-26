@@ -5,14 +5,15 @@
   "projectType": "application",
   "targets": {
     "codegen": {
-      "cache": false,
+      "cache": true,
       "executor": "nx:run-commands",
       "options": {
         "commands": ["pnpm codegen"],
         "cwd": "apps/headless-commerce",
         "forwardAllArgs": false
       },
-      "inputs": ["{projectRoot}/gql/**/*", "!{projectRoot}/gql/generated/**/*"]
+      "inputs": ["{projectRoot}/gql/**/*", "!{projectRoot}/gql/generated/**/*"],
+      "outputs": ["{projectRoot}/gql/generated/**/*"]
     },
     "lint": {
       "cache": true,
@@ -57,7 +58,8 @@
         "forwardAllArgs": true
       },
       "dependsOn": ["^build", "test", "codegen"],
-      "inputs": ["{projectRoot}/**/*", "!{projectRoot}/gql/generated/**/*"]
+      "inputs": ["{projectRoot}/**/*", "!{projectRoot}/gql/generated/**/*"],
+      "outputs": ["{projectRoot}/.next/**/*", "{projectRoot}/.vercel/**/*"]
     },
     "build-ci": {
       "cache": false,
@@ -68,7 +70,8 @@
         "forwardAllArgs": true
       },
       "dependsOn": [],
-      "inputs": ["{projectRoot}/**/*", "!{projectRoot}/gql/generated/**/*"]
+      "inputs": ["{projectRoot}/**/*", "!{projectRoot}/gql/generated/**/*"],
+      "outputs": ["{projectRoot}/.next/**/*", "{projectRoot}/.vercel/**/*"]
     }
   },
   "tags": []
