@@ -145,23 +145,16 @@ jobs:
       #   run: |
       #     pnpm nx run @susu/headless-commerce:test-coverage
 
+      - name: Build
+        run: |
+          pnpm nx run @susu/headless-commerce:build
+
       - name: NX Cache Save
         uses: actions/cache/save@v3
         with:
           path: |
             .nx
           key: nx-${{ runner.os }}-${{ github.sha }}
-
-      - name: Preview Build
-        if: ${{ env.is_pr == 'true' }}
-        run: |
-          pnpm nx run @susu/headless-commerce:build
-
-      - name: Production Build
-        if: ${{ env.is_pr == 'false' }}
-        run: |
-          pnpm nx run @susu/headless-commerce:build -- \
-            --prod
 
       # - name: Setup tmate session
       #   uses: mxschmitt/action-tmate@v3
