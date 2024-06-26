@@ -133,12 +133,12 @@ jobs:
           cp .env.local apps/headless-commerce/.env.local
 
       - name: Lint & Test & Build
-        if: ${{ env.is_pr }} == 'true'
+        if: ${{ env.is_pr == 'true' }}
         run: |
           pnpm nx run @susu/headless-commerce:build-ci
 
       - name: Lint & Test & Build
-        if: ${{ env.is_pr }} == 'false'
+        if: ${{ env.is_pr == 'false' }}
         run: |
           pnpm nx run @susu/headless-commerce:build-ci --prod
 
@@ -162,6 +162,7 @@ jobs:
       #     # working-directory: ./sub-directory
 
       - name: Main Deploy Headless
+        if: ${{ env.is_pr == 'false' }}
         run: |
           vercel --prod \
             --prebuilt \
@@ -170,7 +171,7 @@ jobs:
             > deployment-url.txt
 
       - name: PR Deploy Headless
-        if: ${{ env.is_pr }} == 'true'
+        if: ${{ env.is_pr == 'true' }}
         run: |
           vercel \
             --prebuilt \
