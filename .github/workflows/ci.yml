@@ -120,7 +120,6 @@ jobs:
 
       - name: Vercel Pull
         run: |
-          cd apps/headless-commerce
           vercel pull \
             --yes \
             --environment=${{ needs.set_environment.outputs.vercel_environment }} \
@@ -131,6 +130,7 @@ jobs:
             --environment=${{ needs.set_environment.outputs.vercel_environment }} \
             --token=${{ secrets.VERCEL_TOKEN }} \
             --scope=${{ secrets.VERCEL_SCOPE }}
+          cp .env.local apps/headless-commerce/.env.local
 
       - name: Lint & Test & Build
         if: ${{ env.is_pr }} == 'true'
