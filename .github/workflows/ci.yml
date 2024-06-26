@@ -125,7 +125,7 @@ jobs:
             --environment=${{ needs.set_environment.outputs.vercel_environment }} \
             --token=${{ secrets.VERCEL_TOKEN }} \
             --scope=${{ secrets.VERCEL_SCOPE }}
-          vercel env pull .env \
+          vercel env pull .env.local \
             --yes \
             --environment=${{ needs.set_environment.outputs.vercel_environment }} \
             --token=${{ secrets.VERCEL_TOKEN }} \
