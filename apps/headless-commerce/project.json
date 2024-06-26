@@ -5,7 +5,7 @@
   "projectType": "application",
   "targets": {
     "codegen": {
-      "cache": true,
+      "cache": false,
       "executor": "nx:run-commands",
       "options": {
         "commands": ["pnpm codegen"],
