@@ -44,6 +44,16 @@
     "build": {
       "dependsOn": ["^build", "test", "codegen"],
       "inputs": ["{projectRoot}/**/*", "!{projectRoot}/gql/generated/**/*"]
+    },
+    "build-ci": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": ["pnpm vercel build --yes"],
+        "cwd": "{projectRoot}",
+        "forwardAllArgs": true
+      },
+      "dependsOn": ["test", "codegen"],
+      "inputs": ["{projectRoot}/**/*", "!{projectRoot}/gql/generated/**/*"]
     }
   },
   "tags": []

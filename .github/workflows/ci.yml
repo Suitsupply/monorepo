@@ -132,8 +132,14 @@ jobs:
             --scope=${{ secrets.VERCEL_SCOPE }}
 
       - name: Lint & Test & Build
+        if: ${{ env.is_pr }} == 'true'
         run: |
-          pnpm nx run @susu/headless-commerce:test-coverage
+          pnpm nx run @susu/headless-commerce:build-ci
+
+      - name: Lint & Test & Build
+        if: ${{ env.is_pr }} == 'false'
+        run: |
+          pnpm nx run @susu/headless-commerce:build-ci --prod
 
       - name: NX Cache Save
         uses: actions/cache/save@v3
@@ -142,21 +148,31 @@ jobs:
             .nx
           key: nx-${{ runner.os }}-${{ github.sha }}
 
-      - uses: amondnet/vercel-action@v25
-        if: ${{ env.is_pr }} == 'true'
-        with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          vercel-org-id: ${{ secrets.VERCEL_ORG_ID}}
-          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID}}
-          scope: ${{ secrets.VERCEL_SCOPE}}
+      # - uses: amondnet/vercel-action@v25
+      #   with:
+      #     vercel-token: ${{ secrets.VERCEL_TOKEN }}
+      #     # Optional
+      #     github-token: ${{ secrets.GITHUB_TOKEN }}
+      #     # # Optional
+      #     # vercel-args: '--prod'
+      #     vercel-org-id: ${{ secrets.VERCEL_ORG_ID}}
+      #     vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID}}
+      #     scope: ${{ secrets.VERCEL_SCOPE}}
+      #     # working-directory: ./sub-directory
 
-      - uses: amondnet/vercel-action@v25
-        if: ${{ env.is_pr }} == 'false'
-        with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          vercel-args: '--prod'
-          vercel-org-id: ${{ secrets.VERCEL_ORG_ID}}
-          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID}}
-          scope: ${{ secrets.VERCEL_SCOPE}}
+      - name: Main Deploy Headless
+        run: |
+          vercel --prod \
+            --prebuilt \
+            --token=${{ secrets.VERCEL_TOKEN }} \
+            --scope=${{ secrets.VERCEL_SCOPE }} \
+            > deployment-url.txt
+
+      - name: PR Deploy Headless
+        if: ${{ env.is_pr }} == 'true'
+        run: |
+          vercel \
+            --prebuilt \
+            --token=${{ secrets.VERCEL_TOKEN }} \
+            --scope=${{ secrets.VERCEL_SCOPE }} \
+            > deployment-url.txt
