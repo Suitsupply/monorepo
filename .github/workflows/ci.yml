@@ -86,15 +86,15 @@ jobs:
             pnpm-${{ runner.os }}-
             pnpm-
 
-      # - name: NX Cache Restore
-      #   uses: actions/cache/restore@v3
-      #   with:
-      #     path: |
-      #       .nx
-      #     key: nx-${{ runner.os }}-${{ github.sha }}
-      #     restore-keys: |
-      #       nx-${{ runner.os }}-
-      #       nx-
+      - name: NX Cache Restore
+        uses: actions/cache/restore@v3
+        with:
+          path: |
+            .nx
+          key: nx-${{ runner.os }}-${{ github.sha }}
+          restore-keys: |
+            nx-${{ runner.os }}-
+            nx-
 
       - name: NPM Authenticate
         run: echo "${{ secrets.NPM_RC }}" >> ~/.npmrc
@@ -145,51 +145,58 @@ jobs:
       #   run: |
       #     pnpm nx run @susu/headless-commerce:test-coverage
 
-      # - name: NX Cache Save
-      #   uses: actions/cache/save@v3
-      #   with:
-      #     path: |
-      #       .nx
-      #     key: nx-${{ runner.os }}-${{ github.sha }}
+      - name: NX Cache Save
+        uses: actions/cache/save@v3
+        with:
+          path: |
+            .nx
+          key: nx-${{ runner.os }}-${{ github.sha }}
 
-      # - name: Preview Build
-      #   if: ${{ env.is_pr == 'true' }}
-      #   run: |
-      #     pnpm nx run @susu/headless-commerce:build-ci
+      - name: Preview Build
+        if: ${{ env.is_pr == 'true' }}
+        run: |
+          pnpm nx run @susu/headless-commerce:build-ci
 
-      # - name: Production Build
-      #   if: ${{ env.is_pr == 'false' }}
-      #   run: |
-      #     pnpm nx run @susu/headless-commerce:build-ci -- \
-      #       --prod
-
-      # - uses: amondnet/vercel-action@v25
-      #   with:
-      #     vercel-token: ${{ secrets.VERCEL_TOKEN }}
-      #     # Optional
-      #     github-token: ${{ secrets.GITHUB_TOKEN }}
-      #     # # Optional
-      #     # vercel-args: '--prod'
-      #     vercel-org-id: ${{ secrets.VERCEL_ORG_ID}}
-      #     vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID}}
-      #     scope: ${{ secrets.VERCEL_SCOPE}}
-      #     # working-directory: ./sub-directory
+      - name: Production Build
+        if: ${{ env.is_pr == 'false' }}
+        run: |
+          pnpm nx run @susu/headless-commerce:build-ci -- \
+            --prod
 
       # - name: Setup tmate session
       #   uses: mxschmitt/action-tmate@v3
 
-      - name: Main Deploy Headless
+      - uses: amondnet/vercel-action@v25
         if: ${{ env.is_pr == 'false' }}
-        run: |
-          vercel --prod \
-            --token=${{ secrets.VERCEL_TOKEN }} \
-            --scope=${{ secrets.VERCEL_SCOPE }} \
-            > deployment-url.txt
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          vercel-args: '--prod'
+          vercel-org-id: ${{ secrets.ORG_ID}}
+          vercel-project-id: ${{ secrets.PROJECT_ID}}
+          working-directory: ./apps/headless-commerce
 
-      - name: PR Deploy Headless
+      - uses: amondnet/vercel-action@v25
         if: ${{ env.is_pr == 'true' }}
-        run: |
-          vercel \
-            --token=${{ secrets.VERCEL_TOKEN }} \
-            --scope=${{ secrets.VERCEL_SCOPE }} \
-            > deployment-url.txt
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          vercel-org-id: ${{ secrets.ORG_ID}}
+          vercel-project-id: ${{ secrets.PROJECT_ID}}
+          working-directory: ./apps/headless-commerce
+
+      # - name: Main Deploy Headless
+      #   if: ${{ env.is_pr == 'false' }}
+      #   run: |
+      #     vercel --prod \
+      #       --token=${{ secrets.VERCEL_TOKEN }} \
+      #       --scope=${{ secrets.VERCEL_SCOPE }} \
+      #       > deployment-url.txt
+
+      # - name: PR Deploy Headless
+      #   if: ${{ env.is_pr == 'true' }}
+      #   run: |
+      #     vercel \
+      #       --token=${{ secrets.VERCEL_TOKEN }} \
+      #       --scope=${{ secrets.VERCEL_SCOPE }} \
+      #       > deployment-url.txt
