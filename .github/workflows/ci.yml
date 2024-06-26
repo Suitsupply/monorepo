@@ -120,6 +120,7 @@ jobs:
 
       - name: Vercel Pull
         run: |
+          cd apps/headless-commerce
           vercel pull \
             --yes \
             --environment=${{ needs.set_environment.outputs.vercel_environment }} \
