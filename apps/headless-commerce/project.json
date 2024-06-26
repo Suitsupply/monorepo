@@ -42,6 +42,15 @@
       "dependsOn": ["^test-coverage", "lint", "codegen"],
       "inputs": ["{projectRoot}/**/*", "!{projectRoot}/gql/generated/**/*"]
     },
+    "build": {
+      "cache": true,
+      "options": {
+        "forwardAllArgs": true
+      },
+      "dependsOn": ["^build", "test", "codegen"],
+      "inputs": ["{projectRoot}/**/*", "!{projectRoot}/gql/generated/**/*"],
+      "outputs": ["{projectRoot}/.next/**/*", "{projectRoot}/.vercel/**/*"]
+    },
     "dev": {
       "cache": false,
       "executor": "nx:run-commands",
@@ -51,27 +60,6 @@
         "forwardAllArgs": false
       },
       "dependsOn": ["lint", "codegen"]
-    },
-    "build": {
-      "cache": false,
-      "options": {
-        "forwardAllArgs": true
-      },
-      "dependsOn": ["^build", "test", "codegen"],
-      "inputs": ["{projectRoot}/**/*", "!{projectRoot}/gql/generated/**/*"],
-      "outputs": ["{projectRoot}/.next/**/*", "{projectRoot}/.vercel/**/*"]
-    },
-    "build-ci": {
-      "cache": false,
-      "executor": "nx:run-commands",
-      "options": {
-        "commands": ["pnpm vercel build"],
-        "cwd": "apps/headless-commerce",
-        "forwardAllArgs": true
-      },
-      "dependsOn": [],
-      "inputs": ["{projectRoot}/**/*", "!{projectRoot}/gql/generated/**/*"],
-      "outputs": ["{projectRoot}/.next/**/*", "{projectRoot}/.vercel/**/*"]
     }
   },
   "tags": []
