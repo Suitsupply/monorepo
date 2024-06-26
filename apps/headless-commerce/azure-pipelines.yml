@@ -141,7 +141,7 @@ jobs:
       - script: pnpm config set store-dir $(pnpm_config_cache)
         displayName: 'Setup PNPM Config'
 
-      # Vercel Pull.
+      # Vercel Pull .
       - script: |
           vercel pull --yes --token=$(VERCEL_TOKEN) --scope=$(APPLICATION_VERCEL_SCOPE)
           vercel env pull .env --yes --token=$(VERCEL_TOKEN) --scope=$(APPLICATION_VERCEL_SCOPE)
