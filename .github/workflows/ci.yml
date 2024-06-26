@@ -135,12 +135,17 @@ jobs:
       - name: Lint & Test & Build
         if: ${{ env.is_pr == 'true' }}
         run: |
-          pnpm nx run @susu/headless-commerce:build-ci
+          pnpm nx run @susu/headless-commerce:build-ci -- \
+            --token=${{ secrets.VERCEL_TOKEN }} \
+            --scope=${{ secrets.VERCEL_SCOPE }}
 
       - name: Lint & Test & Build
         if: ${{ env.is_pr == 'false' }}
         run: |
-          pnpm nx run @susu/headless-commerce:build-ci --prod
+          pnpm nx run @susu/headless-commerce:build-ci -- \
+            --prod
+            --token=${{ secrets.VERCEL_TOKEN }} \
+            --scope=${{ secrets.VERCEL_SCOPE }}
 
       - name: NX Cache Save
         uses: actions/cache/save@v3
