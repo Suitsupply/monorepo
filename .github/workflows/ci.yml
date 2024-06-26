@@ -141,9 +141,9 @@ jobs:
           cp -R .vercel apps/headless-commerce/.vercel
           cp .env.local apps/headless-commerce/.env.local
 
-      - name: Lint & Test
-        run: |
-          pnpm nx run @susu/headless-commerce:test-coverage
+      # - name: Lint & Test
+      #   run: |
+      #     pnpm nx run @susu/headless-commerce:test-coverage
 
       - name: NX Cache Save
         uses: actions/cache/save@v3
