@@ -181,7 +181,7 @@ jobs:
       - name: Main Deploy Headless
         if: ${{ env.is_pr == 'false' }}
         run: |
-          cd apps/headless-commerce
+          # cd apps/headless-commerce
           vercel --prod \
             --token=${{ secrets.VERCEL_TOKEN }} \
             --scope=${{ secrets.VERCEL_SCOPE }} \
@@ -190,7 +190,7 @@ jobs:
       - name: PR Deploy Headless
         if: ${{ env.is_pr == 'true' }}
         run: |
-          cd apps/headless-commerce
+          # cd apps/headless-commerce
           vercel \
             --token=${{ secrets.VERCEL_TOKEN }} \
             --scope=${{ secrets.VERCEL_SCOPE }} \
