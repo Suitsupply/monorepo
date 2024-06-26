@@ -19,6 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       environment: ${{ steps.set-env.outputs.environment }}
+      vercel_environment: ${{ steps.set-env.outputs.vercel_environment }}
     steps:
       - name: Determine Environment
         id: set-env
@@ -26,12 +27,18 @@ jobs:
           if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
             echo "environment=main" >> $GITHUB_ENV
             echo "::set-output name=environment::main"
+            echo "vercel_environment=production" >> $GITHUB_ENV
+            echo "::set-output name=vercel_environment::production"
           elif [[ "${{ github.ref }}" == "refs/heads/acceptance" ]]; then
             echo "environment=acceptance" >> $GITHUB_ENV
             echo "::set-output name=environment::acceptance"
+            echo "vercel_environment=preview" >> $GITHUB_ENV
+            echo "::set-output name=vercel_environment::preview"
           elif [[ "${{ github.ref }}" == "refs/heads/testing" ]]; then
             echo "environment=testing" >> $GITHUB_ENV
             echo "::set-output name=environment::testing"
+            echo "vercel_environment=development" >> $GITHUB_ENV
+            echo "::set-output name=vercel_environment::development"
           else
             echo "No specific environment for this branch"
           fi
@@ -51,6 +58,7 @@ jobs:
       is_acceptance_branch: ${{ github.ref == 'refs/heads/acceptance' }}
       is_testing_branch: ${{ github.ref == 'refs/heads/testing' }}
       is_preview: ${{ github.event_name == 'pull_request' || (github.ref != 'refs/heads/main' && github.ref != 'refs/heads/acceptance' && github.ref != 'refs/heads/testing') }}
+      vercel_environment: ${{ needs.set_environment.outputs.vercel_environment }}
 
     steps:
       - name: Checkout

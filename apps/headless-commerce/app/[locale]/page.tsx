@@ -17,6 +17,7 @@ import { countries } from '@susu/headless-commerce/utils/configuration/country';
 import { createServerComponentURQLClient } from '@susu/headless-commerce/utils/graphql/server';
 import { getCountryCode, getLanguageFromLocale } from '@susu/headless-commerce/utils/localeUtils';
 import { buildMetadata } from '@susu/headless-commerce/utils/metadata';
+import ProvidingIndexPage from '@susu/providing-application/src/app/page';
 import { registerUrql } from '@urql/next/rsc';
 import type { Metadata } from 'next';
 
@@ -95,6 +96,7 @@ export default async function IndexPage({ params: { locale } }: Readonly<IndexPa
       locale={locale}
       header={header}
     >
+      <ProvidingIndexPage />
       <HomepageSections homepageContent={homepageContent} locale={locale} />
     </BaseLayout>
   );

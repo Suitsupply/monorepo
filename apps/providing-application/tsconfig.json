@@ -1,0 +1,29 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "include": [
+    "./**/*.js",
+    "./**/*.cjs",
+    "./**/*.mjs",
+    "./**/*.jsx",
+    "./**/*.ts",
+    "./**/*.mts",
+    "./**/*.cts",
+    "./**/*.tsx",
+    "./next-env.d.ts",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": ["./.next/**/*", "./coverage"],
+  "compilerOptions": {
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "target": "ESNext",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "incremental": true,
+    "isolatedModules": true
+  }
+}
