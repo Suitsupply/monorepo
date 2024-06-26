@@ -86,15 +86,15 @@ jobs:
             pnpm-${{ runner.os }}-
             pnpm-
 
-      - name: NX Cache Restore
-        uses: actions/cache/restore@v3
-        with:
-          path: |
-            .nx
-          key: nx-${{ runner.os }}-${{ github.sha }}
-          restore-keys: |
-            nx-${{ runner.os }}-
-            nx-
+      # - name: NX Cache Restore
+      #   uses: actions/cache/restore@v3
+      #   with:
+      #     path: |
+      #       .nx
+      #     key: nx-${{ runner.os }}-${{ github.sha }}
+      #     restore-keys: |
+      #       nx-${{ runner.os }}-
+      #       nx-
 
       - name: NPM Authenticate
         run: echo "${{ secrets.NPM_RC }}" >> ~/.npmrc
@@ -121,36 +121,36 @@ jobs:
       # - uses: nrwl/nx-set-shas@v3
       # AFFECTED_PROJECTS=$(pnpm nx show projects --affected)
 
-      - name: Vercel Pull
-        run: |
-          vercel link \
-            --yes \
-            --cwd . \
-            --token=${{ secrets.VERCEL_TOKEN }} \
-            --scope=${{ secrets.VERCEL_SCOPE }}
-          vercel pull \
-            --yes \
-            --environment=${{ needs.set_environment.outputs.vercel_environment }} \
-            --token=${{ secrets.VERCEL_TOKEN }} \
-            --scope=${{ secrets.VERCEL_SCOPE }}
-          vercel env pull .env.local \
-            --yes \
-            --environment=${{ needs.set_environment.outputs.vercel_environment }} \
-            --token=${{ secrets.VERCEL_TOKEN }} \
-            --scope=${{ secrets.VERCEL_SCOPE }}
-          cp -R .vercel apps/headless-commerce/.vercel
-          cp .env.local apps/headless-commerce/.env.local
+      # - name: Vercel Pull
+      #   run: |
+      #     vercel link \
+      #       --yes \
+      #       --cwd . \
+      #       --token=${{ secrets.VERCEL_TOKEN }} \
+      #       --scope=${{ secrets.VERCEL_SCOPE }}
+      #     vercel pull \
+      #       --yes \
+      #       --environment=${{ needs.set_environment.outputs.vercel_environment }} \
+      #       --token=${{ secrets.VERCEL_TOKEN }} \
+      #       --scope=${{ secrets.VERCEL_SCOPE }}
+      #     vercel env pull .env.local \
+      #       --yes \
+      #       --environment=${{ needs.set_environment.outputs.vercel_environment }} \
+      #       --token=${{ secrets.VERCEL_TOKEN }} \
+      #       --scope=${{ secrets.VERCEL_SCOPE }}
+      #     cp -R .vercel apps/headless-commerce/.vercel
+      #     cp .env.local apps/headless-commerce/.env.local
 
       # - name: Lint & Test
       #   run: |
       #     pnpm nx run @susu/headless-commerce:test-coverage
 
-      - name: NX Cache Save
-        uses: actions/cache/save@v3
-        with:
-          path: |
-            .nx
-          key: nx-${{ runner.os }}-${{ github.sha }}
+      # - name: NX Cache Save
+      #   uses: actions/cache/save@v3
+      #   with:
+      #     path: |
+      #       .nx
+      #     key: nx-${{ runner.os }}-${{ github.sha }}
 
       # - name: Preview Build
       #   if: ${{ env.is_pr == 'true' }}
@@ -181,7 +181,6 @@ jobs:
       - name: Main Deploy Headless
         if: ${{ env.is_pr == 'false' }}
         run: |
-          # cd apps/headless-commerce
           vercel --prod \
             --token=${{ secrets.VERCEL_TOKEN }} \
             --scope=${{ secrets.VERCEL_SCOPE }} \
@@ -190,7 +189,6 @@ jobs:
       - name: PR Deploy Headless
         if: ${{ env.is_pr == 'true' }}
         run: |
-          # cd apps/headless-commerce
           vercel \
             --token=${{ secrets.VERCEL_TOKEN }} \
             --scope=${{ secrets.VERCEL_SCOPE }} \

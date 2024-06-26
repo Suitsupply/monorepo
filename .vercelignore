@@ -1,8 +1,8 @@
+*.tsbuildinfo
+.eslintcache
 .github/
 .husky/
+.next/
 .vscode/
-.next
 coverage
 node_modules
-.eslintcache
-*.tsbuildinfo
