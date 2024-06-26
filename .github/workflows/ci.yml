@@ -193,6 +193,9 @@ jobs:
       #     scope: ${{ secrets.VERCEL_SCOPE}}
       #     # working-directory: ./sub-directory
 
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
+
       - name: Main Deploy Headless
         if: ${{ env.is_pr == 'false' }}
         run: |
