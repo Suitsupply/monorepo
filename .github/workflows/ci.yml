@@ -32,13 +32,16 @@ jobs:
           elif [[ "${{ github.ref }}" == "refs/heads/acceptance" ]]; then
             echo "environment=acceptance" >> $GITHUB_ENV
             echo "::set-output name=environment::acceptance"
-            echo "vercel_environment=preview" >> $GITHUB_ENV
-            echo "::set-output name=vercel_environment::preview"
+            echo "vercel_environment=production" >> $GITHUB_ENV
+            echo "::set-output name=vercel_environment::production"
           elif [[ "${{ github.ref }}" == "refs/heads/testing" ]]; then
             echo "environment=testing" >> $GITHUB_ENV
             echo "::set-output name=environment::testing"
             echo "vercel_environment=development" >> $GITHUB_ENV
             echo "::set-output name=vercel_environment::development"
+          elif [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            echo "vercel_environment=preview" >> $GITHUB_ENV
+            echo "::set-output name=vercel_environment::preview"
           else
             echo "No specific environment for this branch"
           fi
