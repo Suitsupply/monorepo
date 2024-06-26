@@ -94,19 +94,6 @@ jobs:
             nx-${{ runner.os }}-
             nx-
 
-      - name: Vercel Pull
-        run: |
-          vercel pull \
-            --yes \
-            --environment=${{ needs.set_environment.outputs.vercel_environment }} \
-            --token=${{ secrets.VERCEL_TOKEN }} \
-            --scope=${{ secrets.VERCEL_SCOPE }}
-          vercel env pull .env \
-            --yes \
-            --environment=${{ needs.set_environment.outputs.vercel_environment }} \
-            --token=${{ secrets.VERCEL_TOKEN }} \
-            --scope=${{ secrets.VERCEL_SCOPE }}
-
       - name: NPM Authenticate
         run: echo "${{ secrets.NPM_RC }}" >> ~/.npmrc
 
@@ -130,6 +117,19 @@ jobs:
       # TODO: Document.
       # - uses: nrwl/nx-set-shas@v3
       # AFFECTED_PROJECTS=$(pnpm nx show projects --affected)
+
+      - name: Vercel Pull
+        run: |
+          vercel pull \
+            --yes \
+            --environment=${{ needs.set_environment.outputs.vercel_environment }} \
+            --token=${{ secrets.VERCEL_TOKEN }} \
+            --scope=${{ secrets.VERCEL_SCOPE }}
+          vercel env pull .env \
+            --yes \
+            --environment=${{ needs.set_environment.outputs.vercel_environment }} \
+            --token=${{ secrets.VERCEL_TOKEN }} \
+            --scope=${{ secrets.VERCEL_SCOPE }}
 
       - name: Lint & Test & Build
         run: |
