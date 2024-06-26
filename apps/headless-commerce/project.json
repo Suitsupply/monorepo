@@ -52,7 +52,7 @@
       "dependsOn": ["lint", "codegen"]
     },
     "build": {
-      "cache": true,
+      "cache": false,
       "options": {
         "forwardAllArgs": true
       },
@@ -60,7 +60,7 @@
       "inputs": ["{projectRoot}/**/*", "!{projectRoot}/gql/generated/**/*"]
     },
     "build-ci": {
-      "cache": true,
+      "cache": false,
       "executor": "nx:run-commands",
       "options": {
         "commands": ["pnpm vercel build"],

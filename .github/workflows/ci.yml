@@ -78,6 +78,7 @@ jobs:
         uses: actions/cache/restore@v3
         with:
           path: |
+            .pnpm-store
             node_modules
           key: pnpm-${{ runner.os }}-${{ github.sha }}-pnpm-lock.yaml
           restore-keys: |
@@ -112,6 +113,7 @@ jobs:
         uses: actions/cache/save@v3
         with:
           path: |
+            .pnpm-store
             node_modules
           key: pnpm-${{ runner.os }}-${{ github.sha }}-pnpm-lock.yaml
 
@@ -193,8 +195,8 @@ jobs:
       #     scope: ${{ secrets.VERCEL_SCOPE}}
       #     # working-directory: ./sub-directory
 
-      - name: Setup tmate session
-        uses: mxschmitt/action-tmate@v3
+      # - name: Setup tmate session
+      #   uses: mxschmitt/action-tmate@v3
 
       - name: Main Deploy Headless
         if: ${{ env.is_pr == 'false' }}
