@@ -7132,6 +7132,9 @@ type Product {
   """The name of the product"""
   name: String!
 
+  """Name in English"""
+  nameInEnglish: String!
+
   """The onlineMaterial of the product"""
   onlineMaterial: String!
 
@@ -7143,6 +7146,9 @@ type Product {
 
   """The size of the product"""
   size: String
+
+  """Size Id"""
+  sizeId: String
 
   """The style of the product"""
   style: String!

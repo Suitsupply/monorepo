@@ -63,7 +63,7 @@
       "cache": true,
       "executor": "nx:run-commands",
       "options": {
-        "commands": ["pnpm vercel build --yes"],
+        "commands": ["pnpm vercel build"],
         "cwd": "{projectRoot}",
         "forwardAllArgs": true
       },
