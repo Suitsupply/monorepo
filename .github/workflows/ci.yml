@@ -155,12 +155,12 @@ jobs:
       - name: Preview Build
         if: ${{ env.is_pr == 'true' }}
         run: |
-          pnpm nx run @susu/headless-commerce:build-ci
+          pnpm nx run @susu/headless-commerce:build
 
       - name: Production Build
         if: ${{ env.is_pr == 'false' }}
         run: |
-          pnpm nx run @susu/headless-commerce:build-ci -- \
+          pnpm nx run @susu/headless-commerce:build -- \
             --prod
 
       # - name: Setup tmate session
