@@ -64,7 +64,7 @@
       "executor": "nx:run-commands",
       "options": {
         "commands": ["pnpm vercel build"],
-        "cwd": "{projectRoot}",
+        "cwd": "apps/headless-commerce",
         "forwardAllArgs": true
       },
       "dependsOn": [],
