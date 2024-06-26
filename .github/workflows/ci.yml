@@ -107,6 +107,9 @@ jobs:
             --token=${{ secrets.VERCEL_TOKEN }} \
             --scope=${{ secrets.VERCEL_SCOPE }}
 
+      - name: NPM Authenticate
+        run: echo "//pkgs.dev.azure.com/suitsupply/_packaging/suitsupply-npm-internal/npm/registry/:_authToken=${{ secrets.NPM_TOKEN }}" >> ~/.npmrc
+
       - name: PNPM Config
         run: pnpm config set store-dir ${{ env.pnpm_config_cache }}
 
