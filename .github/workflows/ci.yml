@@ -107,29 +107,15 @@ jobs:
             --token=${{ secrets.VERCEL_TOKEN }} \
             --scope=${{ secrets.VERCEL_SCOPE }}
 
-      # # - name: NPM Authenticate
-      # #   run: echo "//pkgs.dev.azure.com/suitsupply/_packaging/suitsupply-npm-internal/npm/registry/:_authToken=${{ secrets.NPM_TOKEN }}" >> ~/.npmrc
-      # - uses: ponicode/azure-devops-npm-action@master
-      #   with:
-      #     organisation: suitsupply
-      #     project: my_project
-      #     registry: my_npm_registry
-      #     user: unicorn
-      #     password: ${{ secrets.AZURE_TOKEN }}
-      #     email: unicorn@ponicode.com
-      #     scope: ponicode
-      # # We need the .npmrc file in the $HOME directory
-      # - run: cp `pwd`/.npmrc ~
-
       - name: PNPM Config
         run: pnpm config set store-dir ${{ env.pnpm_config_cache }}
 
-      # - name: Install PNPM
-      #   run: npm install -g pnpm
+      - name: Install PNPM
+        run: npm install -g pnpm
 
-      # - name: PNPM Install
-      #   run: |
-      #     pnpm install
+      - name: PNPM Install
+        run: |
+          pnpm install
 
       - name: PNPM Cache Save
         uses: actions/cache/save@v3
@@ -146,9 +132,9 @@ jobs:
       # - uses: nrwl/nx-set-shas@v3
       # AFFECTED_PROJECTS=$(pnpm nx show projects --affected)
 
-      # - name: Lint & Test & Build
-      #   run: |
-      #     pnpm nx run @susu/headless-commerce:test-coverage
+      - name: Lint & Test & Build
+        run: |
+          pnpm nx run @susu/headless-commerce:test-coverage
 
       - name: NX Cache Save
         uses: actions/cache/save@v3
