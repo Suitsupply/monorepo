@@ -164,7 +164,7 @@ jobs:
       - name: Build Artifact
         run: |
           cd apps/headless-commerce
-          tar -czvf build-artifact.tar.gz .next .vercel
+          tar -czvf build-artifact.tar.gz .next .vercel node_modules
 
       - uses: amondnet/vercel-action@v25
         if: ${{ env.is_pr == 'false' }}
@@ -174,7 +174,7 @@ jobs:
           vercel-args: '--prod'
           vercel-org-id: ${{ secrets.ORG_ID}}
           vercel-project-id: ${{ secrets.PROJECT_ID}}
-          working-directory: ./apps/headless-commerce
+          # working-directory: ./apps/headless-commerce
 
       - uses: amondnet/vercel-action@v25
         if: ${{ env.is_pr == 'true' }}
@@ -183,7 +183,7 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           vercel-org-id: ${{ secrets.ORG_ID}}
           vercel-project-id: ${{ secrets.PROJECT_ID}}
-          working-directory: ./apps/headless-commerce
+          # working-directory: ./apps/headless-commerce
 
       # - name: Main Deploy Headless
       #   if: ${{ env.is_pr == 'false' }}
