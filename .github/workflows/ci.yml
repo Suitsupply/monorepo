@@ -9,10 +9,10 @@ on:
       - feature/**
       - bugfix/**
   pull_request:
-    # branches:
-    #   - main
-    #   - acceptance
-    #   - testing
+    branches:
+      - main
+      - acceptance
+      - testing
 
 jobs:
   set_environment:
@@ -138,9 +138,9 @@ jobs:
           cp -R .vercel apps/headless-commerce/.vercel
           cp .env.local apps/headless-commerce/.env.local
 
-      - name: Build
+      - name: Lint & Test
         run: |
-          pnpm nx run @susu/headless-commerce:build
+          pnpm nx run @susu/headless-commerce:test-coverage
 
       - name: NX Cache Save
         uses: actions/cache/save@v3
@@ -148,47 +148,3 @@ jobs:
           path: |
             .nx
           key: nx-${{ runner.os }}-${{ github.sha }}
-
-      # - name: Setup tmate session
-      #   uses: mxschmitt/action-tmate@v3
-
-      # Trying to make an archive of directories so Vercel can skip the build.
-      - name: Build Artifact
-        run: |
-          cd apps/headless-commerce
-          tar -czvf build-artifact.tar.gz .next .vercel
-
-      - uses: amondnet/vercel-action@v25
-        if: ${{ env.is_pr == 'false' }}
-        with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          vercel-args: '--prod'
-          vercel-org-id: ${{ secrets.ORG_ID}}
-          vercel-project-id: ${{ secrets.PROJECT_ID}}
-          # working-directory: ./apps/headless-commerce
-
-      - uses: amondnet/vercel-action@v25
-        if: ${{ env.is_pr == 'true' }}
-        with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          vercel-org-id: ${{ secrets.ORG_ID}}
-          vercel-project-id: ${{ secrets.PROJECT_ID}}
-          # working-directory: ./apps/headless-commerce
-
-      # - name: Main Deploy Headless
-      #   if: ${{ env.is_pr == 'false' }}
-      #   run: |
-      #     vercel --prod \
-      #       --token=${{ secrets.VERCEL_TOKEN }} \
-      #       --scope=${{ secrets.VERCEL_SCOPE }} \
-      #       > deployment-url.txt
-
-      # - name: PR Deploy Headless
-      #   if: ${{ env.is_pr == 'true' }}
-      #   run: |
-      #     vercel \
-      #       --token=${{ secrets.VERCEL_TOKEN }} \
-      #       --scope=${{ secrets.VERCEL_SCOPE }} \
-      #       > deployment-url.txt
