@@ -159,6 +159,12 @@ jobs:
       # - name: Setup tmate session
       #   uses: mxschmitt/action-tmate@v3
 
+      # Trying to make an archive of directories so Vercel can skip the build.
+      - name: Build Artifact
+        run: |
+          cd apps/headless-commerce
+          tar -czvf build-artifact.tar.gz .nx .next .vercel node_modules
+
       - uses: amondnet/vercel-action@v25
         if: ${{ env.is_pr == 'false' }}
         with:
