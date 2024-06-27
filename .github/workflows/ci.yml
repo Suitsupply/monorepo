@@ -1,194 +1,194 @@
-name: CI
+# name: CI
 
-on:
-  push:
-    branches:
-      - main
-      - acceptance
-      - testing
-      - feature/**
-      - bugfix/**
-  pull_request:
-    # branches:
-    #   - main
-    #   - acceptance
-    #   - testing
+# on:
+#   push:
+#     branches:
+#       - main
+#       - acceptance
+#       - testing
+#       - feature/**
+#       - bugfix/**
+#   pull_request:
+#     # branches:
+#     #   - main
+#     #   - acceptance
+#     #   - testing
 
-jobs:
-  set_environment:
-    runs-on: ubuntu-latest
-    outputs:
-      environment: ${{ steps.set-env.outputs.environment }}
-      vercel_environment: ${{ steps.set-env.outputs.vercel_environment }}
-    steps:
-      - name: Determine Environment
-        id: set-env
-        run: |
-          if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
-            echo "environment=main" >> $GITHUB_ENV
-            echo "::set-output name=environment::main"
-            echo "vercel_environment=production" >> $GITHUB_ENV
-            echo "::set-output name=vercel_environment::production"
-          elif [[ "${{ github.ref }}" == "refs/heads/acceptance" ]]; then
-            echo "environment=acceptance" >> $GITHUB_ENV
-            echo "::set-output name=environment::acceptance"
-            echo "vercel_environment=production" >> $GITHUB_ENV
-            echo "::set-output name=vercel_environment::production"
-          elif [[ "${{ github.ref }}" == "refs/heads/testing" ]]; then
-            echo "environment=testing" >> $GITHUB_ENV
-            echo "::set-output name=environment::testing"
-            echo "vercel_environment=development" >> $GITHUB_ENV
-            echo "::set-output name=vercel_environment::development"
-          elif [[ "${{ github.event_name }}" == "pull_request" ]]; then
-            echo "vercel_environment=preview" >> $GITHUB_ENV
-            echo "::set-output name=vercel_environment::preview"
-          else
-            echo "No specific environment for this branch"
-          fi
+# jobs:
+#   set_environment:
+#     runs-on: ubuntu-latest
+#     outputs:
+#       environment: ${{ steps.set-env.outputs.environment }}
+#       vercel_environment: ${{ steps.set-env.outputs.vercel_environment }}
+#     steps:
+#       - name: Determine Environment
+#         id: set-env
+#         run: |
+#           if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
+#             echo "environment=main" >> $GITHUB_ENV
+#             echo "::set-output name=environment::main"
+#             echo "vercel_environment=production" >> $GITHUB_ENV
+#             echo "::set-output name=vercel_environment::production"
+#           elif [[ "${{ github.ref }}" == "refs/heads/acceptance" ]]; then
+#             echo "environment=acceptance" >> $GITHUB_ENV
+#             echo "::set-output name=environment::acceptance"
+#             echo "vercel_environment=production" >> $GITHUB_ENV
+#             echo "::set-output name=vercel_environment::production"
+#           elif [[ "${{ github.ref }}" == "refs/heads/testing" ]]; then
+#             echo "environment=testing" >> $GITHUB_ENV
+#             echo "::set-output name=environment::testing"
+#             echo "vercel_environment=development" >> $GITHUB_ENV
+#             echo "::set-output name=vercel_environment::development"
+#           elif [[ "${{ github.event_name }}" == "pull_request" ]]; then
+#             echo "vercel_environment=preview" >> $GITHUB_ENV
+#             echo "::set-output name=vercel_environment::preview"
+#           else
+#             echo "No specific environment for this branch"
+#           fi
 
-  install_and_test:
-    needs: set_environment
-    runs-on: ubuntu-latest
-    environment: ${{ needs.set_environment.outputs.environment }}
-    env:
-      CI: true
-      ENABLE_EXPERIMENTAL_COREPACK: 1
-      NX_REJECT_UNKNOWN_LOCAL_CACHE: 0
-      node_version_spec: 20.12.2
-      pnpm_version_spec: 9.4.0
-      node_modules_root: '.'
-      pnpm_config_cache: ${{ github.workspace }}/.pnpm-store
-      is_pr: ${{ github.event_name == 'pull_request' }}
-      is_main_branch: ${{ github.ref == 'refs/heads/main' }}
-      is_acceptance_branch: ${{ github.ref == 'refs/heads/acceptance' }}
-      is_testing_branch: ${{ github.ref == 'refs/heads/testing' }}
-      is_preview: ${{ github.event_name == 'pull_request' || (github.ref != 'refs/heads/main' && github.ref != 'refs/heads/acceptance' && github.ref != 'refs/heads/testing') }}
+#   install_and_test:
+#     needs: set_environment
+#     runs-on: ubuntu-latest
+#     environment: ${{ needs.set_environment.outputs.environment }}
+#     env:
+#       CI: true
+#       ENABLE_EXPERIMENTAL_COREPACK: 1
+#       NX_REJECT_UNKNOWN_LOCAL_CACHE: 0
+#       node_version_spec: 20.12.2
+#       pnpm_version_spec: 9.4.0
+#       node_modules_root: '.'
+#       pnpm_config_cache: ${{ github.workspace }}/.pnpm-store
+#       is_pr: ${{ github.event_name == 'pull_request' }}
+#       is_main_branch: ${{ github.ref == 'refs/heads/main' }}
+#       is_acceptance_branch: ${{ github.ref == 'refs/heads/acceptance' }}
+#       is_testing_branch: ${{ github.ref == 'refs/heads/testing' }}
+#       is_preview: ${{ github.event_name == 'pull_request' || (github.ref != 'refs/heads/main' && github.ref != 'refs/heads/acceptance' && github.ref != 'refs/heads/testing') }}
 
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
+#     steps:
+#       - name: Checkout
+#         uses: actions/checkout@v2
+#         with:
+#           fetch-depth: 0
 
-      - name: PNPM Setup
-        uses: pnpm/action-setup@v2
-        with:
-          version: ${{ env.pnpm_version_spec }}
+#       - name: PNPM Setup
+#         uses: pnpm/action-setup@v2
+#         with:
+#           version: ${{ env.pnpm_version_spec }}
 
-      - name: PNPM Cache Restore
-        uses: actions/cache/restore@v3
-        with:
-          path: |
-            .pnpm-store
-            node_modules
-          key: pnpm-${{ runner.os }}-${{ github.sha }}-pnpm-lock.yaml
-          restore-keys: |
-            pnpm-${{ runner.os }}-${{ github.sha }}-
-            pnpm-${{ runner.os }}-
-            pnpm-
+#       - name: PNPM Cache Restore
+#         uses: actions/cache/restore@v3
+#         with:
+#           path: |
+#             .pnpm-store
+#             node_modules
+#           key: pnpm-${{ runner.os }}-${{ github.sha }}-pnpm-lock.yaml
+#           restore-keys: |
+#             pnpm-${{ runner.os }}-${{ github.sha }}-
+#             pnpm-${{ runner.os }}-
+#             pnpm-
 
-      - name: NX Cache Restore
-        uses: actions/cache/restore@v3
-        with:
-          path: |
-            .nx
-          key: nx-${{ runner.os }}-${{ github.sha }}
-          restore-keys: |
-            nx-${{ runner.os }}-
-            nx-
+#       - name: NX Cache Restore
+#         uses: actions/cache/restore@v3
+#         with:
+#           path: |
+#             .nx
+#           key: nx-${{ runner.os }}-${{ github.sha }}
+#           restore-keys: |
+#             nx-${{ runner.os }}-
+#             nx-
 
-      - name: NPM Authenticate
-        run: echo "${{ secrets.NPM_RC }}" >> ~/.npmrc
+#       - name: NPM Authenticate
+#         run: echo "${{ secrets.NPM_RC }}" >> ~/.npmrc
 
-      - name: PNPM Config
-        run: pnpm config set store-dir ${{ env.pnpm_config_cache }}
+#       - name: PNPM Config
+#         run: pnpm config set store-dir ${{ env.pnpm_config_cache }}
 
-      - name: Install PNPM
-        run: npm install -g pnpm
+#       - name: Install PNPM
+#         run: npm install -g pnpm
 
-      - name: PNPM Install
-        run: |
-          pnpm install
+#       - name: PNPM Install
+#         run: |
+#           pnpm install
 
-      - name: PNPM Cache Save
-        uses: actions/cache/save@v3
-        with:
-          path: |
-            .pnpm-store
-            node_modules
-          key: pnpm-${{ runner.os }}-${{ github.sha }}-pnpm-lock.yaml
+#       - name: PNPM Cache Save
+#         uses: actions/cache/save@v3
+#         with:
+#           path: |
+#             .pnpm-store
+#             node_modules
+#           key: pnpm-${{ runner.os }}-${{ github.sha }}-pnpm-lock.yaml
 
-      - name: Vercel Pull
-        run: |
-          vercel link \
-            --yes \
-            --cwd . \
-            --token=${{ secrets.VERCEL_TOKEN }} \
-            --scope=${{ secrets.VERCEL_SCOPE }}
-          vercel pull \
-            --yes \
-            --environment=${{ needs.set_environment.outputs.vercel_environment }} \
-            --token=${{ secrets.VERCEL_TOKEN }} \
-            --scope=${{ secrets.VERCEL_SCOPE }}
-          vercel env pull .env.local \
-            --yes \
-            --environment=${{ needs.set_environment.outputs.vercel_environment }} \
-            --token=${{ secrets.VERCEL_TOKEN }} \
-            --scope=${{ secrets.VERCEL_SCOPE }}
-          cp -R .vercel apps/headless-commerce/.vercel
-          cp .env.local apps/headless-commerce/.env.local
+#       - name: Vercel Pull
+#         run: |
+#           vercel link \
+#             --yes \
+#             --cwd . \
+#             --token=${{ secrets.VERCEL_TOKEN }} \
+#             --scope=${{ secrets.VERCEL_SCOPE }}
+#           vercel pull \
+#             --yes \
+#             --environment=${{ needs.set_environment.outputs.vercel_environment }} \
+#             --token=${{ secrets.VERCEL_TOKEN }} \
+#             --scope=${{ secrets.VERCEL_SCOPE }}
+#           vercel env pull .env.local \
+#             --yes \
+#             --environment=${{ needs.set_environment.outputs.vercel_environment }} \
+#             --token=${{ secrets.VERCEL_TOKEN }} \
+#             --scope=${{ secrets.VERCEL_SCOPE }}
+#           cp -R .vercel apps/headless-commerce/.vercel
+#           cp .env.local apps/headless-commerce/.env.local
 
-      - name: Build
-        run: |
-          pnpm nx run @susu/headless-commerce:build
+#       - name: Build
+#         run: |
+#           pnpm nx run @susu/headless-commerce:build
 
-      - name: NX Cache Save
-        uses: actions/cache/save@v3
-        with:
-          path: |
-            .nx
-          key: nx-${{ runner.os }}-${{ github.sha }}
+#       - name: NX Cache Save
+#         uses: actions/cache/save@v3
+#         with:
+#           path: |
+#             .nx
+#           key: nx-${{ runner.os }}-${{ github.sha }}
 
-      # - name: Setup tmate session
-      #   uses: mxschmitt/action-tmate@v3
+#       # - name: Setup tmate session
+#       #   uses: mxschmitt/action-tmate@v3
 
-      # Trying to make an archive of directories so Vercel can skip the build.
-      - name: Build Artifact
-        run: |
-          cd apps/headless-commerce
-          tar -czvf build-artifact.tar.gz .next .vercel
+#       # Trying to make an archive of directories so Vercel can skip the build.
+#       - name: Build Artifact
+#         run: |
+#           cd apps/headless-commerce
+#           tar -czvf build-artifact.tar.gz .next .vercel
 
-      - uses: amondnet/vercel-action@v25
-        if: ${{ env.is_pr == 'false' }}
-        with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          vercel-args: '--prod'
-          vercel-org-id: ${{ secrets.ORG_ID}}
-          vercel-project-id: ${{ secrets.PROJECT_ID}}
-          # working-directory: ./apps/headless-commerce
+#       - uses: amondnet/vercel-action@v25
+#         if: ${{ env.is_pr == 'false' }}
+#         with:
+#           vercel-token: ${{ secrets.VERCEL_TOKEN }}
+#           github-token: ${{ secrets.GITHUB_TOKEN }}
+#           vercel-args: '--prod'
+#           vercel-org-id: ${{ secrets.ORG_ID}}
+#           vercel-project-id: ${{ secrets.PROJECT_ID}}
+#           # working-directory: ./apps/headless-commerce
 
-      - uses: amondnet/vercel-action@v25
-        if: ${{ env.is_pr == 'true' }}
-        with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          vercel-org-id: ${{ secrets.ORG_ID}}
-          vercel-project-id: ${{ secrets.PROJECT_ID}}
-          # working-directory: ./apps/headless-commerce
+#       - uses: amondnet/vercel-action@v25
+#         if: ${{ env.is_pr == 'true' }}
+#         with:
+#           vercel-token: ${{ secrets.VERCEL_TOKEN }}
+#           github-token: ${{ secrets.GITHUB_TOKEN }}
+#           vercel-org-id: ${{ secrets.ORG_ID}}
+#           vercel-project-id: ${{ secrets.PROJECT_ID}}
+#           # working-directory: ./apps/headless-commerce
 
-      # - name: Main Deploy Headless
-      #   if: ${{ env.is_pr == 'false' }}
-      #   run: |
-      #     vercel --prod \
-      #       --token=${{ secrets.VERCEL_TOKEN }} \
-      #       --scope=${{ secrets.VERCEL_SCOPE }} \
-      #       > deployment-url.txt
+#       # - name: Main Deploy Headless
+#       #   if: ${{ env.is_pr == 'false' }}
+#       #   run: |
+#       #     vercel --prod \
+#       #       --token=${{ secrets.VERCEL_TOKEN }} \
+#       #       --scope=${{ secrets.VERCEL_SCOPE }} \
+#       #       > deployment-url.txt
 
-      # - name: PR Deploy Headless
-      #   if: ${{ env.is_pr == 'true' }}
-      #   run: |
-      #     vercel \
-      #       --token=${{ secrets.VERCEL_TOKEN }} \
-      #       --scope=${{ secrets.VERCEL_SCOPE }} \
-      #       > deployment-url.txt
+#       # - name: PR Deploy Headless
+#       #   if: ${{ env.is_pr == 'true' }}
+#       #   run: |
+#       #     vercel \
+#       #       --token=${{ secrets.VERCEL_TOKEN }} \
+#       #       --scope=${{ secrets.VERCEL_SCOPE }} \
+#       #       > deployment-url.txt
