@@ -12,16 +12,6 @@
       "dependsOn": ["^test", "lint"],
       "inputs": ["{projectRoot}/src/**/*"]
     },
-    "test-coverage": {
-      "executor": "nx:run-commands",
-      "options": {
-        "commands": ["pnpm run test-coverage"],
-        "cwd": "apps/_template",
-        "forwardAllArgs": true
-      },
-      "dependsOn": ["^test-coverage", "lint"],
-      "inputs": ["{projectRoot}/src/**/*"]
-    },
     "build": {
       "dependsOn": ["^build", "test"],
       "inputs": ["{projectRoot}/src/**/*"]

@@ -8,8 +8,7 @@
     "lint": "pnpm lint:tsc && pnpm lint:eslint",
     "lint:eslint": "eslint --fix --cache --cache-location .eslintcache --no-error-on-unmatched-pattern .",
     "lint:tsc": "tsc -p . --noEmit",
-    "test": "vitest run --passWithNoTests",
-    "test-coverage": "vitest run --passWithNoTests --coverage",
+    "test": "vitest run --passWithNoTests --coverage",
     "update-packages": "pnpx npm-check-updates -u && pnpm i"
   },
   "devDependencies": {

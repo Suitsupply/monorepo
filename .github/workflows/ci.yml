@@ -118,10 +118,6 @@ jobs:
             node_modules
           key: pnpm-${{ runner.os }}-${{ github.sha }}-pnpm-lock.yaml
 
-      # TODO: Document.
-      # - uses: nrwl/nx-set-shas@v3
-      # AFFECTED_PROJECTS=$(pnpm nx show projects --affected)
-
       - name: Vercel Pull
         run: |
           vercel link \
@@ -141,10 +137,6 @@ jobs:
             --scope=${{ secrets.VERCEL_SCOPE }}
           cp -R .vercel apps/headless-commerce/.vercel
           cp .env.local apps/headless-commerce/.env.local
-
-      # - name: Lint & Test
-      #   run: |
-      #     pnpm nx run @susu/headless-commerce:test-coverage
 
       - name: Build
         run: |

@@ -13,7 +13,6 @@
     "lint": "nx run-many -t lint",
     "prepare": "husky",
     "test": "nx run-many -t test",
-    "test-coverage": "nx run-many -t test-coverage",
     "update-packages": "pnpx npm-check-updates -u && pnpm i"
   },
   "dependencies": {

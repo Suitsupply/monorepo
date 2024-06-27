@@ -12,8 +12,7 @@
     "lint:style": "stylelint --allow-empty-input '**/*.{css,scss}'",
     "lint:tsc": "tsc -p . --noEmit",
     "start": "next start",
-    "test": "vitest run --passWithNoTests",
-    "test-coverage": "vitest run --passWithNoTests --coverage",
+    "test": "vitest run --passWithNoTests --coverage",
     "update-packages": "pnpx npm-check-updates -u && pnpm i"
   },
   "dependencies": {

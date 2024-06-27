@@ -20,17 +20,6 @@
       "dependsOn": ["^test", "lint", "codegen"],
       "inputs": ["{projectRoot}/src/**/*"]
     },
-    "test-coverage": {
-      "cache": true,
-      "executor": "nx:run-commands",
-      "options": {
-        "commands": ["pnpm run test-coverage"],
-        "cwd": "apps/headless-commerce",
-        "forwardAllArgs": false
-      },
-      "dependsOn": ["^test-coverage", "lint", "codegen"],
-      "inputs": ["{projectRoot}/src/**/*"]
-    },
     "build": {
       "cache": true,
       "options": {
