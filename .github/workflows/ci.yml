@@ -6,13 +6,13 @@ on:
       - main
       - acceptance
       - testing
-      - feature/**
-      - bugfix/**
+      # - feature/**
+      # - bugfix/**
   pull_request:
-    # branches:
-    #   - main
-    #   - acceptance
-    #   - testing
+    branches:
+      - main
+      - acceptance
+      - testing
 
 jobs:
   set_environment:
@@ -25,23 +25,17 @@ jobs:
         id: set-env
         run: |
           if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
-            echo "environment=main" >> $GITHUB_ENV
-            echo "::set-output name=environment::main"
+            echo "environment=Production" >> $GITHUB_ENV
             echo "vercel_environment=production" >> $GITHUB_ENV
-            echo "::set-output name=vercel_environment::production"
           elif [[ "${{ github.ref }}" == "refs/heads/acceptance" ]]; then
-            echo "environment=acceptance" >> $GITHUB_ENV
-            echo "::set-output name=environment::acceptance"
+            echo "environment=Preview" >> $GITHUB_ENV
             echo "vercel_environment=production" >> $GITHUB_ENV
-            echo "::set-output name=vercel_environment::production"
           elif [[ "${{ github.ref }}" == "refs/heads/testing" ]]; then
-            echo "environment=testing" >> $GITHUB_ENV
-            echo "::set-output name=environment::testing"
+            echo "environment=Preview" >> $GITHUB_ENV
             echo "vercel_environment=development" >> $GITHUB_ENV
-            echo "::set-output name=vercel_environment::development"
           elif [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            echo "environment=Preview" >> $GITHUB_ENV
             echo "vercel_environment=preview" >> $GITHUB_ENV
-            echo "::set-output name=vercel_environment::preview"
           else
             echo "No specific environment for this branch"
           fi
@@ -138,9 +132,9 @@ jobs:
           cp -R .vercel apps/headless-commerce/.vercel
           cp .env.local apps/headless-commerce/.env.local
 
-      - name: Build
+      - name: Lint & Test
         run: |
-          pnpm nx run @susu/headless-commerce:build
+          pnpm nx run @susu/headless-commerce:test-coverage
 
       - name: NX Cache Save
         uses: actions/cache/save@v3
@@ -148,47 +142,3 @@ jobs:
           path: |
             .nx
           key: nx-${{ runner.os }}-${{ github.sha }}
-
-      # - name: Setup tmate session
-      #   uses: mxschmitt/action-tmate@v3
-
-      # Trying to make an archive of directories so Vercel can skip the build.
-      - name: Build Artifact
-        run: |
-          cd apps/headless-commerce
-          tar -czvf build-artifact.tar.gz .next .vercel
-
-      - uses: amondnet/vercel-action@v25
-        if: ${{ env.is_pr == 'false' }}
-        with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          vercel-args: '--prod'
-          vercel-org-id: ${{ secrets.ORG_ID}}
-          vercel-project-id: ${{ secrets.PROJECT_ID}}
-          # working-directory: ./apps/headless-commerce
-
-      - uses: amondnet/vercel-action@v25
-        if: ${{ env.is_pr == 'true' }}
-        with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          vercel-org-id: ${{ secrets.ORG_ID}}
-          vercel-project-id: ${{ secrets.PROJECT_ID}}
-          # working-directory: ./apps/headless-commerce
-
-      # - name: Main Deploy Headless
-      #   if: ${{ env.is_pr == 'false' }}
-      #   run: |
-      #     vercel --prod \
-      #       --token=${{ secrets.VERCEL_TOKEN }} \
-      #       --scope=${{ secrets.VERCEL_SCOPE }} \
-      #       > deployment-url.txt
-
-      # - name: PR Deploy Headless
-      #   if: ${{ env.is_pr == 'true' }}
-      #   run: |
-      #     vercel \
-      #       --token=${{ secrets.VERCEL_TOKEN }} \
-      #       --scope=${{ secrets.VERCEL_SCOPE }} \
-      #       > deployment-url.txt
