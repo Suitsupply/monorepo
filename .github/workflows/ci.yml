@@ -164,7 +164,7 @@ jobs:
       - name: Build Artifact
         run: |
           cd apps/headless-commerce
-          tar -czvf build-artifact.tar.gz .next .vercel node_modules
+          tar -czvf build-artifact.tar.gz .next .vercel
 
       - uses: amondnet/vercel-action@v25
         if: ${{ env.is_pr == 'false' }}
