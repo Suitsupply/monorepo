@@ -1,81 +1,141 @@
-# Monorepo POC
+# Monorepo
 
-This repository is a proof of concept for a monorepo setup using Turborepo.
+This repository hosts multiple applications and packages managed with [NX](https://nx.dev) and [PNPM](https://pnpm.io), and is deployed on [Vercel](https://vercel.com). We use [Next.js](https://nextjs.org) for our applications.
+
+## Technologies Used
+
+- [NX](https://nx.dev) - Smart, Extensible Build Framework
+  - [NX Documentation](https://nx.dev/getting-started/intro)
+- [PNPM](https://pnpm.io) - Fast, disk space efficient package manager
+  - [PNPM Documentation](https://pnpm.io/motivation)
+- [Next.js](https://nextjs.org) - React Framework
+  - [Next.js Documentation](https://nextjs.org/docs)
+- [Github](https://github.com) - Source Code Management
+  - [Github Documentation](https://docs.github.com/en)
+- [Vercel](https://vercel.com) - Deployment and Hosting Platform
+  - [Vercel Documentation](https://vercel.com/docs)
 
 ## Getting Started
 
-To get started with this monorepo, clone the repository and install the dependencies:
+### Clone the repository
+
+Choose a method for cloning the repository:
+
+1. HTTPS
+
+   ```sh
+   git clone https://github.com/Suitsupply/monorepo.git
+   ```
+
+1. SSH
+
+   ```sh
+   git clone git@github.com:Suitsupply/monorepo.git
+   ```
+
+1. GitHub CLI
+   ```sh
+   gh repo clone Suitsupply/monorepo
+   ```
+
+### Install dependencies
 
 ```sh
-git clone <repository-url>
-cd Monorepo-POC
 pnpm install
 ```
 
-## What's Inside?
-
-This monorepo includes several applications and packages, structured as follows:
-
-### Apps
-
-- `_template`: A template application for starting new projects.
-- `headless-commerce`: A headless commerce application.
-- `providing-application`: An application providing various services.
-
-### Packages
-
-- `_template`: A template package for starting new packages.
-- `@susu/eslint-config`: ESLint configurations for consistent code style.
-- `@susu/typescript-config`: Shared TypeScript configurations.
-- `@susu/ui`: A shared UI component library.
-
-Each package and app is fully typed with [TypeScript](https://www.typescriptlang.org/).
-
-### Utilities
-
-The monorepo is equipped with several tools to ensure code quality and ease of development:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking.
-- [ESLint](https://eslint.org/) for code linting.
-- [Prettier](https://prettier.io) for code formatting.
-- [Husky](https://typicode.github.io/husky/#/) for Git hooks.
-
-### Build and Development
-
-To build all apps and packages, run:
+### Lint, Test, Build
 
 ```sh
+# To lint all apps and packages, run:
+pnpm lint
+# To test all apps and packages, run:
+pnpm test
+# To build all apps and packages, run:
 pnpm build
 ```
 
-For development, you can start all apps and packages with:
+Since NX is set up to run tests and lints as dependencies of build steps, you can also just run the `pnpm build` command and it will perform all the required steps. Any steps that have already been run will be cached and skipped.
+
+## Adding a package
+
+### Copy the package template
+
+To add a new package, use the example package template provided in `packages/_template`:
 
 ```sh
-pnpm dev
+cp -R packages/_template packages/mypackage
 ```
 
-### Testing
+### Update the package name
 
-Run tests across all packages and apps with:
+Then, update the `package.json` and `project.json` replace `@susu/package-template` with your package name.
+
+### Run Install
 
 ```sh
-pnpm test
+pnpm install
 ```
 
-### Remote Caching with Turborepo
+### Build the package
 
-Turborepo supports [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines. This feature is useful for sharing build caches with your team and CI/CD pipelines.
+```sh
+pnpm nx run @susu/mypackage:build
+```
 
-To enable Remote Caching, you will need a Vercel account. Follow the instructions in the repository's `README.md` to set up Remote Caching.
+## Adding an application
 
-## CI/CD
+### Copy the application template
 
-This monorepo is configured with Azure Pipelines for continuous integration and deployment. Check `azure-pipelines.yml` in the `headless-commerce` app for the CI/CD configuration.
+To add a new application, use the example template provided in `apps/_template`:
 
-## Contributing
+```sh
+cp -R apps/_template apps/myapp
+```
 
-Contributions are welcome! Please read the contributing guide in `README.md` for more information on how to get started.
+### Update the application name
 
-## License
+Then, update the `package.json` and `project.json` replace `@susu/application-template` with your application name.
 
-This project is licensed under the MIT License - see the `LICENSE` file for details.
+### Run Install
+
+```sh
+pnpm install
+```
+
+### Build the application
+
+```sh
+pnpm nx run @susu/myapp:build
+```
+
+## Deploying
+
+### Vercel
+
+#### Creating a New Vercel Project
+
+1. Go to [Vercel](https://vercel.com/).
+1. Click on `New Project`.
+1. Import your repository.
+
+#### Vercel Project Configuration
+
+1. Go to https://vercel.com/suitsupply-team/monorepo-myapp/settings/general.
+1. Set the Build Command to `pnpm nx run @susu/myapp:build`.
+1. Set the Install Command to `pnpm install`.
+1. Set the Root Directory to `apps/myapp`.
+
+#### Vercel Git Configuration
+
+1. Go to https://vercel.com/suitsupply-team/monorepo-myapp/settings/git
+1. Scroll down to the Ignored Build Step section.
+1. Set the Behaviour to "Custom".
+1. Set the Custom Build Step to `npx nx-ignore @susu/myapp`. This will ignore the build step for the application when there is no change.
+
+### Github
+
+1. Go to https://github.com/Suitsupply/monorepo/settings/rules.
+1. For each of the environments `release`, `acceptance`, and `testing`:
+1. Go to Rules > Branch Protections > Require deployments to succeed.
+1. Add the `Preview - monorepo-myapp` environment to the list of required environments. Now, when a PR is made, the PR can only be merged when your application's preview branch has successfully deployed. The `nx-ignore` command will prevent unnecessary builds but when you update some code that breaks someone else's application, you will get immediate feedback.
