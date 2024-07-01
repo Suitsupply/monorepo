@@ -95,6 +95,7 @@ export default async function IndexPage({ params: { locale } }: Readonly<IndexPa
       locale={locale}
       header={header}
     >
+      <h1>TEST</h1>
       <HomepageSections homepageContent={homepageContent} locale={locale} />
     </BaseLayout>
   );
