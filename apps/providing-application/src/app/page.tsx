@@ -8,6 +8,7 @@ export default function ProvidingIndexPage() {
       A: <pre>{JSON.stringify(a)}</pre>
       B: <pre>{JSON.stringify(b)}</pre>
       C: <pre>C</pre>
+      D: <pre>D</pre>
     </div>
   );
 }
